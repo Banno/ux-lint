@@ -1,0 +1,25 @@
+{
+  "name": "ux-lint",
+  "version": "1.0.0",
+  "description": "Linting tool for Banno UX projects",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Banno/ux-lint.git"
+  },
+  "keywords": [
+    "banno",
+    "lint",
+    "linter",
+    "javascript"
+  ],
+  "author": "Eric Heikes <eric.heikes@banno.com>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/Banno/ux-lint/issues"
+  },
+  "homepage": "https://github.com/Banno/ux-lint"
+}
