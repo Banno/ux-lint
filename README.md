@@ -51,7 +51,15 @@ linter.fix('src', { /* optional config */ }, function(err, response) {
 linter.check('*.js', function() {});
 ```
 
-## Linters
+## Contributing
+
+Please add tests and maintain the existing styling when adding and updating the code.
+
+```
+npm test   # run tests
+```
+
+### Linters
 
 Each linter has a plugin in the `linters` folder. Plugins have the following signature:
 
