@@ -51,6 +51,17 @@ linter.fix('src', { /* optional config */ }, function(err, response) {
 linter.check('*.js', function() {});
 ```
 
+## Linters
+
+Each linter has a plugin in the `linters` folder. Plugins have the following signature:
+
+```javascript
+exports.check = function(filePattern) { /* returns an array of errors */ };
+exports.fix   = function(filePattern) { /* fixes files & returns a summary in an array */ };
+```
+
+Plugins are automatically loaded by the ux-lint tool.
+
 ## License
 
 Copyright 2015 [Jack Henry & Associates Inc](https://www.jackhenry.com/).
