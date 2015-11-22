@@ -32,7 +32,7 @@ The ux-lint module can be included in your Javascript file and then invoked (for
 ```javascript
 var linter = require('ux-lint');
 
-linter.check('src', function(err, lintErrors) {
+linter.check('src', { /* optional config */ }, function(err, lintErrors) {
   // `err` is the Error object, if an error occurred
   // `lintErrors` is a collection of linting errors:
   // {
@@ -43,7 +43,7 @@ linter.check('src', function(err, lintErrors) {
   // it may just be the lines from stdout.
 });
 
-linter.fix('src', function(err, response) {
+linter.fix('src', { /* optional config */ }, function(err, response) {
   // `err` and `response` are in the same format as the check() callback
 });
 
