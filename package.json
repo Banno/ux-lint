@@ -23,7 +23,16 @@
     "url": "https://github.com/Banno/ux-lint/issues"
   },
   "homepage": "https://github.com/Banno/ux-lint",
+  "engines": {
+    "node": ">=4.0.0"
+  },
   "devDependencies": {
     "jasmine": "^2.3.2"
+  },
+  "dependencies": {
+    "extend": "^3.0.0",
+    "glob": "^6.0.1",
+    "hjson": "^1.7.4",
+    "jshint": "^2.8.0"
   }
 }
