@@ -51,6 +51,8 @@ linter.fix('src', { /* optional config */ }, function(err, response) {
 linter.check('*.js', function() {});
 ```
 
+The configuration object passed as the 2nd argument will override (not replace) the default configuration.
+
 ## Contributing
 
 Please add tests and maintain the existing styling when adding and updating the code.
@@ -64,9 +66,12 @@ npm test   # run tests
 Each linter has a plugin in the `linters` folder. Plugins have the following signature:
 
 ```javascript
-exports.check = function(filePattern) { /* returns an array of errors */ };
-exports.fix   = function(filePattern) { /* fixes files & returns a summary in an array */ };
+// Both methods return a promise that resolves to an array.
+exports.check = function(filePattern, opts) { /* ... */ };
+exports.fix   = function(filePattern, opts) { /* ... */ };
 ```
+
+Look at other plugins for the common patterns and modules to use.
 
 Plugins are automatically loaded by the ux-lint tool.
 
