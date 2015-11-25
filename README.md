@@ -71,6 +71,20 @@ exports.check = function(filePattern, opts) { /* ... */ };
 exports.fix   = function(filePattern, opts) { /* ... */ };
 ```
 
+The results array should contain objects with the following signature:
+
+```javascript
+{
+  type: 'error', // or 'warning'
+  code: 'W117', // plugin's internal ID for the error
+  evidence: '\t\t\tconsole.log(error);', // copy of the offending code
+  line: 13, // line number of the offending code
+  character: 9, // column number of the offending code
+  description: '\'console\' is not defined.', // message about the error
+  file: '/Users/jdoe/bad-javascript.js' // filename
+}
+```
+
 Look at other plugins for the common patterns and modules to use.
 
 Plugins are automatically loaded by the ux-lint tool.
