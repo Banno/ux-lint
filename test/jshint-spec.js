@@ -1,44 +1,56 @@
 describe('jshint linter', function() {
 
 	var jshint = require('../linters/jshint');
-	var testFile = __dirname + '/fixtures/bad-javascript.js';
+	var customMatchers = require('./helpers/custom-matchers');
+
+	var badFile  = __dirname + '/fixtures/bad-javascript.js';
+	var goodFile = __dirname + '/fixtures/good-javascript.js';
+
+	beforeEach(function() {
+		jasmine.addMatchers(customMatchers);
+	});
 
 	describe('check()', function() {
 
 		it('should return a promise with an array of errors', function(done) {
-			jshint.check(testFile).then(function(results) {
+			jshint.check(badFile).then(function(results) {
 				expect(results).toEqual(jasmine.any(Array));
 				expect(results.length).toBeGreaterThan(0);
 				done();
+			}).catch(function(err) {
+				console.log('Error:', err.message);
 			});
 		});
 
-		// it('should return a rejected promise if an error occurs', function(done) {
-		// 	jshint.check(null).catch(function(err) {
-		// 		expect(err).toEqual(jasmine.any(Error));
-		// 		done();
-		// 	});
-		// });
-
-		it('should return an empty array if no files match', function() {
-			jshint.check('nonmatching.pattern').then(function(results) {
-				expect(results).toEqual(jasmine.any(Array));
-				expect(results.length).toBe(0);
+		it('should have the expected error signature', function(done) {
+			jshint.check(badFile).then(function(results) {
+				expect(results[1]).toBeLintError();
 				done();
+			}).catch(function(err) {
+				console.log('Error:', err.message);
 			});
 		});
 
-		it('should accept options', function() {
+		it('should return a promise with an empty array for lint-free files', function(done) {
+			jshint.check(goodFile).then(function(results) {
+				expect(results).toEqual([]);
+				done();
+			}).catch(function(err) {
+				console.log('Error:', err.message);
+			});
+		});
+
+		it('should accept options', function(done) {
 			var opts = {
 				// ignore all the errors
-				// node: true,
-				// globals: {
-				// 	onboarding: false
-				// }
+				node: true,
+				devel: true,
+				globals: {
+					onboarding: false
+				}
 			};
-			jshint.check(testFile, opts).then(function(results) {
-				expect(results).toEqual(jasmine.any(Array));
-				expect(results.length).toBe(0);
+			jshint.check(badFile, opts).then(function(results) {
+				expect(results).toEqual([]);
 				done();
 			});
 		});
@@ -47,14 +59,13 @@ describe('jshint linter', function() {
 
 	describe('fix()', function() {
 
-		xit('should fix errors in the file', function(done) {});
-
-		xit('should return an array with the summary', function() {});
-
-		xit('should return a rejected promise if an error occurs', function() {
-		});
-
-		xit('should accept options', function() {
+		it('should return an empty array', function(done) {
+			jshint.fix(badFile).then(function(results) {
+				expect(results).toEqual([]);
+				done();
+			}).catch(function(err) {
+				console.log('Error:', err.message);
+			});
 		});
 
 	});

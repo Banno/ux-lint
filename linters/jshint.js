@@ -7,30 +7,24 @@ var readFiles = require('../helper').readFiles;
 var config = parseJson(__dirname + '/../config/jshint.hjson');
 
 exports.check = function(filePattern, opts) {
-	return linter(filePattern, opts);
-};
-
-exports.fix = function(filePattern, opts) {
-	return linter(filePattern, opts);
-};
-
-function linter(filePattern, opts) {
 	opts = extend(true, {}, config, opts);
-	var output = [];
+	var predefs = opts.globals || {};
 	return readFiles(filePattern).then(function(files) {
 		return files.map(function(fileInfo) {
-			console.log('starting jshint for', fileInfo.file);
-			jshint(fileInfo.contents, opts);
-			console.log('finished jshint for', fileInfo.file);
-			// TODO check if errors is actually an array
-			// console.log('jshint:', jshint.data());
+			jshint(fileInfo.contents, opts, predefs);
 			return jshint.errors.map(function(error) {
-				console.log('mapping on', error);
-				error.file = file; // THIS LINE HANGS THE TEST
+				error.description = error.reason;
+				error.file = fileInfo.file;
+				error.type = error.id.replace(/(^\()|(\)$)/g, ''); // remove the enclosing parens
 				return error;
 			});
 		});
 	}).then(function(results) {
 		return flatten(results);
 	});
+};
+
+exports.fix = function() {
+	// jshint has no fixing functionality
+	return Promise.resolve([]);
 };
