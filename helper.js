@@ -1,5 +1,5 @@
 var fs    = require('fs');
-var glob  = require('glob');
+var glob  = require('globby');
 var hjson = require('hjson');
 
 // Flattens an array of arrays.
@@ -18,12 +18,7 @@ exports.parseJson = function(filename) {
 // Returns a promise with an array of { file: ..., contents: ... } objects.
 exports.readFiles = function(filePattern) {
 	// Find all matching files.
-	var files;
-	try {
-		files = glob.sync(filePattern);
-	} catch (err) {
-		return Promise.reject(err);
-	}
+	var files = glob.sync(filePattern);
 
 	if (files.length === 0) {
 		return Promise.resolve([]);

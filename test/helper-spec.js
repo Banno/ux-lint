@@ -60,15 +60,25 @@ describe('helper functions', function() {
 
 		it('should resolve to an empty array if there are no matching files', function(done) {
 			readFiles('nonmatching.pattern').then(function(results) {
-				expect(results).toEqual(jasmine.any(Array));
-				expect(results.length).toBe(0);
+				expect(results).toEqual([]);
 				done();
 			});
 		});
 
-		it('should retrun a rejected promise if an invalid pattern is used', function(done) {
-			readFiles(null).catch(function(err) {
-				expect(err).toEqual(jasmine.any(Error));
+		it('should support an array of patterns', function(done) {
+			readFiles([
+				'test/fixtures/bad-javascript.js',
+				'test/fixtures/good-javascript.js'
+			]).then(function(results) {
+				expect(results).toEqual(jasmine.any(Array));
+				expect(results.length).toBe(2);
+				done();
+			});
+		});
+
+		it('should resolve to an empty array if an invalid pattern is used', function(done) {
+			readFiles(null).then(function(results) {
+				expect(results).toEqual([]);
 				done();
 			});
 		});
