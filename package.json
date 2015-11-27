@@ -31,10 +31,16 @@
   },
   "dependencies": {
     "async": "^1.5.0",
+    "chalk": "^1.1.1",
     "extend": "^3.0.0",
     "globby": "^4.0.0",
     "hjson": "^1.7.4",
     "jshint": "^2.8.0",
-    "load-plugins": "^2.1.0"
+    "load-plugins": "^2.1.0",
+    "log-symbols": "^1.0.2",
+    "minimist": "^1.2.0",
+    "plur": "^2.1.1",
+    "string-length": "^1.0.1",
+    "text-table": "^0.2.0"
   }
 }
