@@ -20,7 +20,7 @@ describe('CLI', function() {
 	it('should lint the "src" folder in the current directory by default', function() {
 		loadCli();
 		expect(checkFunc).toHaveBeenCalled();
-		expect(checkFunc.calls.mostRecent().args[0]).toBe('src');
+		expect(checkFunc.calls.mostRecent().args[0]).toEqual(['src/**', '*.js']);
 		expect(checkFunc.calls.mostRecent().args[1]).toEqual({});
 		expect(checkFunc.calls.mostRecent().args[2]).toEqual(jasmine.any(Function));
 	});
