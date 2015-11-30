@@ -28,9 +28,14 @@ describe('JS API', function() {
 			});
 		});
 
-		it('should return an error if not given a file pattern', function() {
+		it('should return empty results if given a file pattern that doesn\'t match anything', function(done) {
 			linter.check(null, function(err, results) {
-				expect(err).toEqual(jasmine.any(Error));
+				expect(err).toBe(null);
+				for (var key in results) {
+					if (results.hasOwnProperty(key)) {
+						expect(results[key]).toEqual([]);
+					}
+				}
 				done();
 			});
 		});
@@ -54,7 +59,7 @@ describe('JS API', function() {
 			});
 		});
 
-		it('should accept options as an optional argument', function() {
+		it('should accept options as an optional argument', function(done) {
 			linter.fix(badFile, {}, function(err, results) {
 				expect(results).toEqual(jasmine.any(Object));
 				expect(results.jshint).toEqual(jasmine.any(Array));
@@ -62,9 +67,14 @@ describe('JS API', function() {
 			});
 		});
 
-		it('should return an error if not given a file pattern', function() {
+		it('should return empty results if given a file pattern that doesn\'t match anything', function(done) {
 			linter.check(null, function(err, results) {
-				expect(err).toEqual(jasmine.any(Error));
+				expect(err).toBe(null);
+				for (var key in results) {
+					if (results.hasOwnProperty(key)) {
+						expect(results[key]).toEqual([]);
+					}
+				}
 				done();
 			});
 		});
