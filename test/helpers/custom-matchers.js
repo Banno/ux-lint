@@ -13,7 +13,7 @@ module.exports = {
 				];
 				var result = { pass: true };
 				for (var i = 0; i < expectedProps.length; i++) {
-					if (typeof actual[expectedProps[i]] === 'undefined') {
+					if (!actual || typeof actual[expectedProps[i]] === 'undefined') {
 						result.pass = false;
 						result.message = 'Expected ' + JSON.stringify(actual) + ' to have a "' + expectedProps[i] + '" property';
 						break;
