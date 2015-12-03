@@ -24,13 +24,15 @@ function linter(type, filePattern, opts) {
 			files.map(function(fileInfo) {
 				return jscs[type](fileInfo.file).then(function(results) {
 					return results._errorList.map(function(result) {
-						result.character = result.column;
-						result.code = result.rule;
-						result.description = result.message;
-						result.evidence = results._file._lines[result.line];
-						result.file = result.filename;
-						result.type = 'error';
-						return result;
+						return {
+							character: result.column,
+							code: result.rule,
+							description: result.message,
+							evidence: results._file._lines[result.line],
+							file: result.filename,
+							line: result.line,
+							type: 'error',
+						};
 					});
 				});
 			})

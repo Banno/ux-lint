@@ -13,10 +13,15 @@ exports.check = function(filePattern, opts) {
 		return files.map(function(fileInfo) {
 			jshint(fileInfo.contents, opts, predefs);
 			return jshint.errors.map(function(error) {
-				error.description = error.reason;
-				error.file = fileInfo.file;
-				error.type = error.id.replace(/(^\()|(\)$)/g, ''); // remove the enclosing parens
-				return error;
+				return {
+					character: error.character,
+					code: error.code,
+					description: error.reason,
+					evidence: error.evidence,
+					file: fileInfo.file,
+					line: error.line,
+					type: error.id.replace(/(^\()|(\)$)/g, ''), // remove the enclosing parens
+				};
 			});
 		});
 	}).then(function(results) {

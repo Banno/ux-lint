@@ -11,14 +11,10 @@ module.exports = {
 					'line',
 					'type',
 				];
-				var result = { pass: true };
-				for (var i = 0; i < expectedProps.length; i++) {
-					if (!actual || typeof actual[expectedProps[i]] === 'undefined') {
-						result.pass = false;
-						result.message = 'Expected ' + JSON.stringify(actual) + ' to have a "' + expectedProps[i] + '" property';
-						break;
-					}
-				}
+				var actualProps = Object.keys(actual).sort();
+				var result = {
+					pass: util.equals(actualProps, expectedProps)
+				};
 				return result;
 			}
 		};
