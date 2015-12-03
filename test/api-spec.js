@@ -1,3 +1,6 @@
+var fs       = require('fs-extra');
+var tempfile = require('tempfile');
+
 describe('JS API', function() {
 
 	var linter = require('../');
@@ -44,15 +47,27 @@ describe('JS API', function() {
 
 	describe('fix()', function() {
 
+		var tempFilename;
+
+		beforeEach(function() {
+			tempFilename = tempfile('.js');
+			fs.copySync(badFile, tempFilename);
+		});
+
+		afterEach(function() {
+			var contents = fs.readFileSync(tempFilename, { encoding: 'utf8' });
+			fs.removeSync(tempFilename);
+		});
+
 		it('should set the error object to null when successful', function(done) {
-			linter.fix(badFile, function(err, results) {
+			linter.fix(tempFilename, function(err, results) {
 				expect(err).toBe(null);
 				done();
 			});
 		});
 
 		it('should return arrays that are indexed by the linter name', function(done) {
-			linter.fix(badFile, function(err, results) {
+			linter.fix(tempFilename, function(err, results) {
 				expect(results).toEqual(jasmine.any(Object));
 				expect(results.jshint).toEqual(jasmine.any(Array));
 				done();
@@ -60,7 +75,7 @@ describe('JS API', function() {
 		});
 
 		it('should accept options as an optional argument', function(done) {
-			linter.fix(badFile, {}, function(err, results) {
+			linter.fix(tempFilename, {}, function(err, results) {
 				expect(results).toEqual(jasmine.any(Object));
 				expect(results.jshint).toEqual(jasmine.any(Array));
 				done();
