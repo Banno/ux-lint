@@ -11,7 +11,7 @@ var files = (!args._ || args._.length === 0) ? ['src/**', '*.js'] : args._;
 linter[type](files, {}, function(err, results) {
 	if (err) {
 		console.log(chalk.red('Error: ') + err.message + '\n');
-		console.trace();
+		console.log(err.stack);
 		return;
 	}
 	reporter(results, args);
