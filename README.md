@@ -32,7 +32,7 @@ The ux-lint module can be included in your Javascript file and then invoked (for
 ```javascript
 var linter = require('ux-lint');
 
-linter.check('src', { /* optional config */ }, function(err, lintErrors) {
+linter.check('src', { /* optional config, keyed by plugin name */ }, function(err, lintErrors) {
   // `err` is the Error object, if an error occurred
   // `lintErrors` is a collection of linting errors:
   // {
@@ -54,6 +54,8 @@ linter.check('*.js', function() {});
 The configuration object passed as the 2nd argument will override (not replace) the default configuration.
 
 ## Contributing
+
+Want to propose a change to our style (and therefore linting) conventions? Want to add another linting tool? Pull requests and suggestions are welcome.
 
 Please add tests and maintain the existing styling when adding and updating the code.
 
