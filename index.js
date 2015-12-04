@@ -1,4 +1,5 @@
-var async = require('async');
+var async   = require('async');
+var flatten = require('./helper').flatten;
 var linters = require('load-plugins')('./linters/*.js');
 
 exports.check = function(filePattern, opts, callback) {
@@ -21,11 +22,10 @@ function runLinters(type, filePattern, opts, callback) {
 			asyncCallback(err);
 		});
 	}, function(err, results) {
-		var key, keyedResults = {};
-		for (var i = 0; i < results.length; i++) {
-			key = keys[i];
-			keyedResults[key] = results[i];
+		if (err) {
+			callback(err);
+		} else {
+			callback(null, flatten(results));
 		}
-		callback(err, keyedResults);
 	});
 }

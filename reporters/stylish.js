@@ -18,47 +18,46 @@ module.exports = function(results, opts) {
 
 	opts = opts || {};
 
-	output += Object.keys(results).reduce(function(prevVal, pluginName) {
-		var ret = prevVal;
+	results.sort(function(a, b) {
+		if (a.file < b.file) { return -1; }
+		if (a.file > b.file) { return 1; }
+		return 0;
+	});
 
-		ret += '\n' + chalk.bold.white('~~ ' + pluginName + ' ~~') + '\n';
+	output += table(results.map(function(err, i) {
+		var isError = err.type && err.type === 'error';
 
-		ret += table(results[pluginName].map(function(err, i) {
-			var isError = err.type && err.type === 'error';
+		var line = [
+			'',
+			'',
+			chalk.gray(err.plugin),
+			chalk.gray('line ' + err.line),
+			chalk.gray('col ' + err.character),
+			isError ? chalk.red(err.description) : chalk.blue(err.description)
+		];
 
-			var line = [
-				'',
-				'',
-				chalk.gray('line ' + err.line),
-				chalk.gray('col ' + err.character),
-				isError ? chalk.red(err.description) : chalk.blue(err.description)
-			];
+		if (err.file !== prevfile) {
+			headers[i] = err.file;
+		}
 
-			if (err.file !== prevfile) {
-				headers[i] = err.file;
-			}
+		if (opts.verbose) {
+			line.push(chalk.gray('(' + err.code + ')'));
+		}
 
-			if (opts.verbose) {
-				line.push(chalk.gray('(' + err.code + ')'));
-			}
+		if (isError) {
+			errorCount++;
+		} else {
+			warningCount++;
+		}
 
-			if (isError) {
-				errorCount++;
-			} else {
-				warningCount++;
-			}
+		prevfile = err.file;
 
-			prevfile = err.file;
-
-			return line;
-		}), {
-			stringLength: stringLength
-		}).split('\n').map(function(line, i) {
-			return headers[i] ? '\n  ' + chalk.underline(headers[i]) + '\n' + line : line;
-		}).join('\n') + '\n\n';
-
-		return ret;
-	}, '');
+		return line;
+	}), {
+		stringLength: stringLength
+	}).split('\n').map(function(line, i) {
+		return headers[i] ? '\n  ' + chalk.underline(headers[i]) + '\n' + line : line;
+	}).join('\n') + '\n\n';
 
 	if (errorCount + warningCount > 0) {
 		if (errorCount > 0) {
@@ -71,5 +70,5 @@ module.exports = function(results, opts) {
 		output += logSymbols.success + ' No problems' + '\n';
 	}
 
-	console.log(output.trim() + '\n');
+	console.log(output);
 };

@@ -31,6 +31,7 @@ function linter(type, filePattern, opts) {
 							evidence: results._file._lines[result.line],
 							file: result.filename,
 							line: result.line,
+							plugin: 'jscs',
 							type: 'error',
 						};
 					});

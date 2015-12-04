@@ -4,7 +4,12 @@ var tempfile = require('tempfile');
 describe('JS API', function() {
 
 	var linter = require('../');
+	var customMatchers = require('./helpers/custom-matchers');
 	var badFile  = __dirname + '/fixtures/bad-javascript.js';
+
+	beforeEach(function() {
+		jasmine.addMatchers(customMatchers);
+	});
 
 	describe('check()', function() {
 
@@ -15,18 +20,20 @@ describe('JS API', function() {
 			});
 		});
 
-		it('should return arrays that are indexed by the linter name', function(done) {
+		it('should return an array of linter errors', function(done) {
 			linter.check(badFile, function(err, results) {
-				expect(results).toEqual(jasmine.any(Object));
-				expect(results.jshint).toEqual(jasmine.any(Array));
+				if (err) { console.log('Error:', err.message); }
+				expect(results).toEqual(jasmine.any(Array));
+				expect(results[0]).toBeLintError();
 				done();
 			});
 		});
 
 		it('should accept options as an optional argument', function(done) {
 			linter.check(badFile, {}, function(err, results) {
-				expect(results).toEqual(jasmine.any(Object));
-				expect(results.jshint).toEqual(jasmine.any(Array));
+				if (err) { console.log('Error:', err.message); }
+				expect(results).toEqual(jasmine.any(Array));
+				expect(results[0]).toBeLintError();
 				done();
 			});
 		});
@@ -34,11 +41,7 @@ describe('JS API', function() {
 		it('should return empty results if given a file pattern that doesn\'t match anything', function(done) {
 			linter.check(null, function(err, results) {
 				expect(err).toBe(null);
-				for (var key in results) {
-					if (results.hasOwnProperty(key)) {
-						expect(results[key]).toEqual([]);
-					}
-				}
+				expect(results).toEqual([]);
 				done();
 			});
 		});
@@ -66,18 +69,18 @@ describe('JS API', function() {
 			});
 		});
 
-		it('should return arrays that are indexed by the linter name', function(done) {
+		it('should return an array', function(done) {
 			linter.fix(tempFilename, function(err, results) {
-				expect(results).toEqual(jasmine.any(Object));
-				expect(results.jshint).toEqual(jasmine.any(Array));
+				if (err) { console.log('Error:', err.message); }
+				expect(results).toEqual(jasmine.any(Array));
 				done();
 			});
 		});
 
 		it('should accept options as an optional argument', function(done) {
 			linter.fix(tempFilename, {}, function(err, results) {
-				expect(results).toEqual(jasmine.any(Object));
-				expect(results.jshint).toEqual(jasmine.any(Array));
+				if (err) { console.log('Error:', err.message); }
+				expect(results).toEqual(jasmine.any(Array));
 				done();
 			});
 		});
@@ -85,11 +88,7 @@ describe('JS API', function() {
 		it('should return empty results if given a file pattern that doesn\'t match anything', function(done) {
 			linter.check(null, function(err, results) {
 				expect(err).toBe(null);
-				for (var key in results) {
-					if (results.hasOwnProperty(key)) {
-						expect(results[key]).toEqual([]);
-					}
-				}
+				expect(results).toEqual([]);
 				done();
 			});
 		});

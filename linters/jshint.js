@@ -20,6 +20,7 @@ exports.check = function(filePattern, opts) {
 					evidence: error.evidence,
 					file: fileInfo.file,
 					line: error.line,
+					plugin: 'jshint',
 					type: error.id.replace(/(^\()|(\)$)/g, ''), // remove the enclosing parens
 				};
 			});

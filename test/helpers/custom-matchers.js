@@ -9,6 +9,7 @@ module.exports = {
 					'evidence',
 					'file',
 					'line',
+					'plugin',
 					'type',
 				];
 				var actualProps = Object.keys(actual).sort();

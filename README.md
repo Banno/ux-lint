@@ -34,13 +34,7 @@ var linter = require('ux-lint');
 
 linter.check('src', { /* optional config, keyed by plugin name */ }, function(err, lintErrors) {
   // `err` is the Error object, if an error occurred
-  // `lintErrors` is a collection of linting errors:
-  // {
-  //   jshint: [...]
-  //   jscs: [...]
-  // }
-  // The specific data in the arrays is tool-dependent;
-  // it may just be the lines from stdout.
+  // `lintErrors` is an array of linting errors
 });
 
 linter.fix('src', { /* optional config */ }, function(err, response) {
@@ -77,6 +71,7 @@ The results array should contain objects with the following signature:
 
 ```javascript
 {
+  plugin: 'jshint', // or 'jscs', etc
   type: 'error', // or 'warning'
   code: 'W117', // plugin's internal ID for the error
   evidence: '\t\t\tconsole.log(error);', // copy of the offending code
