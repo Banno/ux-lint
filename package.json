@@ -4,6 +4,9 @@
   "description": "Linting tool for Banno UX projects",
   "private": true,
   "main": "index.js",
+  "bin": {
+    "ux-lint": "./cli.js"
+  },
   "scripts": {
     "test": "JASMINE_CONFIG_PATH=test/jasmine.json jasmine"
   },
