@@ -16,7 +16,8 @@ function runLinters(type, filePattern, opts, callback) {
 	}
 	var keys = Object.keys(linters);
 	async.map(keys, function(linterKey, asyncCallback) {
-		linters[linterKey][type](filePattern).then(function(result) {
+		var linterOpts = opts[linterKey] || {};
+		linters[linterKey][type](filePattern, linterOpts).then(function(result) {
 			asyncCallback(null, result);
 		}).catch(function(err) {
 			asyncCallback(err);

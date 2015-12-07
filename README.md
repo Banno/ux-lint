@@ -18,12 +18,14 @@ You can also install the module local to a project and then invoke it from the C
 ## Usage
 
 ```shell
-ux-lint [--fix] [<folder>]
+ux-lint [--fix] [--extend <optionsFile>] [<folder>]
 ```
 
 By default, ux-lint will lint the `src` folder and any JS files in the current working directory. Pass file or folder names as arguments to lint them instead.
 
 If a `--fix` argument is specified, ux-lint will attempt to automatically fix any linting errors that it finds.
+
+If `--extend` arguments are specified, ux-lint will parse the following JSON files for configuration overrides. The overrides should be indexed by plugin name (e.g., `jshint` or `jscs`).
 
 ## API
 
