@@ -10,8 +10,17 @@ exports.flatten = function (arrayOfArrays) {
 };
 
 // Parses an (H)JSON file.
-exports.parseJson = function(filename) {
-	return hjson.parse(fs.readFileSync(filename, 'utf8'));
+exports.parseJson = function(filename, opts) {
+	opts = opts || {};
+	try {
+		return hjson.parse(fs.readFileSync(filename, 'utf8'));
+	} catch(err) {
+		if (opts.ignoreErrors) {
+			return {};
+		} else {
+			throw err;
+		}
+	}
 };
 
 // Reads in the contents of files matching a pattern.

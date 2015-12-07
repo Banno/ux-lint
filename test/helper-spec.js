@@ -32,6 +32,18 @@ describe('helper functions', function() {
 			expect(parsed.globals).toBeDefined();
 		});
 
+		it('should throw an error if the file does not exist', function() {
+			expect(function() {
+				parseJson('nonexistent.json');
+			}).toThrow();
+		});
+
+		it('should NOT throw an error if "ignoreErrors" is set', function() {
+			expect(function() {
+				parseJson('nonexistent.json', { ignoreErrors: true });
+			}).not.toThrow();
+		});
+
 	});
 
 	describe('readFiles()', function() {
