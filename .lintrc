@@ -1,0 +1,9 @@
+{
+	"jshint": {
+		"devel": true,
+		"node": true
+		"globals": {
+			"Promise": false
+		}
+	}
+}

@@ -1,3 +1,5 @@
+'use strict';
+
 var fs    = require('fs');
 var glob  = require('globby');
 var hjson = require('hjson');
@@ -14,7 +16,7 @@ exports.parseJson = function(filename, opts) {
 	opts = opts || {};
 	try {
 		return hjson.parse(fs.readFileSync(filename, 'utf8'));
-	} catch(err) {
+	} catch (err) {
 		if (opts.ignoreErrors) {
 			return {};
 		} else {

@@ -1,3 +1,5 @@
+'use strict';
+
 var async   = require('async');
 var flatten = require('./helper').flatten;
 var linters = require('load-plugins')('./linters/*.js');

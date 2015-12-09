@@ -1,3 +1,5 @@
+'use strict';
+
 var extend    = require('extend');
 var flatten   = require('../helper').flatten;
 var Jscs      = require('jscs');

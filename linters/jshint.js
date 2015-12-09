@@ -1,3 +1,5 @@
+'use strict';
+
 var extend    = require('extend');
 var flatten   = require('../helper').flatten;
 var jshint    = require('jshint').JSHINT;
@@ -31,6 +33,6 @@ exports.check = function(filePattern, opts) {
 };
 
 exports.fix = function() {
-	// jshint has no fixing functionality
+	// The jshint module has no fixing functionality.
 	return Promise.resolve([]);
 };

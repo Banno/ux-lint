@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+'use strict';
 
 var chalk     = require('chalk');
 var extend    = require('extend');
@@ -18,7 +19,7 @@ if (typeof args.extend === 'undefined') {
 } else if (Array.isArray(args.extend)) {
 	optFiles = args.extend;
 } else {
-	optFiles = Array(args.extend);
+	optFiles = new Array(args.extend);
 }
 
 var opts = optFiles.reduce(function(prevVal, currentVal) {

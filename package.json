@@ -8,6 +8,7 @@
     "ux-lint": "./cli.js"
   },
   "scripts": {
+    "lint": "node cli.js *.js linters/*.js reporters/*.js test/*.js test/helpers/*.js --extend .lintrc",
     "test": "JASMINE_CONFIG_PATH=test/jasmine.json jasmine"
   },
   "repository": {
