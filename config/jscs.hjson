@@ -25,6 +25,9 @@
 	"disallowTrailingWhitespace": true,
 	"disallowSpaceAfterPrefixUnaryOperators": true,
 	"disallowMultipleVarDecl": { "allExcept": ["undefined"] },
+	"disallowSpacesInFunction": {
+		"beforeOpeningRoundBrace": true,
+	},
 
 	"requireSpaceAfterKeywords": [
 		"if",
@@ -52,6 +55,9 @@
 	"requireSpacesInsideObjectBrackets": { "allExcept": ["}"] },
 	"disallowSpacesInsideArrayBrackets": "all",
 	"disallowSpacesInsideParentheses": true,
+	"requireSpacesInFunction": {
+		"beforeOpeningCurlyBrace": true
+	},
 
 	"jsDoc": {
 		"checkAnnotations": true,
