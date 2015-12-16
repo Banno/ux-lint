@@ -44,10 +44,10 @@
     "hjson": "^1.7.4",
     "jscs": "^2.6.0",
     "jshint": "^2.8.0",
-    "load-plugins": "^2.1.0",
     "log-symbols": "^1.0.2",
     "minimist": "^1.2.0",
     "plur": "^2.1.1",
+    "require-all": "^2.0.0",
     "string-length": "^1.0.1",
     "text-table": "^0.2.0"
   }

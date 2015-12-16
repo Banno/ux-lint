@@ -2,7 +2,9 @@
 
 var async   = require('async');
 var flatten = require('./helper').flatten;
-var linters = require('load-plugins')('./linters/*.js');
+var linters = require('require-all')({
+	dirname: __dirname + '/linters'
+});
 
 exports.check = function(filePattern, opts, callback) {
 	runLinters('check', filePattern, opts, callback);
