@@ -21,7 +21,7 @@ You can also install the module local to a project and then invoke it from the C
 ux-lint [--fix] [--extend <optionsFile>] [<folder>]
 ```
 
-By default, ux-lint will lint the `src` folder and any JS files in the current working directory. Pass file or folder names as arguments to lint them instead. Non-files (e.g., folders, devices, sockets, etc.) are automatically ignored.
+By default, ux-lint will lint any JS files in the `src` folder (including subfolders) and the current working directory. Pass file or folder names as arguments to lint them instead. Non-files (e.g., folders, devices, sockets, etc.) are automatically ignored.
 
 If a `--fix` argument is specified, ux-lint will attempt to automatically fix any linting errors that it finds.
 

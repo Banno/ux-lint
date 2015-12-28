@@ -11,7 +11,7 @@ var reporter  = require('./reporters/stylish');
 var args = parseArgs(process.argv.slice(2));
 
 var type = args.fix ? 'fix' : 'check';
-var files = (!args._ || args._.length === 0) ? ['src/**', '*.js'] : args._;
+var files = (!args._ || args._.length === 0) ? ['src/**/*.js', '*.js'] : args._;
 
 var optFiles;
 if (typeof args.extend === 'undefined') {
