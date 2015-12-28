@@ -35,8 +35,14 @@ exports.readFiles = function(filePattern) {
 		return Promise.resolve([]);
 	}
 
+	var isFile = function(file) {
+		var stat = fs.statSync(file);
+		if (stat.isFile()) { return true; }
+		return false;
+	};
+
 	return Promise.all(
-		files.map(function(file) {
+		files.filter(isFile).map(function(file) {
 			return new Promise(function(resolve, reject) {
 				fs.readFile(file, 'utf8', function(err, contents) {
 					if (err) {

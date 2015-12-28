@@ -62,9 +62,9 @@ describe('helper functions', function() {
 			expect(readFiles(filename)).toEqual(jasmine.any(Promise));
 		});
 
-		it('should resolve to an error if a file cannot be read', function(done) {
-			readFiles('.').catch(function(err) {
-				expect(err).toEqual(jasmine.any(Error));
+		it('should filter out non-files', function(done) {
+			readFiles('.').then(function(results) {
+				expect(results).toEqual([]);
 				done();
 			});
 		});
