@@ -40,7 +40,7 @@ exports.readFiles = function(filePattern) {
 			return new Promise(function(resolve, reject) {
 				fs.readFile(file, 'utf8', function(err, contents) {
 					if (err) {
-						reject('could not read file ' + file + ': ' + err.message);
+						reject(new Error('could not read file ' + file + ': ' + err.message));
 						return;
 					}
 					resolve({
