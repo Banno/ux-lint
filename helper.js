@@ -5,7 +5,7 @@ var glob  = require('globby');
 var hjson = require('hjson');
 
 // Flattens an array of arrays.
-exports.flatten = function (arrayOfArrays) {
+exports.flatten = function(arrayOfArrays) {
 	return arrayOfArrays.reduce(function(a, b) {
 		return a.concat(b);
 	}, []);
