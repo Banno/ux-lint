@@ -15,6 +15,7 @@ exports.check = function(filePattern, opts) {
 		return files.map(function(fileInfo) {
 			jshint(fileInfo.contents, opts, predefs);
 			return jshint.errors.map(function(error) {
+				error.id = error.id || '(error)'; // "Too many errors" does not have an ID
 				return {
 					character: error.character,
 					code: error.code,
