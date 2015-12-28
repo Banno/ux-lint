@@ -6,6 +6,7 @@
 var chalk        = require('chalk');
 var logSymbols   = require('log-symbols');
 var plur         = require('plur');
+var sortFunc     = require('../helper').sort;
 var stringLength = require('string-length');
 var table        = require('text-table');
 
@@ -18,11 +19,7 @@ module.exports = function(results, opts) {
 
 	opts = opts || {};
 
-	results.sort(function(a, b) {
-		if (a.file < b.file) { return -1; }
-		if (a.file > b.file) { return 1; }
-		return 0;
-	});
+	results.sort(sortFunc);
 
 	output += table(results.map(function(err, i) {
 		var isError = err.type && err.type === 'error';

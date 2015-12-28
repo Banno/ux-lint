@@ -106,4 +106,49 @@ describe('helper functions', function() {
 
 	});
 
+	describe('sort()', function() {
+
+		var sortFunc = require('../helper').sort;
+
+		var errors, expected;
+
+		beforeEach(function() {
+			errors = [
+				{ file: 'a', line: 67, character: 84, plugin: 'jshint' },
+				{ file: 'a', line: 41, character: 100, plugin: 'jshint' },
+				{ file: 'a', line: 12, character: 56, plugin: 'jscs' },
+				{ file: 'a', line: 69, character: 91, plugin: 'jshint' },
+				{ file: 'a', line: 95, character: 52, plugin: 'jshint' },
+				{ file: 'a', line: 95, character: 45, plugin: 'jshint' },
+				{ file: 'b', line: 87, character: 3, plugin: 'jshint' },
+				{ file: 'b', line: 18, character: 73, plugin: 'jscs' },
+				{ file: 'b', line: 52, character: 77, plugin: 'jshint' },
+				{ file: 'b', line: 93, character: 31, plugin: 'jshint' },
+				{ file: 'b', line: 93, character: 71, plugin: 'jshint' },
+				{ file: 'b', line: 93, character: 59, plugin: 'jscs' },
+			];
+			expected = [
+				{ file: 'a', line: 12, character: 56, plugin: 'jscs' },
+				{ file: 'a', line: 41, character: 100, plugin: 'jshint' },
+				{ file: 'a', line: 67, character: 84, plugin: 'jshint' },
+				{ file: 'a', line: 69, character: 91, plugin: 'jshint' },
+				{ file: 'a', line: 95, character: 45, plugin: 'jshint' },
+				{ file: 'a', line: 95, character: 52, plugin: 'jshint' },
+
+				{ file: 'b', line: 18, character: 73, plugin: 'jscs' },
+				{ file: 'b', line: 52, character: 77, plugin: 'jshint' },
+				{ file: 'b', line: 87, character: 3, plugin: 'jshint' },
+				{ file: 'b', line: 93, character: 31, plugin: 'jshint' },
+				{ file: 'b', line: 93, character: 59, plugin: 'jscs' },
+				{ file: 'b', line: 93, character: 71, plugin: 'jshint' },
+			];
+		});
+
+		it('should sort arrays by file, line, column, then plugin', function() {
+			errors.sort(sortFunc);
+			expect(errors).toEqual(expected);
+		});
+
+	});
+
 });

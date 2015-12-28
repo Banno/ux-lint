@@ -58,3 +58,24 @@ exports.readFiles = function(filePattern) {
 		})
 	);
 };
+
+// Sort function for an array of linting errors.
+exports.sort = function(a, b) {
+	// First sort by filename.
+	if (a.file < b.file) { return -1; }
+	if (a.file > b.file) { return 1; }
+
+	// Then sort by line number.
+	if (a.line < b.line) { return -1; }
+	if (a.line > b.line) { return 1; }
+
+	// Then sort by character (column) number.
+	if (a.character < b.character) { return -1; }
+	if (a.character > b.character) { return 1; }
+
+	// Then sort by plugin.
+	if (a.plugin < b.plugin) { return -1; }
+	if (a.plugin > b.plugin) { return 1; }
+
+	return 0;
+};
