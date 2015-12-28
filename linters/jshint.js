@@ -8,6 +8,10 @@ var readFiles = require('../helper').readFiles;
 
 var config = parseJson(__dirname + '/../config/jshint.hjson');
 
+var isJshintError = function(val) {
+	return val !== null;
+};
+
 exports.check = function(filePattern, opts) {
 	opts = extend(true, {}, config, opts);
 	var predefs = opts.globals || {};
@@ -15,7 +19,7 @@ exports.check = function(filePattern, opts) {
 		return files.map(function(fileInfo) {
 			try {
 				jshint(fileInfo.contents, opts, predefs);
-				return jshint.errors.map(function(error) {
+				return jshint.errors.filter(isJshintError).map(function(error) {
 					error.id = error.id || '(error)'; // "Too many errors" does not have an ID
 					return {
 						character: error.character,
