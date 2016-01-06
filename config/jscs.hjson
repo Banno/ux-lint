@@ -52,6 +52,10 @@
 	"requireSpacesInConditionalExpression": true,
 	"requireSpaceBeforeBlockStatements": true,
 	"requireLineFeedAtFileEnd": true,
+	"requireSpaceBeforeObjectValues": true,
+	"disallowSpaceAfterObjectKeys": {
+		"allExcept": ["aligned"]
+	},
 	"requireSpacesInsideObjectBrackets": { "allExcept": ["}"] },
 	"disallowSpacesInsideArrayBrackets": "all",
 	"disallowSpacesInsideParentheses": true,
