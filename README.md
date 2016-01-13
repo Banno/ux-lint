@@ -27,6 +27,8 @@ If a `--fix` argument is specified, ux-lint will attempt to automatically fix an
 
 If `--extend` arguments are specified, ux-lint will parse the following JSON files for configuration overrides. The overrides should be indexed by plugin name (e.g., `jshint` or `jscs`).
 
+The exit code is equal to the number of errors found by ux-lint (`0` if no errors).
+
 ## API
 
 The ux-lint module can be included in your Javascript file and then invoked (for gulp or grunt tasks, for example).

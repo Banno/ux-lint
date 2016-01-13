@@ -33,4 +33,5 @@ linter[type](files, opts, function(err, results) {
 		return;
 	}
 	reporter(results, args);
+	process.exitCode = results.length;
 });
