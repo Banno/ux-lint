@@ -15,8 +15,9 @@ describe('CLI', function() {
 		fixFunc = jasmine.createSpy('fix()');
 		stub['./'] = {
 			check: checkFunc,
-			fix: fixFunc
+			fix: fixFunc,
 		};
+		stub['./reporters/stylish'] = jasmine.createSpy('reporter');
 	});
 
 	it('should lint the "src" folder in the current directory by default', function() {
@@ -58,6 +59,41 @@ describe('CLI', function() {
 			stub['./helper'] = { parseJson: function(filename) { return opts[i++]; } };
 			loadCli();
 			expect(checkFunc.calls.mostRecent().args[1]).toEqual(extend({}, opts[0], opts[1]));
+		});
+
+	});
+
+	describe('when there are no lint errors', function() {
+
+		beforeEach(function() {
+			checkFunc.and.callFake(function(files, opts, callback) {
+				callback(null, []);
+			});
+			loadCli();
+		});
+
+		it('should return an exit code of 0', function() {
+			expect(process.exitCode).toBe(0);
+		});
+
+	});
+
+	describe('when there are lint errors', function() {
+
+		var numErrors = 17;
+
+		beforeEach(function() {
+			checkFunc.and.callFake(function(files, opts, callback) {
+				var results = [];
+				results.length = numErrors;
+				results.fill({});
+				callback(null, results);
+			});
+			loadCli();
+		});
+
+		it('should return an exit code equal to the number of errors', function() {
+			expect(process.exitCode).toBe(numErrors);
 		});
 
 	});
