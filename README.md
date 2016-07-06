@@ -10,7 +10,7 @@ Javascript linting:
 ## Installation
 
 ```shell
-npm install -g Banno/ux-lint
+npm install -g ux-lint
 ```
 
 You can also install the module local to a project and then invoke it from the CLI or a Node file (see "API" below).
