@@ -29,7 +29,7 @@ describe('helper functions', function() {
 		var parseJson = require('../helper').parseJson;
 
 		it('should parse an HJSON file', function() {
-			var parsed = parseJson(__dirname + '/../config/jshint.hjson');
+			var parsed = parseJson(__dirname + '/../config/eslint.hjson');
 			expect(parsed).toEqual(jasmine.any(Object));
 			expect(parsed.globals).toBeDefined();
 		});

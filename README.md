@@ -4,8 +4,7 @@ This project combines the following linting tools used by the Banno UX team into
 
 Javascript linting:
 
-* [JSHint](http://jshint.com/)
-* [JSCS](http://jscs.info/)
+* [ESLint](http://eslint.org/)
 
 ## Installation
 
@@ -25,7 +24,7 @@ By default, ux-lint will lint any JS files in the `src` folder (including subfol
 
 If a `--fix` argument is specified, ux-lint will attempt to automatically fix any linting errors that it finds.
 
-If `--extend` arguments are specified, ux-lint will parse the following JSON files for configuration overrides. The overrides should be indexed by plugin name (e.g., `jshint` or `jscs`).
+If `--extend` arguments are specified, ux-lint will parse the following JSON files for configuration overrides. The overrides should be indexed by plugin name (e.g., `eslint`).
 
 The exit code is equal to the number of errors found by ux-lint (`0` if no errors).
 
@@ -48,6 +47,8 @@ linter.fix('src', { /* optional config */ }, function(err, response) {
 // A glob pattern can also be used:
 linter.check('*.js', function() {});
 ```
+
+The first argument can be a file, file pattern, or array of those.
 
 The configuration object passed as the 2nd argument will override (not replace) the default configuration.
 
@@ -76,7 +77,7 @@ The results array should contain objects with the following signature:
 
 ```javascript
 {
-  plugin: 'jshint', // or 'jscs', etc
+  plugin: 'eslint', // or 'jscs', etc
   type: 'error', // or 'warning'
   code: 'W117', // plugin's internal ID for the error
   evidence: '\t\t\tconsole.log(error);', // copy of the offending code

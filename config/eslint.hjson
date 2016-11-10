@@ -1,0 +1,122 @@
+{
+		"env": {
+			"amd": true,
+			"browser": true,
+			"es6": true,
+			"jasmine": true,
+			"protractor": true
+		},
+		"extends": "eslint:recommended",
+		"globals": {
+			"angular": false,
+			// Angular mocks
+			"inject": false,
+			"mock": false,
+			"module": false
+		}
+		"rules": {
+			"array-bracket-spacing": ["error", "never"], // no spaces inside array brackets
+			"array-callback-return": "warn", // warn if array callbacks don't return values
+			"arrow-spacing": ["error", {"before": true, "after": true}], // require spacing around fat-arrow operator
+			"accessor-pairs": "warn", // warn if getters/setters aren't paired
+			"block-scoped-var": "warn", // warn about confusing var hoisting
+			"block-spacing": ["error", "always"], // require spacing inside blocks
+			"brace-style": ["error", "1tbs", { "allowSingleLine": true }], // require "one true brace style"
+			"camelcase": "error", // require camelcase for names
+			"comma-spacing": ["error", { "before": false, "after": true }], // require space after commas
+			"comma-style": ["error", "last"], // require commas at the end of lines
+			"computed-property-spacing": ["error", "never"], // no spacing around properties
+			"curly": "error", // require curly braces
+			"default-case": "error", // require "default" case in switch
+			"dot-location": ["error", "property"], // dots are attached to properties
+			"dot-notation": "error", // require dot notation for properties when possible
+			"eqeqeq": ["error", "always"], // require === in comparisons
+			"func-call-spacing": ["error", "never"], // forbid space between function name and ()
+			"generator-star-spacing": ["error", "after"], // require space after "function*" generator
+			"guard-for-in": "error", // require "hasOwnProperty" check inside for..in loops
+			"key-spacing": ["error", { // require space after a key's colon
+				"beforeColon": false,
+				"afterColon": true,
+				"mode": "minimum"
+			}],
+			"keyword-spacing": ["error", { "before": true, "after": true }], // require spaces around keywords
+			"indent": ["error", "tab"], // tab indentation
+			"linebreak-style": ["error", "unix"], // Unix EOLs
+			"max-len": ["error", 120], // no more than 120 chars per line
+			"new-cap": "error", // require constructors to be capitalized
+			"new-parens": "error", // require parens when calling a constructor
+			"no-array-constructor": "error", // force literal notation for Array construction
+			"no-caller": "error", // forbid arguments.callee & arguments.caller
+			"no-cond-assign": "warn", // warn if assignment is used inside a conditional
+			"no-constant-condition": "warn", // warn if condition always evals the same
+			"no-duplicate-imports": "error", // forbid multiple imports from the same module
+			"no-empty": ["error", { "allowEmptyCatch": true }], // no empty blocks
+			"no-eval": "error", // forbids eval()
+			"no-extend-native": "warn", // warn when extending native objects
+			"no-extra-bind": "warn", // warn if unnecessary bind() is used
+			"no-extra-label": "warn", // warn if unnecessary label is used
+			"no-implied-eval": "error", // forbid string eval in setTimeout()/setInterval()
+			"no-invalid-this": "error", // forbid "this" outside class-based objects
+			"no-iterator": "error", // forbid SpiderMonkey extension
+			"no-lonely-if": "warn", // warn when "if" is inside an "else"
+			"no-loop-func": "warn", // warn if function is created inside a loop
+			"no-mixed-operators": "error", // forbid confusing use of logical operators
+			"no-multi-spaces": ["error", { // forbid multiple spaces except for alignment
+				exceptions: {
+					"AssignmentExpression": true,
+					"ImportDeclaration": true,
+					"Property": true,
+					"VariableDeclarator": true
+				}
+			}],
+			"no-multi-str": "error", // forbid multiline strings
+			"no-multiple-empty-lines": "error", // forbid multiple blank lines
+			"no-nested-ternary": "warn", // warn of nested ternary expressions
+			"no-new-func": "error", // forbid Function constructor
+			"no-new-object": "error", // force literal notation for Object construction
+			"no-new-require": "error", // forbid "new require()"
+			"no-new-wrappers": "error", // forbid primitive wrappers as constructors
+			"no-octal-escape": "error", // forbid octal escape sequences in string literals
+			"no-proto": "error", // forbid __proto__
+			"no-return-assign": "error", // no assignment in return statements
+			"no-self-compare": "error", // forbid self-comparison
+			"no-sequences": "error", // no comma-separated expressions
+			"no-shadow-restricted-names": "error", // forbid shadowing of restricted names
+			"no-template-curly-in-string": "warn", // warn if using template expressions but not backticks
+			"no-throw-literal": "error", // forbid throwing of literals
+			"no-trailing-spaces": "error", // forbid trailing spaces
+			"no-undef-init": "error", // forbid setting vars to undefined
+			"no-unneeded-ternary": "error", // forbid unnecessary ternary expressions
+			"no-unused-expressions": "warn", // warn about unused expressions
+			"no-unused-vars": ["error", { "args": "none" }], // forbid unused vars, except as function args
+			"no-useless-call": "error", // forbid unnecessary call()/apply()
+			"no-useless-computed-key": "error", // forbid computed keys
+			"no-useless-concat": "error", // forbid unnecessary string concatenation
+			"no-useless-escape": "error", // forbid unnecessary escape sequences
+			"no-useless-rename": "error", // forbid unnecessary import/export/destructuring renaming
+			"no-useless-return": "error", // forbid unnecessary return statements
+			"no-whitespace-before-property": "error", // forbid whitespace around property accessor
+			"no-with": "error", // forbid "with" expressions
+			"object-curly-spacing": ["error", "always", { // require spaces inside object braces, unless nested in another object
+				"objectsInObjects": false
+			}],
+			"one-var": ["error", { initialized: "never" }], // one "var" per var declaration, unless the var is uninitialized
+			"operator-linebreak": ["error", "after"], // require operator right before the line break
+			"quote-props": ["error", "as-needed"], // only quote properties when necessary
+			"quotes": ["error", "single"], // single quotes
+			"radix": "error", // require the radix argument to parseInt()
+			"semi": ["error", "always"], // semicolons are required
+			"semi-spacing": ["error", {"before": false, "after": true}], // require space after semicolons
+			"space-before-blocks": ["error", "always"], // require space before a block's curly brace
+			"space-before-function-paren": ["error", "never"], // forbid space between "function" and ()
+			"space-in-parens": ["error", "never"], // forbid space inside parens
+			"space-infix-ops": "error", // require space around infix operators
+			"space-unary-ops": "error", // require space around "word" unary operators, but not "non-word" operators
+			"spaced-comment": ["error", "always"], // require space inside comment
+			"strict": ["error", "safe"], // require "use strict" directive
+			"template-curly-spacing": "error", // forbid spaces inside template expression ${}
+			"unicode-bom": "error", // forbid BOM header
+			"wrap-iife": ["error", "inside"], // require IIFEs to be wrapped in parens
+			"yield-star-spacing": ["error", "after"], // require space after "yield*"
+		}
+}

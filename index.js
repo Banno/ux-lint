@@ -2,6 +2,7 @@
 
 var async   = require('async');
 var flatten = require('./helper').flatten;
+var toArray = require('./helper').toArray;
 var linters = require('require-all')({
 	dirname: __dirname + '/linters'
 });
@@ -15,6 +16,7 @@ exports.fix = function(filePattern, opts, callback) {
 };
 
 function runLinters(type, filePattern, opts, callback) {
+	filePattern = toArray(filePattern);
 	if (typeof callback === 'undefined') {
 		callback = opts;
 	}

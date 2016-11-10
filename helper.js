@@ -11,6 +11,11 @@ exports.flatten = function(arrayOfArrays) {
 	}, []);
 };
 
+// Converts the argument into an array, if not already one.
+exports.toArray = function(a) {
+	return Array.isArray(a) ? a : [a];
+};
+
 // Parses an (H)JSON file.
 exports.parseJson = function(filename, opts) {
 	opts = opts || {};

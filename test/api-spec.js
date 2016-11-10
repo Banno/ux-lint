@@ -41,7 +41,7 @@ describe('JS API', function() {
 		});
 
 		it('should return empty results if given a file pattern that doesn\'t match anything', function(done) {
-			linter.check(null, function(err, results) {
+			linter.check('supercalifragilisticexpialidocious', function(err, results) {
 				expect(err).toBe(null);
 				expect(results).toEqual([]);
 				done();
@@ -53,14 +53,16 @@ describe('JS API', function() {
 	describe('fix()', function() {
 
 		var tempFilename;
+		var originalContents, fixedContents;
 
 		beforeEach(function() {
 			tempFilename = tempfile('.js');
 			fs.copySync(badFile, tempFilename);
+			originalContents = fs.readFileSync(tempFilename, { encoding: 'utf8' });
 		});
 
 		afterEach(function() {
-			var contents = fs.readFileSync(tempFilename, { encoding: 'utf8' });
+			fixedContents = fs.readFileSync(tempFilename, { encoding: 'utf8' });
 			fs.removeSync(tempFilename);
 		});
 
@@ -79,6 +81,13 @@ describe('JS API', function() {
 			});
 		});
 
+		it('should update the file with the fixes', function(done) {
+			linter.fix(tempFilename, function(err, results) {
+				expect(fixedContents).not.toBe(originalContents);
+				done();
+			});
+		});
+
 		it('should accept options as an optional argument', function(done) {
 			linter.fix(tempFilename, {}, function(err, results) {
 				if (err) { console.log('Error:', err.message); }
@@ -88,7 +97,7 @@ describe('JS API', function() {
 		});
 
 		it('should return empty results if given a file pattern that doesn\'t match anything', function(done) {
-			linter.check(null, function(err, results) {
+			linter.check('supercalifragilisticexpialidocious', function(err, results) {
 				expect(err).toBe(null);
 				expect(results).toEqual([]);
 				done();

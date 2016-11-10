@@ -1,4 +1,7 @@
-function foo() {
+(function(context) {
 	'use strict';
-	return 42;
-}
+	function foo() {
+		return 42;
+	}
+	context.foo = foo();
+})(this);
