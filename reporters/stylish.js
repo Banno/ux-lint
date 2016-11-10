@@ -2,6 +2,7 @@
 // Stylish reporter, inspired by jshint-stylish
 //   (https://github.com/sindresorhus/jshint-stylish).
 //
+/* eslint no-console: "off" */
 'use strict';
 var chalk        = require('chalk');
 var logSymbols   = require('log-symbols');
@@ -64,7 +65,7 @@ module.exports = function(results, opts) {
 			output += logSymbols.warning + '  ' + warningCount + ' ' + plur('warning', warningCount) + '\n';
 		}
 	} else {
-		output += logSymbols.success + ' No problems' + '\n';
+		output += logSymbols.success + ' No problems\n';
 	}
 
 	console.log(output);

@@ -1,3 +1,4 @@
+/* eslint no-console: "off" */
 'use strict';
 
 var fs       = require('fs-extra');
