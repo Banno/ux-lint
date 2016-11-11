@@ -1,9 +1,8 @@
 {
-	"jshint": {
-		"devel": true,
-		"node": true
-		"globals": {
-			"Promise": false
+	"eslint": {
+		"env": {
+			"browser": false,
+			"node": true
 		}
 	}
 }

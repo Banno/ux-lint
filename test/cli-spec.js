@@ -5,9 +5,9 @@ describe('CLI', function() {
 	var proxyquire = require('proxyquire');
 	var stub = {};
 
-	var cli, checkFunc, fixFunc;
+	var checkFunc, fixFunc;
 	var loadCli = function() {
-		cli = proxyquire('../cli', stub);
+		proxyquire('../cli', stub);
 	};
 
 	beforeEach(function() {
