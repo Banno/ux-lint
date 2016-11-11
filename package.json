@@ -30,6 +30,7 @@
     "node": ">=4.0.0"
   },
   "devDependencies": {
+    "del": "^2.2.2",
     "fs-extra": "^0.26.2",
     "jasmine": "^2.3.2",
     "proxyquire": "^1.7.3",

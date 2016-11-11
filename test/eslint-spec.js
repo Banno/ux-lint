@@ -1,7 +1,9 @@
 /* eslint no-console: "off" */
 'use strict';
 
+var del      = require('del');
 var fs       = require('fs-extra');
+var path     = require('path');
 var tempfile = require('tempfile');
 
 describe('eslint linter', function() {
@@ -59,6 +61,21 @@ describe('eslint linter', function() {
 			eslint.check(badFile, opts).then(function(results) {
 				expect(results).toEqual([]);
 				done();
+			});
+		});
+
+		it('should include dotfiles', function(done) {
+			var tempFolder = './.tmp';
+			var tempFile = path.join(tempFolder, goodFile);
+			fs.mkdirSync(tempFolder);
+			fs.copySync(goodFile, tempFile);
+			eslint.check(tempFile).then(function(results) {
+				expect(results).toEqual([]);
+				del.sync(tempFolder);
+				done();
+			}).catch(function(err) {
+				del.sync(tempFolder);
+				console.log('Error:', err.stack);
 			});
 		});
 
