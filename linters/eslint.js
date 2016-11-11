@@ -34,6 +34,7 @@ function linter(type, filePattern, opts) {
 	opts = extend(true, {}, config, opts);
 	var cli = new CLIEngine({
 		baseConfig: opts,
+		dotfiles: true,
 		fix: type === 'fix',
 		useEslintrc: false
 	});
