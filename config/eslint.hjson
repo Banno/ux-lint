@@ -25,6 +25,7 @@
 			"camelcase": "error", // require camelcase for names
 			"comma-spacing": ["error", { "before": false, "after": true }], // require space after commas
 			"comma-style": ["error", "last"], // require commas at the end of lines
+			"complexity": "warn", // warn about code with high cyclomatic complexity
 			"computed-property-spacing": ["error", "never"], // no spacing around properties
 			"curly": "error", // require curly braces
 			"default-case": "error", // require "default" case in switch
@@ -42,7 +43,9 @@
 			}],
 			"keyword-spacing": ["error", { "before": true, "after": true }], // require spaces around keywords
 			"linebreak-style": ["error", "unix"], // Unix EOLs
+			"max-depth": "warn", // warn about deeply-nested code
 			"max-len": ["error", 120], // no more than 120 chars per line
+			"max-nested-callbacks": "warn", // warn about deeply-nested callbacks
 			"new-cap": "error", // require constructors to be capitalized
 			"new-parens": "error", // require parens when calling a constructor
 			"no-array-constructor": "error", // force literal notation for Array construction
@@ -55,11 +58,16 @@
 			"no-extend-native": "warn", // warn when extending native objects
 			"no-extra-bind": "warn", // warn if unnecessary bind() is used
 			"no-extra-label": "warn", // warn if unnecessary label is used
+			"no-implicit-globals": "error", // forbid implicit global vars
 			"no-implied-eval": "error", // forbid string eval in setTimeout()/setInterval()
 			"no-invalid-this": "error", // forbid "this" outside class-based objects
 			"no-iterator": "error", // forbid SpiderMonkey extension
 			"no-lonely-if": "warn", // warn when "if" is inside an "else"
 			"no-loop-func": "warn", // warn if function is created inside a loop
+			"no-magic-numbers": ["error", { // forbid "magic numbers"
+				"ignoreArrayIndexes": true,
+				"ignore": [-1, 0, 1] // ignore numbers commonly used with indexOf (-1) and item counts (0, 1)
+			}],
 			"no-mixed-operators": "error", // forbid confusing use of logical operators
 			"no-multi-spaces": ["error", { // forbid multiple spaces except for alignment
 				exceptions: {
