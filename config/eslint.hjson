@@ -13,7 +13,7 @@
 			"inject": false,
 			"mock": false,
 			"module": false
-		}
+		},
 		"rules": {
 			"array-bracket-spacing": ["error", "never"], // no spaces inside array brackets
 			"array-callback-return": "warn", // warn if array callbacks don't return values
@@ -70,7 +70,7 @@
 			}],
 			"no-mixed-operators": "error", // forbid confusing use of logical operators
 			"no-multi-spaces": ["error", { // forbid multiple spaces except for alignment
-				exceptions: {
+				"exceptions": {
 					"AssignmentExpression": true,
 					"ImportDeclaration": true,
 					"Property": true,
@@ -108,7 +108,7 @@
 			"object-curly-spacing": ["error", "always", { // require spaces inside object braces, unless nested in another object
 				"objectsInObjects": false
 			}],
-			"one-var": ["error", { initialized: "never" }], // one "var" per var declaration, unless the var is uninitialized
+			"one-var": ["error", { "initialized": "never" }], // one "var" per var declaration, unless the var is uninitialized
 			"operator-linebreak": ["error", "after"], // require operator right before the line break
 			"quote-props": ["error", "as-needed"], // only quote properties when necessary
 			"quotes": ["error", "single"], // single quotes
