@@ -15,11 +15,15 @@ describe('helper functions', function() {
 		});
 
 		it('should return the array unchanged if there are no nested arrays', function() {
+			/* eslint-disable no-magic-numbers */
 			expect(flatten([1, 2, 3])).toEqual([1, 2, 3]);
+			/* eslint-enable no-magic-numbers */
 		});
 
 		it('should flatten an array of arrays', function() {
+			/* eslint-disable no-magic-numbers */
 			expect(flatten([[1, 2], [3, 4], 5])).toEqual([1, 2, 3, 4, 5]);
+			/* eslint-enable no-magic-numbers */
 		});
 
 	});
@@ -87,12 +91,13 @@ describe('helper functions', function() {
 		});
 
 		it('should support an array of patterns', function(done) {
-			readFiles([
+			var files = [
 				'test/fixtures/bad-javascript.js',
 				'test/fixtures/good-javascript.js'
-			]).then(function(results) {
+			];
+			readFiles(files).then(function(results) {
 				expect(results).toEqual(jasmine.any(Array));
-				expect(results.length).toBe(2);
+				expect(results.length).toBe(files.length);
 				done();
 			});
 		});

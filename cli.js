@@ -9,7 +9,8 @@ var parseArgs = require('minimist');
 var parseJson = require('./helper').parseJson;
 var reporter  = require('./reporters/stylish');
 
-var args = parseArgs(process.argv.slice(2));
+var firstArgIndex = 2;
+var args = parseArgs(process.argv.slice(firstArgIndex));
 
 var type = args.fix ? 'fix' : 'check';
 var files = (!args._ || args._.length === 0) ? ['src/**/*.js', '*.js'] : args._;
