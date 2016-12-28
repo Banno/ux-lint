@@ -3,7 +3,7 @@
 'use strict';
 
 const USAGE_STATEMENT = `
-${process.argv[1]} [options] [file.js] [dir]
+${process.argv[1]} [options] [file.js,...] [dir,...]
 
 Options:
   --extend [path]         Use custom linter configuration file
