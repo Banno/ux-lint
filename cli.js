@@ -2,6 +2,7 @@
 /* eslint no-console: "off" */
 'use strict';
 
+/* eslint-disable indent */
 const USAGE_STATEMENT = `
 ${process.argv[1]} [options] [file.js,...] [dir,...]
 
@@ -9,6 +10,7 @@ Options:
   --extend [path]         Use custom linter configuration file
   --fix                   Automatically fix linting errors
 `;
+/* eslint-enable indent */
 
 var chalk     = require('chalk');
 var extend    = require('extend');
@@ -21,8 +23,8 @@ var firstArgIndex = 2;
 var args = parseArgs(process.argv.slice(firstArgIndex));
 
 if (args.help) {
-  console.log(USAGE_STATEMENT);
-  process.exit();
+	console.log(USAGE_STATEMENT);
+	process.exit();
 }
 
 var type = args.fix ? 'fix' : 'check';
