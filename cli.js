@@ -4,7 +4,7 @@
 
 /* eslint-disable indent */
 const USAGE_STATEMENT = `
-${process.argv[1]} [options] [file.js,...] [dir,...]
+ux-lint [options] [file.js ...] [dir ...]
 
 Options:
   --extend [path]         Use custom linter configuration file
