@@ -2,6 +2,16 @@
 /* eslint no-console: "off" */
 'use strict';
 
+/* eslint-disable indent */
+const USAGE_STATEMENT = `
+ux-lint [options] [file.js ...] [dir ...]
+
+Options:
+  --extend [path]         Use custom linter configuration file
+  --fix                   Automatically fix linting errors
+`;
+/* eslint-enable indent */
+
 var chalk     = require('chalk');
 var extend    = require('extend');
 var linter    = require('./');
@@ -11,6 +21,11 @@ var reporter  = require('./reporters/stylish');
 
 var firstArgIndex = 2;
 var args = parseArgs(process.argv.slice(firstArgIndex));
+
+if (args.help) {
+	console.log(USAGE_STATEMENT);
+	process.exit();
+}
 
 var type = args.fix ? 'fix' : 'check';
 var files = (!args._ || args._.length === 0) ? ['src/**/*.js', '*.js'] : args._;
