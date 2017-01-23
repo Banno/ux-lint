@@ -35,7 +35,17 @@
 		"func-call-spacing": ["error", "never"], // forbid space between function name and ()
 		"generator-star-spacing": ["error", "after"], // require space after "function*" generator
 		"guard-for-in": "error", // require "hasOwnProperty" check inside for..in loops
-		"indent": ["error", "tab", { "SwitchCase": 1 }], // tab indentation
+		"indent": ["error", "tab", { // tab indentation
+			"ArrayExpression": 1,
+			"CallExpression": { "arguments": 1 },
+			"FunctionDeclaration": { "body": 1, "parameters": 1 },
+			"FunctionExpression": { "body": 1, "parameters": 1 },
+			"MemberExpression": 1,
+			"ObjectExpression": 1,
+			"outerIIFEBody": 1,
+			"SwitchCase": 1,
+			"VariableDeclarator": 1
+		}],
 		"key-spacing": ["error", { // require space after a key's colon
 			"beforeColon": false,
 			"afterColon": true,
