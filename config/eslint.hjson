@@ -54,7 +54,7 @@
 		"keyword-spacing": ["error", { "before": true, "after": true }], // require spaces around keywords
 		"linebreak-style": ["error", "unix"], // Unix EOLs
 		"max-depth": "warn", // warn about deeply-nested code
-		"max-len": ["error", 120], // no more than 120 chars per line
+		"max-len": ["error", 120, { tabWidth: 2 }], // no more than 120 chars per line; translate tabs as 2 characters wide
 		"max-nested-callbacks": "warn", // warn about deeply-nested callbacks
 		"new-cap": "error", // require constructors to be capitalized
 		"new-parens": "error", // require parens when calling a constructor
