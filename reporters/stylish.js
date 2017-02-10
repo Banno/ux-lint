@@ -29,6 +29,7 @@ module.exports = function(results, opts) {
 			'',
 			'',
 			chalk.gray(err.plugin),
+			chalk.gray(err.code),
 			chalk.gray('line ' + err.line),
 			chalk.gray('col ' + err.character),
 			isError ? chalk.red(err.description) : chalk.blue(err.description)
