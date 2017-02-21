@@ -12,25 +12,25 @@ Options:
 `;
 /* eslint-enable indent */
 
-var chalk     = require('chalk');
-var extend    = require('extend');
-var linter    = require('./');
-var parseArgs = require('minimist');
-var parseJson = require('./helper').parseJson;
-var reporter  = require('./reporters/stylish');
+const chalk     = require('chalk');
+const extend    = require('extend');
+const linter    = require('./');
+const parseArgs = require('minimist');
+const parseJson = require('./helper').parseJson;
+const reporter  = require('./reporters/stylish');
 
-var firstArgIndex = 2;
-var args = parseArgs(process.argv.slice(firstArgIndex));
+const firstArgIndex = 2;
+const args = parseArgs(process.argv.slice(firstArgIndex));
 
 if (args.help) {
 	console.log(USAGE_STATEMENT);
 	process.exit();
 }
 
-var type = args.fix ? 'fix' : 'check';
-var files = (!args._ || args._.length === 0) ? ['src/**/*.js', '*.js'] : args._;
+let type = args.fix ? 'fix' : 'check';
+let files = (!args._ || args._.length === 0) ? ['src/**/*.js', '*.js'] : args._;
 
-var optFiles;
+let optFiles;
 if (typeof args.extend === 'undefined') {
 	optFiles = [];
 } else if (Array.isArray(args.extend)) {
@@ -39,11 +39,11 @@ if (typeof args.extend === 'undefined') {
 	optFiles = new Array(args.extend);
 }
 
-var opts = optFiles.reduce(function(prevVal, currentVal) {
+let opts = optFiles.reduce((prevVal, currentVal) => {
 	return extend({}, prevVal, parseJson(currentVal));
 }, {});
 
-linter[type](files, opts, function(err, results) {
+linter[type](files, opts, (err, results) => {
 	if (err) {
 		console.log(chalk.red('Error: ') + err.message + '\n');
 		console.log(err.stack);

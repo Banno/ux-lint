@@ -1,26 +1,26 @@
 'use strict';
 
-var fs = require('fs');
+const fs = require('fs');
 
-describe('helper functions', function() {
+describe('helper functions', () => {
 
-	describe('flatten()', function() {
+	describe('flatten()', () => {
 
-		var flatten = require('../helper').flatten;
+		const flatten = require('../helper').flatten;
 
-		it('should throw an error if argument is not an array', function() {
-			expect(function() {
+		it('should throw an error if argument is not an array', () => {
+			expect(() => {
 				flatten(null);
 			}).toThrow();
 		});
 
-		it('should return the array unchanged if there are no nested arrays', function() {
+		it('should return the array unchanged if there are no nested arrays', () => {
 			/* eslint-disable no-magic-numbers */
 			expect(flatten([1, 2, 3])).toEqual([1, 2, 3]);
 			/* eslint-enable no-magic-numbers */
 		});
 
-		it('should flatten an array of arrays', function() {
+		it('should flatten an array of arrays', () => {
 			/* eslint-disable no-magic-numbers */
 			expect(flatten([[1, 2], [3, 4], 5])).toEqual([1, 2, 3, 4, 5]);
 			/* eslint-enable no-magic-numbers */
@@ -28,53 +28,53 @@ describe('helper functions', function() {
 
 	});
 
-	describe('parseJson()', function() {
+	describe('parseJson()', () => {
 
-		var parseJson = require('../helper').parseJson;
+		const parseJson = require('../helper').parseJson;
 
-		it('should parse an HJSON file', function() {
-			var parsed = parseJson(__dirname + '/../config/eslint.hjson');
+		it('should parse an HJSON file', () => {
+			const parsed = parseJson(__dirname + '/../config/eslint.hjson');
 			expect(parsed).toEqual(jasmine.any(Object));
 			expect(parsed.globals).toBeDefined();
 		});
 
-		it('should throw an error if the file does not exist', function() {
-			expect(function() {
+		it('should throw an error if the file does not exist', () => {
+			expect(() => {
 				parseJson('nonexistent.json');
 			}).toThrow();
 		});
 
-		it('should NOT throw an error if "ignoreErrors" is set', function() {
-			expect(function() {
+		it('should NOT throw an error if "ignoreErrors" is set', () => {
+			expect(() => {
 				parseJson('nonexistent.json', { ignoreErrors: true });
 			}).not.toThrow();
 		});
 
 	});
 
-	describe('readFiles()', function() {
+	describe('readFiles()', () => {
 
-		var readFiles = require('../helper').readFiles;
-		var filename, contents;
+		const readFiles = require('../helper').readFiles;
+		let filename, contents;
 
-		beforeEach(function() {
+		beforeEach(() => {
 			filename = __dirname + '/fixtures/bad-javascript.js';
 			contents = fs.readFileSync(filename, 'utf8');
 		});
 
-		it('should return a promise', function() {
+		it('should return a promise', () => {
 			expect(readFiles(filename)).toEqual(jasmine.any(Promise));
 		});
 
-		it('should filter out non-files', function(done) {
-			readFiles('.').then(function(results) {
+		it('should filter out non-files', (done) => {
+			readFiles('.').then((results) => {
 				expect(results).toEqual([]);
 				done();
 			});
 		});
 
-		it('should resolve to an array with the file contents object', function(done) {
-			readFiles(filename).then(function(results) {
+		it('should resolve to an array with the file contents object', (done) => {
+			readFiles(filename).then((results) => {
 				expect(results).toEqual(jasmine.any(Array));
 				expect(results.length).toBe(1);
 				expect(results[0].file).toBe(filename);
@@ -83,27 +83,27 @@ describe('helper functions', function() {
 			});
 		});
 
-		it('should resolve to an empty array if there are no matching files', function(done) {
-			readFiles('nonmatching.pattern').then(function(results) {
+		it('should resolve to an empty array if there are no matching files', (done) => {
+			readFiles('nonmatching.pattern').then((results) => {
 				expect(results).toEqual([]);
 				done();
 			});
 		});
 
-		it('should support an array of patterns', function(done) {
-			var files = [
+		it('should support an array of patterns', (done) => {
+			const files = [
 				'test/fixtures/bad-javascript.js',
 				'test/fixtures/good-javascript.js'
 			];
-			readFiles(files).then(function(results) {
+			readFiles(files).then((results) => {
 				expect(results).toEqual(jasmine.any(Array));
 				expect(results.length).toBe(files.length);
 				done();
 			});
 		});
 
-		it('should resolve to an empty array if an invalid pattern is used', function(done) {
-			readFiles(null).then(function(results) {
+		it('should resolve to an empty array if an invalid pattern is used', (done) => {
+			readFiles(null).then((results) => {
 				expect(results).toEqual([]);
 				done();
 			});
@@ -111,13 +111,13 @@ describe('helper functions', function() {
 
 	});
 
-	describe('sort()', function() {
+	describe('sort()', () => {
 
-		var sortFunc = require('../helper').sort;
+		const sortFunc = require('../helper').sort;
 
-		var errors, expected;
+		let errors, expected;
 
-		beforeEach(function() {
+		beforeEach(() => {
 			errors = [
 				{ file: 'a', line: 67, character: 84, plugin: 'jshint' },
 				{ file: 'a', line: 41, character: 100, plugin: 'jshint' },
@@ -149,7 +149,7 @@ describe('helper functions', function() {
 			];
 		});
 
-		it('should sort arrays by file, line, column, then plugin', function() {
+		it('should sort arrays by file, line, column, then plugin', () => {
 			errors.sort(sortFunc);
 			expect(errors).toEqual(expected);
 		});

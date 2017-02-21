@@ -1,16 +1,16 @@
 'use strict';
-describe('CLI', function() {
+describe('CLI', () => {
 
-	var extend = require('extend');
-	var proxyquire = require('proxyquire');
-	var stub = {};
+	const extend = require('extend');
+	const proxyquire = require('proxyquire');
+	let stub = {};
 
-	var checkFunc, fixFunc;
-	var loadCli = function() {
+	let checkFunc, fixFunc;
+	const loadCli = () => {
 		proxyquire('../cli', stub);
 	};
 
-	beforeEach(function() {
+	beforeEach(() => {
 		checkFunc = jasmine.createSpy('check()');
 		fixFunc = jasmine.createSpy('fix()');
 		stub['./'] = {
@@ -20,7 +20,7 @@ describe('CLI', function() {
 		stub['./reporters/stylish'] = jasmine.createSpy('reporter');
 	});
 
-	it('should lint the "src" folder in the current directory by default', function() {
+	it('should lint the "src" folder in the current directory by default', () => {
 		loadCli();
 		expect(checkFunc).toHaveBeenCalled();
 		expect(checkFunc.calls.mostRecent().args[0]).toEqual(['src/**/*.js', '*.js']);
@@ -28,63 +28,63 @@ describe('CLI', function() {
 		expect(checkFunc.calls.mostRecent().args[2]).toEqual(jasmine.any(Function));
 	});
 
-	it('should accept filenames for the source', function() {
-		var files = ['foo', 'bar'];
-		stub.minimist = function() { return { _: files }; };
+	it('should accept filenames for the source', () => {
+		const files = ['foo', 'bar'];
+		stub.minimist = () => { return { _: files }; };
 		loadCli();
 		expect(checkFunc).toHaveBeenCalled();
 		expect(checkFunc.calls.mostRecent().args[0]).toEqual(files);
 	});
 
-	it('should fix the files when passed the --fix flag', function() {
-		stub.minimist = function() { return { fix: true }; };
+	it('should fix the files when passed the --fix flag', () => {
+		stub.minimist = () => { return { fix: true }; };
 		loadCli();
 		expect(fixFunc).toHaveBeenCalled();
 	});
 
-	describe('--extend', function() {
+	describe('--extend', () => {
 
-		it('should read in the specified file', function() {
-			var opts = { foo: 'bar' };
-			stub.minimist = function() { return { extend: '1.json' }; };
-			stub['./helper'] = { parseJson: function() { return opts; } };
+		it('should read in the specified file', () => {
+			const opts = { foo: 'bar' };
+			stub.minimist = () => { return { extend: '1.json' }; };
+			stub['./helper'] = { parseJson: () => { return opts; } };
 			loadCli();
 			expect(checkFunc.calls.mostRecent().args[1]).toEqual(opts);
 		});
 
-		it('should work with multiple files', function() {
-			var i = 0;
-			var opts = [{ foo: 'bar' }, { foo: 'arb', foo2: 'baz' }];
-			stub.minimist = function() { return { extend: ['1.json', '2.json'] }; };
-			stub['./helper'] = { parseJson: function(filename) { return opts[i++]; } };
+		it('should work with multiple files', () => {
+			let i = 0;
+			const opts = [{ foo: 'bar' }, { foo: 'arb', foo2: 'baz' }];
+			stub.minimist = () => { return { extend: ['1.json', '2.json'] }; };
+			stub['./helper'] = { parseJson: (filename) => { return opts[i++]; } };
 			loadCli();
 			expect(checkFunc.calls.mostRecent().args[1]).toEqual(extend({}, opts[0], opts[1]));
 		});
 
 	});
 
-	describe('when there are no lint errors', function() {
+	describe('when there are no lint errors', () => {
 
-		beforeEach(function() {
-			checkFunc.and.callFake(function(files, opts, callback) {
+		beforeEach(() => {
+			checkFunc.and.callFake((files, opts, callback) => {
 				callback(null, []);
 			});
 			loadCli();
 		});
 
-		it('should return an exit code of 0', function() {
+		it('should return an exit code of 0', () => {
 			expect(process.exitCode).toBe(0);
 		});
 
 	});
 
-	describe('when there are lint errors', function() {
+	describe('when there are lint errors', () => {
 
-		var numErrors = 17;
+		const numErrors = 17;
 
-		beforeEach(function() {
-			checkFunc.and.callFake(function(files, opts, callback) {
-				var results = [];
+		beforeEach(() => {
+			checkFunc.and.callFake((files, opts, callback) => {
+				let results = [];
 				results.length = numErrors;
 				results.fill({});
 				callback(null, results);
@@ -92,7 +92,7 @@ describe('CLI', function() {
 			loadCli();
 		});
 
-		it('should return an exit code equal to the number of errors', function() {
+		it('should return an exit code equal to the number of errors', () => {
 			expect(process.exitCode).toBe(numErrors);
 		});
 
