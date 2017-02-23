@@ -1,56 +1,56 @@
 /* eslint no-console: "off" */
 'use strict';
 
-var del      = require('del');
-var fs       = require('fs-extra');
-var path     = require('path');
-var tempfile = require('tempfile');
+const del      = require('del');
+const fs       = require('fs-extra');
+const path     = require('path');
+const tempfile = require('tempfile');
 
-describe('eslint linter', function() {
+describe('eslint linter', () => {
 
-	var eslint = require('../linters/eslint');
-	var customMatchers = require('./helpers/custom-matchers');
+	const eslint = require('../linters/eslint');
+	const customMatchers = require('./helpers/custom-matchers');
 
-	var badFile  = __dirname + '/fixtures/bad-javascript.js';
-	var goodFile = __dirname + '/fixtures/good-javascript.js';
+	const badFile  = __dirname + '/fixtures/bad-javascript.js';
+	const goodFile = __dirname + '/fixtures/good-javascript.js';
 
-	beforeEach(function() {
+	beforeEach(() => {
 		jasmine.addMatchers(customMatchers);
 	});
 
-	describe('check()', function() {
+	describe('check()', () => {
 
-		it('should return a promise with an array of errors', function(done) {
-			eslint.check(badFile).then(function(results) {
+		it('should return a promise with an array of errors', (done) => {
+			eslint.check(badFile).then((results) => {
 				expect(results).toEqual(jasmine.any(Array));
 				expect(results.length).toBeGreaterThan(0);
 				done();
-			}).catch(function(err) {
+			}).catch((err) => {
 				console.log('Error:', err.stack);
 			});
 		});
 
-		it('should have the expected error signature', function(done) {
-			eslint.check(badFile).then(function(results) {
+		it('should have the expected error signature', (done) => {
+			eslint.check(badFile).then((results) => {
 				expect(results[0]).toBeLintError();
 				done();
-			}).catch(function(err) {
+			}).catch((err) => {
 				console.log('Error:', err.stack);
 
 			});
 		});
 
-		it('should return a promise with an empty array for lint-free files', function(done) {
-			eslint.check(goodFile).then(function(results) {
+		it('should return a promise with an empty array for lint-free files', (done) => {
+			eslint.check(goodFile).then((results) => {
 				expect(results).toEqual([]);
 				done();
-			}).catch(function(err) {
+			}).catch((err) => {
 				console.log('Error:', err.stack);
 			});
 		});
 
-		it('should accept options', function(done) {
-			var opts = {
+		it('should accept options', (done) => {
+			const opts = {
 				// ignore all the errors
 				rules: {
 					indent: 'off',
@@ -58,22 +58,22 @@ describe('eslint linter', function() {
 					'object-curly-spacing': 'off'
 				}
 			};
-			eslint.check(badFile, opts).then(function(results) {
+			eslint.check(badFile, opts).then((results) => {
 				expect(results).toEqual([]);
 				done();
 			});
 		});
 
-		it('should include dotfiles', function(done) {
-			var tempFolder = './.tmp';
-			var tempFile = path.join(tempFolder, goodFile);
+		it('should include dotfiles', (done) => {
+			const tempFolder = './.tmp';
+			const tempFile = path.join(tempFolder, goodFile);
 			fs.mkdirSync(tempFolder);
 			fs.copySync(goodFile, tempFile);
-			eslint.check(tempFile).then(function(results) {
+			eslint.check(tempFile).then((results) => {
 				expect(results).toEqual([]);
 				del.sync(tempFolder);
 				done();
-			}).catch(function(err) {
+			}).catch((err) => {
 				del.sync(tempFolder);
 				console.log('Error:', err.stack);
 			});
@@ -81,45 +81,45 @@ describe('eslint linter', function() {
 
 	});
 
-	describe('fix()', function() {
+	describe('fix()', () => {
 
-		var tempFilename;
-		var originalContents, fixedContents;
+		let tempFilename;
+		let originalContents, fixedContents;
 
-		beforeEach(function() {
+		beforeEach(() => {
 			tempFilename = tempfile('.js');
 			fs.copySync(badFile, tempFilename);
 			originalContents = fs.readFileSync(tempFilename, { encoding: 'utf8' });
 		});
 
-		afterEach(function() {
+		afterEach(() => {
 			fixedContents = fs.readFileSync(tempFilename, { encoding: 'utf8' });
 			fs.removeSync(tempFilename);
 		});
 
-		it('should return a promise with an array', function(done) {
-			eslint.fix(tempFilename).then(function(results) {
+		it('should return a promise with an array', (done) => {
+			eslint.fix(tempFilename).then((results) => {
 				expect(results).toEqual(jasmine.any(Array));
 				done();
-			}).catch(function(err) {
+			}).catch((err) => {
 				console.log('Error:', err.stack);
 			});
 		});
 
-		it('should include problems that cannot be fixed automatically', function(done) {
-			eslint.fix(tempFilename).then(function(results) {
+		it('should include problems that cannot be fixed automatically', (done) => {
+			eslint.fix(tempFilename).then((results) => {
 				expect(results.length).toBeGreaterThan(0);
 				done();
-			}).catch(function(err) {
+			}).catch((err) => {
 				console.log('Error:', err.stack);
 			});
 		});
 
-		it('should update the file with the fixes', function(done) {
-			eslint.fix(tempFilename).then(function(results) {
+		it('should update the file with the fixes', (done) => {
+			eslint.fix(tempFilename).then((results) => {
 				expect(fixedContents).not.toBe(originalContents);
 				done();
-			}).catch(function(err) {
+			}).catch((err) => {
 				console.log('Error:', err.stack);
 			});
 		});

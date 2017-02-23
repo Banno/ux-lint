@@ -3,7 +3,7 @@ module.exports = {
 	toBeLintError: function(util, customEqualityTesters) {
 		return {
 			compare: function(actual) {
-				var expectedProps = [
+				const expectedProps = [
 					'character',
 					'code',
 					'description',
@@ -13,8 +13,8 @@ module.exports = {
 					'plugin',
 					'type',
 				];
-				var actualProps = Object.keys(actual).sort();
-				var result = {
+				let actualProps = Object.keys(actual).sort();
+				let result = {
 					pass: util.equals(actualProps, expectedProps)
 				};
 				return result;

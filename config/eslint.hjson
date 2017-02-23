@@ -17,12 +17,14 @@
 	"rules": {
 		"array-bracket-spacing": ["error", "never"], // no spaces inside array brackets
 		"array-callback-return": "warn", // warn if array callbacks don't return values
+		"arrow-body-style": "off", // don't constrain our syntax for arrow functions
 		"arrow-spacing": ["error", { "before": true, "after": true }], // require spacing around fat-arrow operator
 		"accessor-pairs": "warn", // warn if getters/setters aren't paired
 		"block-scoped-var": "warn", // warn about confusing var hoisting
 		"block-spacing": ["error", "always"], // require spacing inside blocks
 		"brace-style": ["error", "1tbs", { "allowSingleLine": true }], // require "one true brace style"
 		"camelcase": "error", // require camelcase for names
+		"comma-dangle": "off", // unnecessary comma is ok
 		"comma-spacing": ["error", { "before": false, "after": true }], // require space after commas
 		"comma-style": ["error", "last"], // require commas at the end of lines
 		"complexity": "warn", // warn about code with high cyclomatic complexity
@@ -52,11 +54,15 @@
 			"mode": "minimum"
 		}],
 		"keyword-spacing": ["error", { "before": true, "after": true }], // require spaces around keywords
-		"linebreak-style": ["error", "unix"], // Unix EOLs
+		"linebreak-style": ["off"], // handled by VCS and editors
 		"max-depth": "warn", // warn about deeply-nested code
-		"max-len": ["error", 120], // no more than 120 chars per line
+		"max-len": ["error", 120, { // no more than 120 chars per line
+			"ignoreUrls": true // long URLs are ok
+		}],
 		"max-nested-callbacks": "warn", // warn about deeply-nested callbacks
-		"new-cap": "error", // require constructors to be capitalized
+		"new-cap": ["error", { // require constructors to be capitalized
+			"capIsNewExceptions": ["Polymer"]
+		}],
 		"new-parens": "error", // require parens when calling a constructor
 		"no-array-constructor": "error", // force literal notation for Array construction
 		"no-caller": "error", // forbid arguments.callee & arguments.caller
@@ -89,6 +95,7 @@
 		}],
 		"no-multi-str": "error", // forbid multiline strings
 		"no-multiple-empty-lines": "error", // forbid multiple blank lines
+		"no-negated-condition": "off", // allow negated conditions
 		"no-nested-ternary": "warn", // warn of nested ternary expressions
 		"no-new-func": "error", // forbid Function constructor
 		"no-new-object": "error", // force literal notation for Object construction
@@ -107,12 +114,18 @@
 		"no-unneeded-ternary": "error", // forbid unnecessary ternary expressions
 		"no-unused-expressions": "warn", // warn about unused expressions
 		"no-unused-vars": ["error", { "args": "none" }], // forbid unused vars, except as function args
+		"no-use-before-define": ["error", { // allow hoisting of functions and classes, but not variables
+			"functions": false,
+			"classes": false
+		}],
 		"no-useless-call": "error", // forbid unnecessary call()/apply()
 		"no-useless-computed-key": "error", // forbid computed keys
 		"no-useless-concat": "error", // forbid unnecessary string concatenation
 		"no-useless-escape": "error", // forbid unnecessary escape sequences
 		"no-useless-rename": "error", // forbid unnecessary import/export/destructuring renaming
 		"no-useless-return": "error", // forbid unnecessary return statements
+		"no-var": "error", // use let or const
+		"no-warning-comments": "off", // allow TODO/FIXME comments
 		"no-whitespace-before-property": "error", // forbid whitespace around property accessor
 		"no-with": "error", // forbid "with" expressions
 		"object-curly-spacing": ["error", "always", { // require spaces inside object braces, unless nested in another object
@@ -120,6 +133,11 @@
 		}],
 		"one-var": ["error", { "initialized": "never" }], // one "var" per var declaration, unless the var is uninitialized
 		"operator-linebreak": ["error", "after"], // require operator right before the line break
+		"prefer-arrow-callback": "warn", // shorter, with auto binding
+		"prefer-const": "off", // defer to the developer
+		"prefer-rest-params": "error", // use variadic functions
+		"prefer-spread": "error", // use spread rather than Function.prototype.apply()
+		"prefer-template": "off", // allow string concatenation
 		"quote-props": ["error", "as-needed"], // only quote properties when necessary
 		"quotes": ["error", "single"], // single quotes
 		"radix": "error", // require the radix argument to parseInt()
@@ -131,7 +149,7 @@
 		"space-infix-ops": "error", // require space around infix operators
 		"space-unary-ops": "error", // require space around "word" unary operators, but not "non-word" operators
 		"spaced-comment": ["error", "always"], // require space inside comment
-		"strict": ["error", "safe"], // require "use strict" directive
+		"strict": ["error", "global"], // require "use strict" directive at the top of files
 		"template-curly-spacing": "error", // forbid spaces inside template expression ${}
 		"unicode-bom": "error", // forbid BOM header
 		"wrap-iife": ["error", "inside"], // require IIFEs to be wrapped in parens

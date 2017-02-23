@@ -1,23 +1,23 @@
 'use strict';
 
-var fs    = require('fs');
-var glob  = require('globby');
-var hjson = require('hjson');
+const fs    = require('fs');
+const glob  = require('globby');
+const hjson = require('hjson');
 
 // Flattens an array of arrays.
-exports.flatten = function(arrayOfArrays) {
-	return arrayOfArrays.reduce(function(a, b) {
+exports.flatten = (arrayOfArrays) => {
+	return arrayOfArrays.reduce((a, b) => {
 		return a.concat(b);
 	}, []);
 };
 
 // Converts the argument into an array, if not already one.
-exports.toArray = function(a) {
+exports.toArray = (a) => {
 	return Array.isArray(a) ? a : [a];
 };
 
 // Parses an (H)JSON file.
-exports.parseJson = function(filename, opts) {
+exports.parseJson = (filename, opts) => {
 	opts = opts || {};
 	try {
 		return hjson.parse(fs.readFileSync(filename, 'utf8'));
@@ -32,24 +32,24 @@ exports.parseJson = function(filename, opts) {
 
 // Reads in the contents of files matching a pattern.
 // Returns a promise with an array of { file: ..., contents: ... } objects.
-exports.readFiles = function(filePattern) {
+exports.readFiles = (filePattern) => {
 	// Find all matching files.
-	var files = glob.sync(filePattern);
+	let files = glob.sync(filePattern);
 
 	if (files.length === 0) {
 		return Promise.resolve([]);
 	}
 
-	var isFile = function(file) {
-		var stat = fs.statSync(file);
+	const isFile = (file) => {
+		let stat = fs.statSync(file);
 		if (stat.isFile()) { return true; }
 		return false;
 	};
 
 	return Promise.all(
-		files.filter(isFile).map(function(file) {
-			return new Promise(function(resolve, reject) {
-				fs.readFile(file, 'utf8', function(err, contents) {
+		files.filter(isFile).map((file) => {
+			return new Promise((resolve, reject) => {
+				fs.readFile(file, 'utf8', (err, contents) => {
 					if (err) {
 						reject(new Error('could not read file ' + file + ': ' + err.message));
 						return;
@@ -65,7 +65,7 @@ exports.readFiles = function(filePattern) {
 };
 
 // Sort function for an array of linting errors.
-exports.sort = function(a, b) {
+exports.sort = (a, b) => {
 	// First sort by filename.
 	if (a.file < b.file) { return -1; }
 	if (a.file > b.file) { return 1; }

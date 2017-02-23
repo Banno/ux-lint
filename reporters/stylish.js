@@ -4,28 +4,28 @@
 //
 /* eslint no-console: "off" */
 'use strict';
-var chalk        = require('chalk');
-var logSymbols   = require('log-symbols');
-var plur         = require('plur');
-var sortFunc     = require('../helper').sort;
-var stringLength = require('string-length');
-var table        = require('text-table');
+const chalk        = require('chalk');
+const logSymbols   = require('log-symbols');
+const plur         = require('plur');
+const sortFunc     = require('../helper').sort;
+const stringLength = require('string-length');
+const table        = require('text-table');
 
-module.exports = function(results, opts) {
-	var output = '';
-	var headers = [];
-	var prevfile;
-	var errorCount = 0;
-	var warningCount = 0;
+module.exports = (results, opts) => {
+	let output = '';
+	let headers = [];
+	let prevfile;
+	let errorCount = 0;
+	let warningCount = 0;
 
 	opts = opts || {};
 
 	results.sort(sortFunc);
 
-	output += table(results.map(function(err, i) {
-		var isError = err.type && err.type === 'error';
+	output += table(results.map((err, i) => {
+		let isError = err.type && err.type === 'error';
 
-		var line = [
+		let line = [
 			'',
 			'',
 			chalk.gray(err.plugin),
@@ -54,7 +54,7 @@ module.exports = function(results, opts) {
 		return line;
 	}), {
 		stringLength: stringLength
-	}).split('\n').map(function(line, i) {
+	}).split('\n').map((line, i) => {
 		return headers[i] ? '\n  ' + chalk.underline(headers[i]) + '\n' + line : line;
 	}).join('\n') + '\n\n';
 
