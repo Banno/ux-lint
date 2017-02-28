@@ -1,7 +1,6 @@
 'use strict';
 describe('CLI', () => {
 
-	const extend = require('extend');
 	const proxyquire = require('proxyquire');
 	let stub = {};
 
@@ -58,7 +57,7 @@ describe('CLI', () => {
 			stub.minimist = () => { return { extend: ['1.json', '2.json'] }; };
 			stub['./helper'] = { parseJson: (filename) => { return opts[i++]; } };
 			loadCli();
-			expect(checkFunc.calls.mostRecent().args[1]).toEqual(extend({}, opts[0], opts[1]));
+			expect(checkFunc.calls.mostRecent().args[1]).toEqual(Object.assign({}, opts[0], opts[1]));
 		});
 
 	});

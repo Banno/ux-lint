@@ -13,7 +13,6 @@ Options:
 /* eslint-enable indent */
 
 const chalk     = require('chalk');
-const extend    = require('extend');
 const linter    = require('./');
 const parseArgs = require('minimist');
 const parseJson = require('./helper').parseJson;
@@ -40,7 +39,7 @@ if (typeof args.extend === 'undefined') {
 }
 
 let opts = optFiles.reduce((prevVal, currentVal) => {
-	return extend({}, prevVal, parseJson(currentVal));
+	return Object.assign({}, prevVal, parseJson(currentVal));
 }, {});
 
 linter[type](files, opts, (err, results) => {

@@ -1,19 +1,15 @@
 'use strict';
 
-const extend = require('extend');
-const filterErrors = require('polymer-lint/lib/util/filterErrors');
-const flatten = require('../helper').flatten;
-const readFiles = require('../helper').readFiles;
 const Linter = require('polymer-lint');
-const parseJson = require('../helper').parseJson;
-const toArray = require('../helper').toArray;
+const filterErrors = require('polymer-lint/lib/util/filterErrors');
+const { flatten, parseJson, readFiles, toArray } = require('../helper');
 
 const allRules = require('polymer-lint/lib/rules');
 const config = parseJson(__dirname + '/../config/polymer.hjson');
 
 exports.check = (filePattern, opts) => {
 	filePattern = toArray(filePattern);
-	opts = extend({}, config, opts);
+	opts = Object.assign({}, config, opts);
 	let rules = buildRules(opts && opts.rules);
 	let linter = new Linter(rules, opts);
 	return readFiles(filePattern).then(fileInfo => {
@@ -51,7 +47,7 @@ function buildRules(rulesDefinition) {
 		});
 	} else {
 		// If no rules are specified, use the entire set.
-		rules = extend({}, allRules);
+		rules = Object.assign({}, allRules);
 	}
 	return rules;
 }

@@ -1,11 +1,8 @@
 'use strict';
 
-const extend    = require('extend');
-const CLIEngine = require('eslint').CLIEngine;
-const flatten   = require('../helper').flatten;
-const parseJson = require('../helper').parseJson;
-const readFiles = require('../helper').readFiles;
-const toArray   = require('../helper').toArray;
+const { CLIEngine } = require('eslint');
+const extend = require('extend');
+const { flatten, parseJson, readFiles, toArray } = require('../helper');
 
 const config = parseJson(__dirname + '/../config/eslint.hjson');
 
@@ -23,7 +20,7 @@ exports.fix = (filePattern, opts) => {
 //   file path and code from the "result" object.
 function extractMessages(result) {
 	return result.messages.map((message) => {
-		return extend({}, message, {
+		return Object.assign({}, message, {
 			filePath: result.filePath,
 			output: result.output
 		});
