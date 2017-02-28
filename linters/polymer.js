@@ -1,7 +1,7 @@
 'use strict';
 
 const extend = require('extend');
-const filterErrors = require('polymer-lint/lib/util').filterErrors;
+const filterErrors = require('polymer-lint/lib/util/filterErrors');
 const flatten = require('../helper').flatten;
 const readFiles = require('../helper').readFiles;
 const Linter = require('polymer-lint');
@@ -72,7 +72,7 @@ function formatResult(error) {
 }
 
 // Returns true if a file is a Polymer component.
-// It checks this by looking for a <dom-module> element.
+// It checks this by looking for a <dom-module> element in HTML files.
 function isPolymerFile(fileInfo) {
 	return /\.html$/.test(fileInfo.file) && /<dom-module/i.test(fileInfo.contents);
 }
