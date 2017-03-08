@@ -7,6 +7,7 @@
 		"protractor": true
 	},
 	"extends": "eslint:recommended",
+	"plugins": ["banno"],
 	"globals": {
 		"angular": false,
 		// Angular mocks
@@ -20,6 +21,7 @@
 		"arrow-body-style": "off", // don't constrain our syntax for arrow functions
 		"arrow-spacing": ["error", { "before": true, "after": true }], // require spacing around fat-arrow operator
 		"accessor-pairs": "warn", // warn if getters/setters aren't paired
+		"banno/no-for-const": "error",
 		"block-scoped-var": "warn", // warn about confusing var hoisting
 		"block-spacing": ["error", "always"], // require spacing inside blocks
 		"brace-style": ["error", "1tbs", { "allowSingleLine": true }], // require "one true brace style"

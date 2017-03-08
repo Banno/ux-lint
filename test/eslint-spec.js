@@ -53,6 +53,7 @@ describe('eslint linter', () => {
 			const opts = {
 				// ignore all the errors
 				rules: {
+					'banno/no-for-const': 'off',
 					indent: 'off',
 					'no-undef': 'off',
 					'object-curly-spacing': 'off'
