@@ -1,8 +1,7 @@
 'use strict';
 
-const async   = require('async');
-const flatten = require('./helper').flatten;
-const toArray = require('./helper').toArray;
+const async = require('async');
+const { flatten, toArray } = require('./helper');
 const linters = require('require-all')({
 	dirname: __dirname + '/linters'
 });

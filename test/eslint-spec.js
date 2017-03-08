@@ -13,6 +13,7 @@ describe('eslint linter', () => {
 
 	const badFile  = __dirname + '/fixtures/bad-javascript.js';
 	const goodFile = __dirname + '/fixtures/good-javascript.js';
+	const htmlFile = __dirname + '/fixtures/good-html.html';
 
 	beforeEach(() => {
 		jasmine.addMatchers(customMatchers);
@@ -36,7 +37,6 @@ describe('eslint linter', () => {
 				done();
 			}).catch((err) => {
 				console.log('Error:', err.stack);
-
 			});
 		});
 
@@ -75,6 +75,16 @@ describe('eslint linter', () => {
 				done();
 			}).catch((err) => {
 				del.sync(tempFolder);
+				console.log('Error:', err.stack);
+			});
+		});
+
+		it('should ignore non-JS files', done => {
+			eslint.check(htmlFile).then((results) => {
+				expect(results).toEqual(jasmine.any(Array));
+				expect(results.length).toBe(0);
+				done();
+			}).catch((err) => {
 				console.log('Error:', err.stack);
 			});
 		});

@@ -2,9 +2,8 @@
 
 This project combines the following linting tools used by the Banno UX team into a single tool.
 
-Javascript linting:
-
-* [ESLint](http://eslint.org/)
+* [ESLint](http://eslint.org/) for JS files
+* [polymer-lint](https://github.com/Banno/polymer-lint) for Polymer component (HTML) files
 
 ## Installation
 

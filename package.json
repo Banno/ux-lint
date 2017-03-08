@@ -46,6 +46,7 @@
     "log-symbols": "^1.0.2",
     "minimist": "^1.2.0",
     "plur": "^2.1.1",
+    "polymer-lint": "^0.8.3",
     "require-all": "^2.0.0",
     "string-length": "^1.0.1",
     "text-table": "^0.2.0"
