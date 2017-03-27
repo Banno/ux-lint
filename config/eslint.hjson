@@ -143,6 +143,7 @@
 		"quote-props": ["error", "as-needed"], // only quote properties when necessary
 		"quotes": ["error", "single"], // single quotes
 		"radix": "error", // require the radix argument to parseInt()
+		"require-jsdoc": "off",
 		"semi": ["error", "always"], // semicolons are required
 		"semi-spacing": ["error", {"before": false, "after": true}], // require space after semicolons
 		"space-before-blocks": ["error", "always"], // require space before a block's curly brace
@@ -154,6 +155,12 @@
 		"strict": ["error", "global"], // require "use strict" directive at the top of files
 		"template-curly-spacing": "error", // forbid spaces inside template expression ${}
 		"unicode-bom": "error", // forbid BOM header
+		"valid-jsdoc": ["error", {
+			"requireParamDescription": false,
+			"requireReturnDescription": false,
+			"requireReturn": false,
+			"prefer": {"returns": "return"}
+		}],
 		"wrap-iife": ["error", "inside"], // require IIFEs to be wrapped in parens
 		"yield-star-spacing": ["error", "after"], // require space after "yield*"
 	}
