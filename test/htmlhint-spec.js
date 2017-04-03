@@ -65,6 +65,49 @@ describe('html linter', () => {
 			});
 		});
 
+		describe('custom rules', () => {
+
+			it('should include the "doc-lang" rule', done => {
+				const badCustomFile = __dirname + '/fixtures/bad-doc-lang.html';
+				const expectedNumErrors = 2;
+
+				linter.check(badCustomFile).then(results => {
+					expect(results).toEqual(jasmine.any(Array));
+					expect(results.length).toBe(expectedNumErrors);
+					done();
+				}).catch((err) => {
+					console.log('Error:', err.stack);
+				});
+			});
+
+			it('should include the "link-href" rule', done => {
+				const badCustomFile = __dirname + '/fixtures/bad-links.html';
+				const expectedNumErrors = 4;
+
+				linter.check(badCustomFile).then(results => {
+					expect(results).toEqual(jasmine.any(Array));
+					expect(results.length).toBe(expectedNumErrors);
+					done();
+				}).catch((err) => {
+					console.log('Error:', err.stack);
+				});
+			});
+
+			it('should include the "meta-charset" rule', done => {
+				const badCustomFile = __dirname + '/fixtures/bad-meta-charset.html';
+				const expectedNumErrors = 2;
+
+				linter.check(badCustomFile).then(results => {
+					expect(results).toEqual(jasmine.any(Array));
+					expect(results.length).toBe(expectedNumErrors);
+					done();
+				}).catch((err) => {
+					console.log('Error:', err.stack);
+				});
+			});
+
+		});
+
 	});
 
 	describe('fix()', () => {
