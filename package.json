@@ -44,6 +44,7 @@
     "extend": "^3.0.0",
     "globby": "^4.0.0",
     "hjson": "^1.7.4",
+    "htmlhint": "^0.9.13",
     "log-symbols": "^1.0.2",
     "minimist": "^1.2.0",
     "plur": "^2.1.1",
