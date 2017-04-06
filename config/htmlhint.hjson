@@ -10,7 +10,7 @@
 	"doc-lang": true, // <html> must have a lang attrribute
 	"doctype-first": false, // ignore DOCTYPE requirement (may be a fragment)
 	"doctype-html5": true, // use the HTML5 DOCTYPE
-	"head-script-disabled": true, // warn if <head> has a <script> tag (performance)
+	"head-script-disabled": false, // allow <script> tags in <head>
 	"href-abs-or-rel": false, // no requirement on whether href is absolute or relative URL
 	"id-class-ad-disabled": true, // warn if an id/class might be blocked by ad blockers
 	"id-class-value": false, // no format requirements for id/class values
