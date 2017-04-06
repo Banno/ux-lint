@@ -1,6 +1,8 @@
 {
 	"alt-require": true, // alt attributes should be used
-	"attr-lowercase": true, // attributes must be lowercase
+	"attr-lowercase": [ // attributes must be lowercase (except these)
+		"viewBox"
+	],
 	"attr-no-duplication": true, // no duplicate attributes
 	"attr-unsafe-chars": true, // warn if attribute has unsafe characters
 	"attr-value-double-quotes": true, // attributes should use double quotes
