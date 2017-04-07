@@ -17,7 +17,7 @@ htmlhint.addRule({
 	init: configureLinkHref
 });
 htmlhint.addRule({
-	id: 'meta-charset',
+	id: 'meta-charset-utf8',
 	description: '<meta> charset must be UTF-8.',
 	init: configureMetaCharset
 });
@@ -115,7 +115,7 @@ function configureLinkHref(parser, reporter) {
 	});
 }
 
-// Implements the "meta-charset" rule.
+// Implements the "meta-charset-utf8" rule.
 function configureMetaCharset(parser, reporter) {
 	parser.addListener('tagstart', event => {
 		if (event.tagName.toLowerCase() === 'meta') {

@@ -93,7 +93,7 @@ describe('html linter', () => {
 				});
 			});
 
-			it('should include the "meta-charset" rule', done => {
+			it('should include the "meta-charset-utf8" rule', done => {
 				const badCustomFile = __dirname + '/fixtures/bad-meta-charset.html';
 				const expectedNumErrors = 2;
 
