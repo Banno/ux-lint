@@ -1,4 +1,7 @@
 {
+	"banno/doc-lang": true, // <html> must have a lang attrribute
+	"banno/link-href": true, // links must have valid targets
+	"banno/meta-charset-utf8": true, // <meta> charset must be "utf-8"
 	"alt-require": true, // alt attributes should be used
 	"attr-lowercase": [ // attributes must be lowercase (except these)
 		"viewBox"
@@ -7,7 +10,6 @@
 	"attr-unsafe-chars": true, // warn if attribute has unsafe characters
 	"attr-value-double-quotes": true, // attributes should use double quotes
 	"attr-value-not-empty": false, // attributes can be standalone (no value)
-	"doc-lang": true, // <html> must have a lang attrribute
 	"doctype-first": false, // ignore DOCTYPE requirement (may be a fragment)
 	"doctype-html5": true, // use the HTML5 DOCTYPE
 	"head-script-disabled": false, // allow <script> tags in <head>
@@ -16,8 +18,6 @@
 	"id-class-value": false, // no format requirements for id/class values
 	"id-unique": true, // IDs must be unique
 	"inline-style-disabled": true, // warn if inline styles are used
-	"link-href": true, // links must have valid targets
-	"meta-charset-utf8": true, // <meta> charset must be "utf-8"
 	"space-tab-mixed-disabled": "tab", // use tabs for indentation
 	"spec-char-escape": true, // special HTML characters should be escaped
 	"src-not-empty": true, // src attributes should be defined

@@ -7,17 +7,17 @@ const config = parseJson(__dirname + '/../config/htmlhint.hjson');
 
 // Add our custom rules.
 htmlhint.addRule({
-	id: 'doc-lang',
+	id: 'banno/doc-lang',
 	description: '<html> tags must have a "lang" attribute.',
 	init: configureDocLang
 });
 htmlhint.addRule({
-	id: 'link-href',
+	id: 'banno/link-href',
 	description: 'Links must have an href and it must be valid.',
 	init: configureLinkHref
 });
 htmlhint.addRule({
-	id: 'meta-charset-utf8',
+	id: 'banno/meta-charset-utf8',
 	description: '<meta> charset must be UTF-8.',
 	init: configureMetaCharset
 });
@@ -31,7 +31,7 @@ exports.fix = (filePattern, opts) => {
 	return linter(filePattern, opts);
 };
 
-// Implements the "doc-lang" rule.
+// Implements the "banno/doc-lang" rule.
 function configureDocLang(parser, reporter) {
 	parser.addListener('tagstart', event => {
 		if (event.tagName.toLowerCase() === 'html') {
@@ -64,7 +64,7 @@ function configureDocLang(parser, reporter) {
 	});
 }
 
-// Implements the "link-href" rule.
+// Implements the "banno/link-href" rule.
 function configureLinkHref(parser, reporter) {
 	parser.addListener('tagstart', event => {
 		if (event.tagName.toLowerCase() === 'a') {
@@ -115,7 +115,7 @@ function configureLinkHref(parser, reporter) {
 	});
 }
 
-// Implements the "meta-charset-utf8" rule.
+// Implements the "banno/meta-charset-utf8" rule.
 function configureMetaCharset(parser, reporter) {
 	parser.addListener('tagstart', event => {
 		if (event.tagName.toLowerCase() === 'meta') {
