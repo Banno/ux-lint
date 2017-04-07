@@ -73,7 +73,7 @@ function configureLinkHref(parser, reporter) {
 			for (let attr of event.attrs) {
 				if (attr.name.toLowerCase() === 'href') {
 					foundHref = true;
-					if (attr.value === '') {
+					if (attr.value === '' && attr.raw.toLowerCase().includes('href=')) {
 						reporter.error(
 							'Link target must not be empty.',
 							event.line,
