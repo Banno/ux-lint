@@ -4,6 +4,12 @@ const fs    = require('fs');
 const glob  = require('globby');
 const hjson = require('hjson');
 
+// Capitalizes the first letter in a string.
+exports.capitalize = (str) => {
+	if (str === '') { return str; }
+	return str[0].toUpperCase() + str.substr(1);
+};
+
 // Flattens an array of arrays.
 exports.flatten = (arrayOfArrays) => {
 	return arrayOfArrays.reduce((a, b) => {

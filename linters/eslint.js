@@ -2,17 +2,25 @@
 
 const { CLIEngine } = require('eslint');
 const extend = require('extend');
-const { flatten, parseJson, readFiles, toArray } = require('../helper');
+const { capitalize, flatten, parseJson, readFiles, toArray } = require('../helper');
 
 const config = parseJson(__dirname + '/../config/eslint.hjson');
 
 exports.check = (filePattern, opts) => {
-	return linter('lint', filePattern, opts);
+	return linter('lint', 'files', filePattern, opts);
+};
+
+exports.checkCode = (code, opts) => {
+	return linter('lint', 'text', code, opts);
 };
 
 // Note that eslint's fix excludes the fixed items from the results.
 exports.fix = (filePattern, opts) => {
-	return linter('fix', filePattern, opts);
+	return linter('fix', 'files', filePattern, opts);
+};
+
+exports.fixCode = (code, opts) => {
+	return linter('fix', 'text', code, opts);
 };
 
 // Takes an eslint result from executeOnFiles().
@@ -33,18 +41,33 @@ function isJsFile(fileInfo) {
 	return /\.js$/.test(fileInfo.file);
 }
 
-function linter(type, filePattern, opts) {
-	filePattern = toArray(filePattern);
+// Main function for linting/fixing.
+//   `type` is "lint" or "fix"
+//   `sourceType` is "files" or "text"
+function linter(type, sourceType, filesOrCode, opts) {
 	opts = extend(true, {}, config, opts);
+
 	let cli = new CLIEngine({
 		baseConfig: opts,
 		dotfiles: true,
 		fix: type === 'fix',
 		useEslintrc: false
 	});
-	return readFiles(filePattern).then(fileInfo => {
-		let files = fileInfo.filter(isJsFile).map(items => items.file);
-		let report = cli.executeOnFiles(files);
+
+	let getSource = () => {
+		if (sourceType === 'text') {
+			return Promise.resolve(filesOrCode);
+		}
+
+		filesOrCode = toArray(filesOrCode);
+		return readFiles(filesOrCode).then(fileInfo => {
+			return fileInfo.filter(isJsFile).map(items => items.file);
+		});
+	};
+
+	return getSource().then(source => {
+		let executeMethod = `executeOn${capitalize(sourceType)}`;
+		let report = cli[executeMethod](source);
 		let results = flatten(report.results.map(extractMessages)).map((result) => {
 			return {
 				character: result.column,
@@ -57,8 +80,18 @@ function linter(type, filePattern, opts) {
 				type: result.severity > 1 || result.fatal ? 'error' : 'warning'
 			};
 		});
+
 		if (type === 'fix') {
-			CLIEngine.outputFixes(report);
+			if (sourceType === 'files') {
+				// Persist fixes to the files.
+				CLIEngine.outputFixes(report);
+			} else if (sourceType === 'text') {
+				// Return the fixed code (or the original code,
+				//   if there are no fixes).
+				return report.results[0].hasOwnProperty('output') ?
+					report.results[0].output :
+					source;
+			}
 		}
 		return results;
 	});
