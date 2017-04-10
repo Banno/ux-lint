@@ -1,8 +1,0 @@
-## TODO html linting
-
-HTMLTidy? https://github.com/c0b41/htmltidy2
-
-* fork lib (move custom rules into here)
-* whitelist for tagname-lowercase (clipPath)
-* "cannot be use" language
-* misleading message for <img src="[[imageDataUri]]" alt=""></img>
