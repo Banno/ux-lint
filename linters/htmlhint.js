@@ -26,9 +26,20 @@ exports.check = (filePattern, opts) => {
 	return linter(filePattern, opts);
 };
 
-exports.fix = (filePattern, opts) => {
-	// HTMLHint has no ability to fix, so just run the linter.
-	return linter(filePattern, opts);
+exports.checkCode = (code, opts) => {
+	opts = Object.assign({}, config, opts);
+	return Promise.resolve(
+		lintHtml({
+			contents: code,
+			file: null
+		}, opts)
+	);
+};
+
+// HTMLHint has no ability to fix.
+exports.fix = exports.check;
+exports.fixCode = (code, opts) => {
+	return Promise.resolve(code);
 };
 
 // Implements the "banno/doc-lang" rule.
@@ -164,9 +175,7 @@ function isHtmlFile(fileInfo) {
 }
 
 // Lints a file object.
-// Uses the "this" object passed with map() for the options.
-function lintHtml(fileInfo) {
-	let opts = this || config; // eslint-disable-line no-invalid-this
+function lintHtml(fileInfo, opts) {
 	return htmlhint.verify(fileInfo.contents, opts).map(result => {
 		return {
 			character: result.col,
@@ -185,6 +194,8 @@ function linter(filePattern, opts) {
 	filePattern = toArray(filePattern);
 	opts = Object.assign({}, config, opts);
 	return readFiles(filePattern).then(fileInfo => {
-		return flatten(fileInfo.filter(isHtmlFile).map(lintHtml, opts));
+		return flatten(fileInfo.filter(isHtmlFile).map(function(item) {
+			return lintHtml(item, this || config);
+		}, opts));
 	});
 }
