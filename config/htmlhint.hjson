@@ -1,0 +1,29 @@
+{
+	"banno/doc-lang": true, // <html> must have a lang attrribute
+	"banno/link-href": true, // links must have valid targets
+	"banno/meta-charset-utf8": true, // <meta> charset must be "utf-8"
+	"alt-require": true, // alt attributes should be used
+	"attr-lowercase": [ // attributes must be lowercase (except these)
+		"viewBox"
+	],
+	"attr-no-duplication": true, // no duplicate attributes
+	"attr-unsafe-chars": true, // warn if attribute has unsafe characters
+	"attr-value-double-quotes": true, // attributes should use double quotes
+	"attr-value-not-empty": false, // attributes can be standalone (no value)
+	"doctype-first": false, // ignore DOCTYPE requirement (may be a fragment)
+	"doctype-html5": true, // use the HTML5 DOCTYPE
+	"head-script-disabled": false, // allow <script> tags in <head>
+	"href-abs-or-rel": false, // no requirement on whether href is absolute or relative URL
+	"id-class-ad-disabled": true, // warn if an id/class might be blocked by ad blockers
+	"id-class-value": false, // no format requirements for id/class values
+	"id-unique": true, // IDs must be unique
+	"inline-style-disabled": true, // warn if inline styles are used
+	"space-tab-mixed-disabled": "space2", // use 2 spaces for indentation
+	"spec-char-escape": true, // special HTML characters should be escaped
+	"src-not-empty": true, // src attributes should be defined
+	"style-disabled": false, // <style> can be used
+	"tag-pair": true, // tags should be paired
+	"tag-self-close": false, // HTML doesn't require self-closing tag
+	"tagname-lowercase": true, // tag names must be lowercase
+	"title-require": true, // <head> should have a <title>
+}
