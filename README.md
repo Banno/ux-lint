@@ -52,6 +52,20 @@ The first argument can be a file, file pattern, or array of those.
 
 The configuration object passed as the 2nd argument will override (not replace) the default configuration.
 
+You can also check/fix code directly:
+
+```javascript
+linter.checkCode('// code here', { /* optional config, keyed by plugin name */ }, function(err, lintErrors) {
+  // `err` is the Error object, if an error occurred
+  // `lintErrors` is an array of linting errors
+});
+
+linter.fixCode('// code here', { /* optional config */ }, function(err, fixedCode) {
+  // `err` is in the same format as the checkCode() callback
+  // `fixedCode` is the source code with the fixes
+});
+```
+
 ## Contributing
 
 Want to propose a change to our style (and therefore linting) conventions? Want to add another linting tool? Pull requests and suggestions are welcome.
@@ -68,9 +82,11 @@ npm test      # run tests
 Each linter has a plugin in the `linters` folder. Plugins have the following signature:
 
 ```javascript
-// Both methods return a promise that resolves to an array.
+// All methods return a promise that resolves to an array (or string, in the case of fixCode()).
 exports.check = function(filePattern, opts) { /* ... */ };
 exports.fix   = function(filePattern, opts) { /* ... */ };
+exports.checkCode = function(codeString, opts) { /* ... */ };
+exports.fixCode   = function(codeString, opts) { /* ... */ };
 ```
 
 The results array should contain objects with the following signature:
@@ -84,7 +100,7 @@ The results array should contain objects with the following signature:
   line: 13, // line number of the offending code
   character: 9, // column number of the offending code
   description: '\'console\' is not defined.', // message about the error
-  file: '/Users/jdoe/bad-javascript.js' // filename
+  file: '/Users/jdoe/bad-javascript.js' // filename (check() and fix() only)
 }
 ```
 
