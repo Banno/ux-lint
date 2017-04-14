@@ -38,6 +38,7 @@ function runLinters(type, fileOrCode, opts, callback) {
 	// Function for normal linting & fixing files.
 	let lintByName = (linterName, callback) => {
 		let linterOpts = opts[linterName] || {};
+		linterOpts.language = opts.language;
 		linters[linterName][type](fileOrCode, linterOpts).then(result => {
 			callback(null, result);
 		}).catch((err) => {

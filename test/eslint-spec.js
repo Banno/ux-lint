@@ -142,6 +142,26 @@ describe('eslint linter', () => {
 			});
 		});
 
+		it('should work when a language is defined', done => {
+			eslint.checkCode(goodCode, { language: 'javascript' }).then(results => {
+				expect(results).toEqual(jasmine.any(Array));
+				expect(results.length).toBe(0);
+				done();
+			}).catch((err) => {
+				console.log('Error:', err.stack);
+			});
+		});
+
+		it('should ignore non-JS code', done => {
+			eslint.checkCode(badCode, { language: 'html' }).then(results => {
+				expect(results).toEqual(jasmine.any(Array));
+				expect(results.length).toBe(0);
+				done();
+			}).catch((err) => {
+				console.log('Error:', err.stack);
+			});
+		});
+
 	});
 
 	describe('fix()', () => {

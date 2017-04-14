@@ -72,7 +72,12 @@ function linter(sourceType, filesOrCode, opts) {
 	let getSource = () => {
 		if (sourceType === 'text') {
 			let stream = new PassThrough();
-			stream.end(filesOrCode);
+			if (opts.language && opts.language !== 'html') {
+				// Ignore non-HTML code.
+				stream.end();
+			} else {
+				stream.end(filesOrCode);
+			}
 			return Promise.resolve(stream);
 		}
 

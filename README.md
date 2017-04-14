@@ -66,6 +66,8 @@ linter.fixCode('// code here', { /* optional config */ }, function(err, fixedCod
 });
 ```
 
+A `language` option can be passed in the options to specify the format of the code (`html` or `javascript`), so that the appropriate linters are run.
+
 ## Contributing
 
 Want to propose a change to our style (and therefore linting) conventions? Want to add another linting tool? Pull requests and suggestions are welcome.
