@@ -28,6 +28,10 @@ exports.check = (filePattern, opts) => {
 
 exports.checkCode = (code, opts) => {
 	opts = Object.assign({}, config, opts);
+	if (opts.language && opts.language !== 'html') {
+		// Ignore non-HTML code.
+		return Promise.resolve([]);
+	}
 	return Promise.resolve(
 		lintHtml({
 			contents: code,

@@ -56,6 +56,9 @@ function linter(type, sourceType, filesOrCode, opts) {
 
 	let getSource = () => {
 		if (sourceType === 'text') {
+			if (opts.language && opts.language !== 'javascript') {
+				return Promise.resolve('');
+			}
 			return Promise.resolve(filesOrCode);
 		}
 

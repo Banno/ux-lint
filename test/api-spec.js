@@ -82,6 +82,17 @@ describe('JS API', () => {
 			});
 		});
 
+		it('should pass along the "language" option to the linters', done => {
+			const goodFile = __dirname + '/fixtures/good-component.html';
+			const goodCode = fs.readFileSync(goodFile, 'utf8');
+			linter.checkCode(goodCode, { language: 'html' }, (err, results) => {
+				if (err) { console.log('Error:', err.message); }
+				expect(results).toEqual(jasmine.any(Array));
+				expect(results.length).toBe(0);
+				done();
+			});
+		});
+
 	});
 
 	describe('fix()', () => {
