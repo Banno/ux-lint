@@ -31,19 +31,19 @@
   },
   "devDependencies": {
     "del": "^2.2.2",
-    "fs-extra": "^0.26.2",
+    "fs-extra": "^2.1.2",
     "jasmine": "^2.3.2",
     "proxyquire": "^1.7.3",
-    "tempfile": "^1.1.1"
+    "tempfile": "^2.0.0"
   },
   "dependencies": {
-    "async": "^1.5.0",
+    "async": "^2.3.0",
     "chalk": "^1.1.1",
     "eslint": "^3.9.1",
     "eslint-plugin-banno": "^1.0.0",
     "extend": "^3.0.0",
-    "globby": "^4.0.0",
-    "hjson": "^1.7.4",
+    "globby": "^6.1.0",
+    "hjson": "^2.4.1",
     "htmlhint": "^0.9.13",
     "log-symbols": "^1.0.2",
     "minimist": "^1.2.0",

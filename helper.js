@@ -40,7 +40,12 @@ exports.parseJson = (filename, opts) => {
 // Returns a promise with an array of { file: ..., contents: ... } objects.
 exports.readFiles = (filePattern) => {
 	// Find all matching files.
-	let files = glob.sync(filePattern);
+	let files;
+	try {
+		files = glob.sync(filePattern);
+	} catch (err) {
+		files = [];
+	}
 
 	if (files.length === 0) {
 		return Promise.resolve([]);
