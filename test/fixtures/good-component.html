@@ -6,8 +6,18 @@
     <div>test component</div>
   </template>
   <script>
+    'use strict';
+
     Polymer({
-      is: "good-component"
+      is: 'good-component'
     });
+
+    class MyElement extends Polymer.Element {
+      static get is() { return 'my-element'; }
+      ready() {
+        super.ready();
+      }
+    }
+    window.customElements.define(MyElement.is, MyElement);
   </script>
 </dom-module>

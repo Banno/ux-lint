@@ -18,6 +18,11 @@ describe('eslint linter', () => {
 	const goodFile = __dirname + '/fixtures/good-javascript.js';
 	const goodCode = fs.readFileSync(goodFile, 'utf8');
 	const htmlFile = __dirname + '/fixtures/good-html.html';
+	const htmlCode = fs.readFileSync(htmlFile, 'utf8');
+	const polymerFile = __dirname + '/fixtures/good-component.html';
+	const polymerCode = fs.readFileSync(polymerFile, 'utf8');
+	const cssFile = __dirname + '/fixtures/good-css.css';
+	const cssCode = fs.readFileSync(cssFile, 'utf8');
 
 	beforeEach(() => {
 		jasmine.addMatchers(customMatchers);
@@ -84,8 +89,28 @@ describe('eslint linter', () => {
 			});
 		});
 
-		it('should ignore non-JS files', done => {
+		it('should check scripts inside HTML files', done => {
 			eslint.check(htmlFile).then((results) => {
+				expect(results).toEqual(jasmine.any(Array));
+				expect(results.length).toBeGreaterThan(0);
+				done();
+			}).catch((err) => {
+				console.log('Error:', err.stack);
+			});
+		});
+
+		it('should work with Polymer components', done => {
+			eslint.check(polymerFile).then((results) => {
+				expect(results).toEqual(jasmine.any(Array));
+				expect(results.length).toBe(0);
+				done();
+			}).catch((err) => {
+				console.log('Error:', err.stack);
+			});
+		});
+
+		it('should ignore non-JS (and non-HTML) files', done => {
+			eslint.check(cssFile).then((results) => {
 				expect(results).toEqual(jasmine.any(Array));
 				expect(results.length).toBe(0);
 				done();
@@ -152,8 +177,28 @@ describe('eslint linter', () => {
 			});
 		});
 
+		it('should check scripts inside HTML code', done => {
+			eslint.checkCode(htmlCode, { language: 'html' }).then((results) => {
+				expect(results).toEqual(jasmine.any(Array));
+				expect(results.length).toBeGreaterThan(0);
+				done();
+			}).catch((err) => {
+				console.log('Error:', err.stack);
+			});
+		});
+
+		it('should work with Polymer components', done => {
+			eslint.checkCode(polymerCode, { language: 'html' }).then((results) => {
+				expect(results).toEqual(jasmine.any(Array));
+				expect(results.length).toBe(0);
+				done();
+			}).catch((err) => {
+				console.log('Error:', err.stack);
+			});
+		});
+
 		it('should ignore non-JS code', done => {
-			eslint.checkCode(badCode, { language: 'html' }).then(results => {
+			eslint.checkCode(cssCode, { language: 'css' }).then(results => {
 				expect(results).toEqual(jasmine.any(Array));
 				expect(results.length).toBe(0);
 				done();

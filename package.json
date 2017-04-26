@@ -41,6 +41,7 @@
     "chalk": "^1.1.1",
     "eslint": "^3.9.1",
     "eslint-plugin-banno": "^1.0.0",
+    "eslint-plugin-html": "^2.0.1",
     "extend": "^3.0.0",
     "globby": "^6.1.0",
     "hjson": "^2.4.1",

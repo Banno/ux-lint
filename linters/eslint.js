@@ -3,8 +3,18 @@
 const { CLIEngine } = require('eslint');
 const extend = require('extend');
 const { capitalize, flatten, parseJson, readFiles, toArray } = require('../helper');
+const { extname } = require('path');
 
 const config = parseJson(__dirname + '/../config/eslint.hjson');
+
+const allowedExtensions = [
+	'.htm', '.html', // include HTML for <script> linting
+	'.js',
+];
+const allowedLanguages = [
+	'html', // include HTML for <script> linting
+	'javascript'
+];
 
 exports.check = (filePattern, opts) => {
 	return linter('lint', 'files', filePattern, opts);
@@ -35,12 +45,6 @@ function extractMessages(result) {
 	});
 }
 
-// Returns true if a file is a Javascript file
-//   (i.e., has a .js file extension).
-function isJsFile(fileInfo) {
-	return /\.js$/.test(fileInfo.file);
-}
-
 // Main function for linting/fixing.
 //   `type` is "lint" or "fix"
 //   `sourceType` is "files" or "text"
@@ -50,13 +54,14 @@ function linter(type, sourceType, filesOrCode, opts) {
 	let cli = new CLIEngine({
 		baseConfig: opts,
 		dotfiles: true,
+		extensions: allowedExtensions,
 		fix: type === 'fix',
 		useEslintrc: false
 	});
 
 	let getSource = () => {
 		if (sourceType === 'text') {
-			if (opts.language && opts.language !== 'javascript') {
+			if (opts.language && !allowedLanguages.includes(opts.language)) {
 				return Promise.resolve('');
 			}
 			return Promise.resolve(filesOrCode);
@@ -64,13 +69,20 @@ function linter(type, sourceType, filesOrCode, opts) {
 
 		filesOrCode = toArray(filesOrCode);
 		return readFiles(filesOrCode).then(fileInfo => {
-			return fileInfo.filter(isJsFile).map(items => items.file);
+			return fileInfo
+				.filter(item => allowedExtensions.includes(extname(item.file)))
+				.map(items => items.file);
 		});
 	};
 
 	return getSource().then(source => {
 		let executeMethod = `executeOn${capitalize(sourceType)}`;
-		let report = cli[executeMethod](source);
+		let args = [source];
+		// A filename is required for eslint-plugin-html to parse HTML files.
+		if (sourceType === 'text' && opts.language === 'html') {
+			args.push('[placeholder].html');
+		}
+		let report = cli[executeMethod](...args);
 		let results = flatten(report.results.map(extractMessages)).map((result) => {
 			return {
 				character: result.column,
