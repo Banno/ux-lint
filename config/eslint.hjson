@@ -7,9 +7,10 @@
 		"protractor": true
 	},
 	"extends": "eslint:recommended",
-	"plugins": ["banno"],
+	"plugins": ["banno", "html"],
 	"globals": {
 		"angular": false,
+		"Polymer": false,
 		// Angular mocks
 		"inject": false,
 		"mock": false,
@@ -163,5 +164,9 @@
 		}],
 		"wrap-iife": ["error", "inside"], // require IIFEs to be wrapped in parens
 		"yield-star-spacing": ["error", "after"], // require space after "yield*"
-	}
+	},
+	"settings": {
+		"html/report-bad-indent": "error", // error if html/indent is bad
+		"html/indent": "+2", // <script> indentation plus two spaces
+	},
 }
