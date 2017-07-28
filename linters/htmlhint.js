@@ -1,6 +1,6 @@
 'use strict';
 
-const htmlhint = require('htmlhint').HTMLHint;
+const htmlhint = require('banno-htmlhint').HTMLHint;
 const { flatten, parseJson, readFiles, toArray } = require('../helper');
 
 const config = parseJson(__dirname + '/../config/htmlhint.hjson');
