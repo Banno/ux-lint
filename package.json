@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "async": "^2.3.0",
+    "banno-htmlhint": "^0.9.15",
     "chalk": "^1.1.1",
     "eslint": "^3.9.1",
     "eslint-plugin-banno": "^1.0.0",
@@ -45,7 +46,6 @@
     "extend": "^3.0.0",
     "globby": "^6.1.0",
     "hjson": "^2.4.1",
-    "htmlhint": "^0.9.13",
     "log-symbols": "^1.0.2",
     "minimist": "^1.2.0",
     "plur": "^2.1.1",
