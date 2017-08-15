@@ -13,6 +13,7 @@ describe('polymer linter', () => {
 	const goodFile = __dirname + '/fixtures/good-component.html';
 	const goodCode = fs.readFileSync(goodFile, 'utf8');
 	const otherFile = __dirname + '/fixtures/good-html.html';
+	const goodIcon = __dirname + '/fixtures/good-icon.html';
 
 	beforeEach(() => {
 		jasmine.addMatchers(customMatchers);
@@ -72,6 +73,25 @@ describe('polymer linter', () => {
 			});
 		});
 
+	 it('should include icon-titles rule', done => {
+		polymer.check(badFile).then((results) => {
+			const errorCodes = results.map(r => r.code);
+			expect(errorCodes).toContain('icon-titles');
+			done();
+		}).catch((err) => {
+			console.log('Error:', err.stack);
+		});
+	 })
+
+	 it('should include icon-titles rule, without false positives', done => {
+		polymer.check(goodIcon).then((results) => {
+			const errorCodes = results.map(r => r.code);
+			expect(errorCodes).not.toContain('icon-titles');
+			done();
+		}).catch((err) => {
+			console.log('Error:', err.stack);
+		});
+	 })
 	});
 
 	describe('checkCode()', () => {
