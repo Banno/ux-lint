@@ -168,5 +168,8 @@
 	"settings": {
 		"html/report-bad-indent": "error", // error if html/indent is bad
 		"html/indent": "+2", // <script> indentation plus two spaces
+		// lint JavaScript inside <script> tags with no `type` attribute, `type="module"`,
+		// or `type="application/javascript"`
+		"html/javascript-mime-types": "/^(module|application/javascript)$/",
 	},
 }

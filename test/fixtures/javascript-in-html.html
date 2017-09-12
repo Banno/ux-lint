@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>test</title>
+  </head>
+  <body>
+    <script>
+      'use strict';
+      MyGlobal = 'This is valid JavaScript with a \'no-undef\' error';
+    </script>
+
+    <script type="module">
+      console.warn('This is valid JavaScript with a \'no-console\' error.');
+    </script>
+
+    <script type="text/coffeescript">
+      This is not JavaScript and should be ignored.
+    </script>
+  </body>
+</html>
+
