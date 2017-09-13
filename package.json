@@ -1,6 +1,6 @@
 {
   "name": "ux-lint",
-  "version": "1.7.1",
+  "version": "1.8.0",
   "description": "Linting tool for Banno UX projects",
   "main": "index.js",
   "bin": {
