@@ -8,6 +8,25 @@ const { PassThrough } = require('stream');
 const allRules = require('polymer-lint/lib/rules');
 const config = parseJson(__dirname + '/../config/polymer.hjson');
 
+const customRules = {
+	'icon-titles': function iconTitles(context, parser, onError) {
+		const iconRegExp = new RegExp(/jha-icon-[\w-]+/);
+		parser.on('startTag', (name, attrs, selfClosing, location) => {
+			if (
+				!name.match(iconRegExp) ||
+				(name.match(iconRegExp) &&
+					attrs.filter(attr => attr.name === 'title').length)
+			) {
+				return;
+			}
+			onError({
+				message: `Icon has no title attribute: ${name}`,
+				location
+			});
+		});
+	}
+};
+
 exports.check = (filePattern, opts) => {
 	return linter('files', filePattern, opts);
 };
@@ -35,7 +54,7 @@ function buildRules(rulesDefinition) {
 		});
 	} else {
 		// If no rules are specified, use the entire set.
-		rules = Object.assign({}, allRules);
+		rules = Object.assign({}, allRules, customRules);
 	}
 	return rules;
 }

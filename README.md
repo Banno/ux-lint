@@ -4,7 +4,7 @@ This project combines the following linting tools used by the Banno UX team into
 
 * [ESLint](http://eslint.org/) for JS files
 * [HTMLHint](https://github.com/yaniswang/HTMLHint) for HTML files, with [additional custom rules](docs/htmlhint.md)
-* [polymer-lint](https://github.com/Banno/polymer-lint) for Polymer component (HTML) files
+* [polymer-lint](https://github.com/Banno/polymer-lint) for Polymer component (HTML) files, with [additional custom rules](docs/polymer.md)
 
 ## Installation
 
