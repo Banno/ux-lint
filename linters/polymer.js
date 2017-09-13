@@ -10,22 +10,22 @@ const config = parseJson(__dirname + '/../config/polymer.hjson');
 
 const customRules = {
 	'icon-titles': function iconTitles(context, parser, onError) {
-		  const iconRegExp = new RegExp(/jha-icon-[\w-]+/);
-		  parser.on('startTag', (name, attrs, selfClosing, location) => {
-		    if (
-		      !name.match(iconRegExp) ||
-		      (name.match(iconRegExp) &&
-		        attrs.filter(attr => attr.name === 'title').length)
-		    ) {
-		      return;
-		    }
-		    onError({
-		      message: `Icon has no title attribute: ${name}`,
-		      location
-		    });
-		  });
-		}
-}
+		const iconRegExp = new RegExp(/jha-icon-[\w-]+/);
+		parser.on('startTag', (name, attrs, selfClosing, location) => {
+			if (
+				!name.match(iconRegExp) ||
+				(name.match(iconRegExp) &&
+					attrs.filter(attr => attr.name === 'title').length)
+			) {
+				return;
+			}
+			onError({
+				message: `Icon has no title attribute: ${name}`,
+				location
+			});
+		});
+	}
+};
 
 exports.check = (filePattern, opts) => {
 	return linter('files', filePattern, opts);
