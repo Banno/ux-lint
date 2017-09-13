@@ -13,16 +13,21 @@ describe('eslint linter', () => {
 
 	const badFile  = __dirname + '/fixtures/bad-javascript.js';
 	const badCode  = fs.readFileSync(badFile, 'utf8');
-	const fixedFile = __dirname + '/fixtures/fixed-javascript.js';
-	const fixedCode = fs.readFileSync(fixedFile, 'utf8');
-	const goodFile = __dirname + '/fixtures/good-javascript.js';
-	const goodCode = fs.readFileSync(goodFile, 'utf8');
-	const htmlFile = __dirname + '/fixtures/good-html.html';
-	const htmlCode = fs.readFileSync(htmlFile, 'utf8');
-	const polymerFile = __dirname + '/fixtures/good-component.html';
-	const polymerCode = fs.readFileSync(polymerFile, 'utf8');
+
 	const cssFile = __dirname + '/fixtures/good-css.css';
 	const cssCode = fs.readFileSync(cssFile, 'utf8');
+
+	const fixedFile = __dirname + '/fixtures/fixed-javascript.js';
+	const fixedCode = fs.readFileSync(fixedFile, 'utf8');
+
+	const goodFile = __dirname + '/fixtures/good-javascript.js';
+	const goodCode = fs.readFileSync(goodFile, 'utf8');
+
+	const jsInHtmlFile = __dirname + '/fixtures/javascript-in-html.html';
+	const jsInHtmlCode = fs.readFileSync(jsInHtmlFile, 'utf8');
+
+	const polymerFile = __dirname + '/fixtures/good-component.html';
+	const polymerCode = fs.readFileSync(polymerFile, 'utf8');
 
 	beforeEach(() => {
 		jasmine.addMatchers(customMatchers);
@@ -90,9 +95,9 @@ describe('eslint linter', () => {
 		});
 
 		it('should check scripts inside HTML files', done => {
-			eslint.check(htmlFile).then((results) => {
-				expect(results).toEqual(jasmine.any(Array));
-				expect(results.length).toBeGreaterThan(0);
+			eslint.check(jsInHtmlFile).then((results) => {
+				const codes = results.map(({ code }) => code);
+				expect(codes).toEqual(['no-undef', 'no-console']);
 				done();
 			}).catch((err) => {
 				console.log('Error:', err.stack);
@@ -178,9 +183,9 @@ describe('eslint linter', () => {
 		});
 
 		it('should check scripts inside HTML code', done => {
-			eslint.checkCode(htmlCode, { language: 'html' }).then((results) => {
-				expect(results).toEqual(jasmine.any(Array));
-				expect(results.length).toBeGreaterThan(0);
+			eslint.checkCode(jsInHtmlCode, { language: 'html' }).then((results) => {
+				const codes = results.map(({ code }) => code);
+				expect(codes).toEqual(['no-undef', 'no-console']);
 				done();
 			}).catch((err) => {
 				console.log('Error:', err.stack);
