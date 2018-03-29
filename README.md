@@ -75,8 +75,8 @@ Want to propose a change to our style (and therefore linting) conventions? Want 
 Please add tests and maintain the existing styling when adding and updating the code.
 
 ```
-npm run lint  # run linting
-npm test      # run tests
+yarn lint  # run linting
+yarn test  # run tests
 ```
 
 ### Linters
