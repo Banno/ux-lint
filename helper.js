@@ -12,9 +12,7 @@ exports.capitalize = (str) => {
 
 // Flattens an array of arrays.
 exports.flatten = (arrayOfArrays) => {
-	return arrayOfArrays.reduce((a, b) => {
-		return a.concat(b);
-	}, []);
+	return [].concat(...arrayOfArrays)
 };
 
 // Converts the argument into an array, if not already one.

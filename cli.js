@@ -29,14 +29,7 @@ if (args.help) {
 let type = args.fix ? 'fix' : 'check';
 let files = (!args._ || args._.length === 0) ? ['src/**/*.js', '*.js'] : args._;
 
-let optFiles;
-if (typeof args.extend === 'undefined') {
-	optFiles = [];
-} else if (Array.isArray(args.extend)) {
-	optFiles = args.extend;
-} else {
-	optFiles = new Array(args.extend);
-}
+let optFiles = typeof args.extend === 'undefined' ? [] : Array.from(args.extend);
 
 let opts = optFiles.reduce((prevVal, currentVal) => {
 	return Object.assign({}, prevVal, parseJson(currentVal));

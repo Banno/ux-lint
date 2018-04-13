@@ -8,6 +8,8 @@ This project combines the following linting tools used by the Banno UX team into
 
 ## Installation
 
+[Node.js](https://nodejs.org/) 8.0.0 or higher is required.
+
 ```shell
 npm install -g ux-lint
 ```
