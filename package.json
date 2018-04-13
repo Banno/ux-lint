@@ -2,13 +2,14 @@
   "name": "ux-lint",
   "version": "1.8.0",
   "description": "Linting tool for Banno UX projects",
-  "main": "index.js",
+  "main": "dist/index.js",
   "bin": {
-    "ux-lint": "./cli.js"
+    "ux-lint": "./dist/cli.js"
   },
   "scripts": {
-    "lint": "node cli.js *.js linters/*.js reporters/*.js test/*.js test/helpers/*.js --extend .lintrc",
-    "test": "JASMINE_CONFIG_PATH=test/jasmine.json jasmine"
+    "build": "tsc",
+    "lint": "tslint --project . --fix",
+    "test": "JASMINE_CONFIG_PATH=./test/jasmine.json jasmine-ts"
   },
   "repository": {
     "type": "git",
@@ -30,16 +31,29 @@
     "node": ">=8.0.0"
   },
   "devDependencies": {
+    "@types/eslint": "^4.16.0",
+    "@types/extend": "^3.0.0",
+    "@types/globby": "^6.1.0",
+    "@types/hjson": "^2.4.0",
+    "@types/htmlhint": "^0.9.1",
+    "@types/log-symbols": "^2.0.0",
+    "@types/minimist": "^1.2.0",
+    "@types/node": "^9.6.1",
+    "@types/pluralize": "^0.0.28",
     "del": "^2.2.2",
     "fs-extra": "^2.1.2",
-    "jasmine": "^2.3.2",
+    "jasmine": "^3.1.0",
+    "jasmine-spec-reporter": "^4.2.1",
+    "jasmine-ts": "^0.2.1",
     "proxyquire": "^1.7.3",
-    "tempfile": "^2.0.0"
+    "tempfile": "^2.0.0",
+    "tslint": "^5.9.1",
+    "tslint-config-standard": "^7.0.0",
+    "typescript": "^2.8.1"
   },
   "dependencies": {
-    "async": "^2.3.0",
     "banno-htmlhint": "^0.9.15",
-    "chalk": "^1.1.1",
+    "chalk": "^2.3.2",
     "eslint": "^3.9.1",
     "eslint-plugin-banno": "^1.0.0",
     "eslint-plugin-html": "^2.0.1",
@@ -48,9 +62,8 @@
     "hjson": "^2.4.1",
     "log-symbols": "^1.0.2",
     "minimist": "^1.2.0",
-    "plur": "^2.1.1",
+    "pluralize": "^7.0.0",
     "polymer-lint": "^0.8.3",
-    "require-all": "^2.0.0",
     "string-length": "^1.0.1",
     "text-table": "^0.2.0"
   }
