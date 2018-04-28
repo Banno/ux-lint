@@ -3,7 +3,7 @@ import * as extend from 'extend'
 import { extname } from 'path'
 import { capitalize, flatten, parseJson, readFiles, toArray } from '../helper'
 
-const config = parseJson(__dirname + '/../config/eslint.hjson');
+const config = parseJson(__dirname + '/../../config/eslint.hjson');
 
 const allowedExtensions = [
   '.htm', '.html', // include HTML for <script> linting
@@ -36,8 +36,8 @@ const linterFunc = async (
   opts = extend(true, {}, config, opts);
 
   let cli = new CLIEngine({
-    // baseConfig: opts, // TODO
-    // dotfiles: true, // TODO
+    baseConfig: opts,
+    dotfiles: true,
     extensions: allowedExtensions,
     fix: type === 'fix',
     useEslintrc: false

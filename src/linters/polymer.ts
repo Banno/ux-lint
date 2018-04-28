@@ -11,7 +11,7 @@ declare global {
   }
 }
 
-const config = parseJson(__dirname + '/../config/polymer.hjson');
+const config = parseJson(__dirname + '/../../config/polymer.hjson');
 
 const customRules: PolymerLintRules = {
   'icon-titles': function iconTitles(context, parser, onError) {
@@ -123,9 +123,9 @@ const linterFunc = async (
     });
   };
 
-  const source = getSource()
+  const source = await getSource()
   const lintMethod = `lint${capitalize(sourceType === 'text' ? 'stream' : sourceType)}`;
-  let results = linter[lintMethod](source, {});
+  let results = await linter[lintMethod](source, {});
   if (sourceType === 'text') {
     // Wrap the response in an array for the next block.
     results = [results];

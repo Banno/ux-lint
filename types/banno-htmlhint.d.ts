@@ -1,3 +1,4 @@
+// banno-htmlhint has no built-in or DT types.
 declare module 'banno-htmlhint' {
   import { FormatOptions, RuleSet } from 'htmlhint'
 

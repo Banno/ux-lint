@@ -1,7 +1,7 @@
 import { HTMLHint as htmlhint, Rule, RuleRunner } from 'banno-htmlhint'
 import { flatten, parseJson, readFiles, toArray } from '../helper'
 
-const config = parseJson(__dirname + '/../config/htmlhint.hjson');
+const config = parseJson(__dirname + '/../../config/htmlhint.hjson');
 
 // Implements the "banno/doc-lang" rule.
 const configureDocLang: RuleRunner = (parser, reporter) => {
@@ -197,8 +197,8 @@ const linterFunc: FileLinterFunction = (filePattern, opts) => {
   const filePatterns = toArray(filePattern);
   opts = Object.assign({}, config, opts);
   return readFiles(filePatterns).then(fileInfo => {
-    return flatten(fileInfo.filter(isHtmlFile).map(function(item) {
-      return lintHtml(item, /* TODO this || */ config);
+    return flatten(fileInfo.filter(isHtmlFile).map(function(this: Options, item) {
+      return lintHtml(item, this || config);
     }, opts));
   });
 }
