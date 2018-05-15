@@ -9,7 +9,7 @@
   "scripts": {
     "build": "tsc",
     "lint": "tslint --project . --fix",
-    "test": "JASMINE_CONFIG_PATH=./test/jasmine.json jasmine-ts"
+    "test": "JASMINE_CONFIG_PATH=./test/jasmine.json nyc jasmine-ts"
   },
   "repository": {
     "type": "git",
@@ -51,6 +51,7 @@
     "jasmine": "^3.1.0",
     "jasmine-spec-reporter": "^4.2.1",
     "jasmine-ts": "^0.2.1",
+    "nyc": "^11.8.0",
     "proxyquire": "^1.7.3",
     "tempfile": "^2.0.0",
     "tslint": "^5.9.1",
@@ -72,5 +73,26 @@
     "polymer-lint": "^0.8.3",
     "string-length": "^1.0.1",
     "text-table": "^0.2.0"
+  },
+  "nyc": {
+    "check-coverage": true,
+    "per-file": false,
+    "lines": 95,
+    "statements": 95,
+    "functions": 95,
+    "branches": 95,
+    "include": [
+      "src/**/*.ts"
+    ],
+    "extension": [
+      ".ts"
+    ],
+    "reporter": [
+      "lcov",
+      "text-summary"
+    ],
+    "cache": false,
+    "all": false,
+    "report-dir": "./coverage"
   }
 }
