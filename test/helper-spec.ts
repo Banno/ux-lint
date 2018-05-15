@@ -1,5 +1,5 @@
 import * as fs from 'fs'
-import { flatten, parseJson, readFiles, sort as sortFunc } from '../src/helper'
+import { flatten, parseJson, readFiles, sort as sortFunc, toArray } from '../src/helper'
 import { LintResult } from 'htmlhint';
 
 describe('helper functions', () => {
@@ -146,5 +146,19 @@ describe('helper functions', () => {
     });
 
   });
+
+  describe('toArray()', () => {
+    it('should wrap a scalar inside an array', () => {
+      expect(toArray(true)).toEqual([true])
+      expect(toArray(null)).toEqual([null])
+      expect(toArray(3)).toEqual([3])
+      expect(toArray('foo')).toEqual(['foo'])
+      expect(toArray({ foo: 1 })).toEqual([{ foo: 1 }])
+    })
+
+    it('should not change an array', () => {
+      expect(toArray([1, 2, 3])).toEqual([1, 2, 3])
+    })
+  })
 
 });
