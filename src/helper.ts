@@ -16,7 +16,6 @@ export const flatten = (arrayOfArrays: any[]): any[] => {
 
 // Converts the argument into an array, if not already one.
 export const toArray = <T>(a: T | T[]): T[] => {
-  // return Array.from(a) // TODO
   return Array.isArray(a) ? a : [a];
 };
 

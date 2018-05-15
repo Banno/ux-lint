@@ -23,7 +23,6 @@ const runLinters = async (
       if (type === 'check') {
         return linters[name].check(toArray(filesOrCode), linterOpts)
       } else {
-        // TODO split out into its own function
         return linters[name].checkCode(filesOrCode as string, linterOpts)
       }
     })))
