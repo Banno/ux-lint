@@ -1,8 +1,21 @@
 import * as fs from 'fs'
-import { flatten, parseJson, readFiles, sort as sortFunc, toArray } from '../src/helper'
+import { capitalize, flatten, parseJson, readFiles, sort as sortFunc, toArray } from '../src/helper'
 import { LintResult } from 'htmlhint';
 
 describe('helper functions', () => {
+
+  describe('capitalize()', () => {
+    it('should not do anything to an empty string', () => {
+      expect(capitalize('')).toBe('')
+    })
+
+    it('should convert the first character to uppercase', () => {
+      expect(capitalize('abcd')).toBe('Abcd')
+      expect(capitalize('ABCD')).toBe('ABCD')
+      expect(capitalize('1234')).toBe('1234')
+      expect(capitalize('* other string ')).toBe('* other string ')
+    })
+  })
 
   describe('flatten()', () => {
 
@@ -110,6 +123,7 @@ describe('helper functions', () => {
 
     beforeEach(() => {
       errors = [
+        { file: null, line: 83, character: 21, plugin: 'jshint' } as LinterResult,
         { file: 'a', line: 67, character: 84, plugin: 'jshint' } as LinterResult,
         { file: 'a', line: 41, character: 100, plugin: 'jshint' } as LinterResult,
         { file: 'a', line: 12, character: 56, plugin: 'jscs' } as LinterResult,
@@ -117,13 +131,18 @@ describe('helper functions', () => {
         { file: 'a', line: 95, character: 52, plugin: 'jshint' } as LinterResult,
         { file: 'a', line: 95, character: 45, plugin: 'jshint' } as LinterResult,
         { file: 'b', line: 87, character: 3, plugin: 'jshint' } as LinterResult,
+        { file: 'b', line: 18, character: 73, plugin: 'jshint' } as LinterResult,
         { file: 'b', line: 18, character: 73, plugin: 'jscs' } as LinterResult,
         { file: 'b', line: 52, character: 77, plugin: 'jshint' } as LinterResult,
         { file: 'b', line: 93, character: 31, plugin: 'jshint' } as LinterResult,
         { file: 'b', line: 93, character: 71, plugin: 'jshint' } as LinterResult,
+        { file: 'b', line: 93, character: 59, plugin: 'jshint' } as LinterResult,
         { file: 'b', line: 93, character: 59, plugin: 'jscs' } as LinterResult,
+        { file: 'b', line: 93, character: 59, plugin: 'jshint' } as LinterResult,
       ];
       expected = [
+        { file: null, line: 83, character: 21, plugin: 'jshint' } as LinterResult,
+
         { file: 'a', line: 12, character: 56, plugin: 'jscs' } as LinterResult,
         { file: 'a', line: 41, character: 100, plugin: 'jshint' } as LinterResult,
         { file: 'a', line: 67, character: 84, plugin: 'jshint' } as LinterResult,
@@ -132,10 +151,13 @@ describe('helper functions', () => {
         { file: 'a', line: 95, character: 52, plugin: 'jshint' } as LinterResult,
 
         { file: 'b', line: 18, character: 73, plugin: 'jscs' } as LinterResult,
+        { file: 'b', line: 18, character: 73, plugin: 'jshint' } as LinterResult,
         { file: 'b', line: 52, character: 77, plugin: 'jshint' } as LinterResult,
         { file: 'b', line: 87, character: 3, plugin: 'jshint' } as LinterResult,
         { file: 'b', line: 93, character: 31, plugin: 'jshint' } as LinterResult,
         { file: 'b', line: 93, character: 59, plugin: 'jscs' } as LinterResult,
+        { file: 'b', line: 93, character: 59, plugin: 'jshint' } as LinterResult,
+        { file: 'b', line: 93, character: 59, plugin: 'jshint' } as LinterResult,
         { file: 'b', line: 93, character: 71, plugin: 'jshint' } as LinterResult,
       ];
     });

@@ -61,7 +61,7 @@ export const readFiles = async (filePattern: string | string[]): Promise<FileInf
     		file: file,
     		contents: contents
     	}
-    }).catch((err) => {
+    }).catch(/* istanbul ignore next */ (err) => {
     	throw new Error('could not read file ' + file + ': ' + err.message);
     })
   }))
