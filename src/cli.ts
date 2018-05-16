@@ -22,7 +22,10 @@ const args = parseArgs(process.argv.slice(firstArgIndex));
 
 if (args.help) {
   console.log(USAGE_STATEMENT);
-  process.exit();
+  /* istanbul ignore if */
+  if (require.main === module) {
+    process.exit();
+  }
 }
 
 const type = args.fix ? 'fix' : 'check';
@@ -34,10 +37,21 @@ let opts = optFiles.reduce((prevVal, currentVal) => {
   return Object.assign({}, prevVal, parseJson(currentVal));
 }, {});
 
-allLinters[type](files, opts).then(results => {
-  reporter(results, args);
-  process.exitCode = results.length;
-}).catch((err: Error) => {
-  console.log(chalk.red('Error: ') + err.message + '\n');
-  console.log(err.stack);
-})
+const run = () => {
+  return allLinters[type](files, opts).then(results => {
+    reporter(results, args);
+    process.exitCode = results.length;
+  }).catch((err: Error) => {
+    console.log(chalk.red('Error: ') + err.message + '\n');
+    console.log(err.stack);
+  })
+}
+
+/* istanbul ignore if */
+if (require.main === module) {
+  run()
+}
+
+module.exports = { // for testing
+  run
+}
