@@ -198,7 +198,7 @@ const linterFunc: FileLinterFunction = (filePattern, opts) => {
   opts = Object.assign({}, config, opts);
   return readFiles(filePatterns).then(fileInfo => {
     return flatten(fileInfo.filter(isHtmlFile).map(function(this: Options, item) {
-      return lintHtml(item, this || config);
+      return lintHtml(item, this || /* istanbul ignore next */ config);
     }, opts));
   });
 }

@@ -35,7 +35,8 @@ describe('html linter', () => {
     it('should accept options', async () => {
       const opts: Options = {
         // ignore all the errors
-        'tag-pair': false
+        'tag-pair': false,
+        'banno/link-href': false
       };
       const results = await linter.check([badFile], opts)
       expect(results).toEqual([]);
@@ -101,7 +102,8 @@ describe('html linter', () => {
     it('should accept options', async () => {
       const opts: Options = {
         // ignore all the errors
-        'tag-pair': false
+        'tag-pair': false,
+        'banno/link-href': false
       };
       const results = await linter.checkCode(badCode, opts)
       expect(results).toEqual([]);
