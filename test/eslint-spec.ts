@@ -60,6 +60,22 @@ describe('eslint linter', () => {
       expect(results).toEqual([]);
     });
 
+    it('should set less severe problems as "warning"', async () => {
+      const opts: Options = {
+        rules: {
+          // Set indent check to 4 spaces, with "warning" severity
+          indent: [1, 4],
+          // Ignore other errors
+          'banno/no-for-const': 'off',
+          'no-undef': 'off',
+          'object-curly-spacing': 'off'
+        }
+      };
+      const results = await eslint.check([badFile], opts)
+      expect(results[0].code).toBe('indent')
+      expect(results[0].type).toBe('warning')
+    })
+
     it('should include dotfiles', async () => {
       const tempFolder = './.tmp';
       const tempFile = path.join(tempFolder, goodFile);

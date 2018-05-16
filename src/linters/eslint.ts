@@ -85,11 +85,11 @@ const linterFunc = async (
     if (sourceType === 'files') {
       // Persist fixes to the files.
       CLIEngine.outputFixes(report);
-    } else if (sourceType === 'text') {
+    } else {
       // Return the fixed code (or the original code,
       //   if there are no fixes).
       return report.results[0].hasOwnProperty('output') ?
-        report.results[0].output || '' :
+        report.results[0].output || /* istanbul ignore next */ '' :
         source;
     }
   }
