@@ -45,6 +45,19 @@ describe('polymer linter', () => {
       expect(results).toEqual([]);
     });
 
+    it('should only check against the given rules', async () => {
+      const opts: Options = {
+        rules: {
+          'component-name-matches-filename': false,
+          'style-inside-template': true
+        }
+      };
+      const results = await polymer.check([badFile], opts)
+      results.forEach(result => {
+        expect(result.code).toBe('style-inside-template');
+      })
+    });
+
     it('should ignore non-Polymer files', async () => {
       const results = await polymer.check([otherFile])
       expect(results).toEqual(jasmine.any(Array));

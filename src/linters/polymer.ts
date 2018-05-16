@@ -82,6 +82,7 @@ function formatResult(error: PolymerLintResult): LinterResult {
 // Returns true if a file is a Polymer component.
 // It checks this by looking for a <dom-module> element in HTML files.
 function isPolymerFile(fileInfo: FileInfo) {
+  /* istanbul ignore if */
   if (fileInfo.file === null) { return false }
   return /\.html$/.test(fileInfo.file) && /<dom-module/i.test(fileInfo.contents);
 }
