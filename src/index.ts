@@ -5,7 +5,7 @@ import { linters } from './linters'
 const runLinters = async (
   type: 'check' | 'checkCode' | 'fix',
   filesOrCode: string | string[],
-  opts: Options = {}
+  opts: Options
 ): Promise<LinterResult[]> => {
   // If checking files or code, run the linters in parallel.
   // If fixing files, run in series to prevent file write conflicts.
@@ -35,7 +35,7 @@ const runLinters = async (
 // Runs in series, passing the results from one linter to the next.
 const runFixers = async (
   code: string,
-  opts: Options = {}
+  opts: Options
 ): Promise<string> => {
   for (let name in linters) {
     code = await linters[name].fixCode(code, opts[name] || {})
