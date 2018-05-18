@@ -2,9 +2,9 @@
   "name": "ux-lint",
   "version": "1.8.0",
   "description": "Linting tool for Banno UX projects",
-  "main": "dist/index.js",
+  "main": "dist/src/index.js",
   "bin": {
-    "ux-lint": "./dist/cli.js"
+    "ux-lint": "./dist/src/cli.js"
   },
   "scripts": {
     "prebuild": "yarn clean",
