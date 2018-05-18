@@ -1,17 +1,17 @@
 import { HTMLHint as htmlhint, Rule, RuleRunner } from 'banno-htmlhint'
 import { flatten, parseJson, readFiles, toArray } from '../helper'
 
-const config = parseJson(__dirname + '/../../config/htmlhint.hjson');
+const config = parseJson(__dirname + '/../../config/htmlhint.hjson')
 
 // Implements the "banno/doc-lang" rule.
 const configureDocLang: RuleRunner = (parser, reporter) => {
-  parser.addListener('tagstart', function(this: Rule, event) {
+  parser.addListener('tagstart', function (this: Rule, event) {
     if (event.tagName.toLowerCase() === 'html') {
-      let foundLang = false;
-      let col = event.col + event.tagName.length + 1;
+      let foundLang = false
+      let col = event.col + event.tagName.length + 1
       for (let attr of event.attrs) {
         if (attr.name.toLowerCase() === 'lang') {
-          foundLang = true;
+          foundLang = true
           if (attr.value === '') {
             reporter.error(
               '"lang" attribute must not be empty.',
@@ -19,7 +19,7 @@ const configureDocLang: RuleRunner = (parser, reporter) => {
               col + attr.index,
               this,
               event.raw
-            );
+            )
           }
         }
       }
@@ -30,7 +30,7 @@ const configureDocLang: RuleRunner = (parser, reporter) => {
           col,
           this,
           event.raw
-        );
+        )
       }
     }
   })
@@ -38,13 +38,13 @@ const configureDocLang: RuleRunner = (parser, reporter) => {
 
 // Implements the "banno/link-href" rule.
 const configureLinkHref: RuleRunner = (parser, reporter) => {
-  parser.addListener('tagstart', function(this: Rule, event) {
+  parser.addListener('tagstart', function (this: Rule, event) {
     if (event.tagName.toLowerCase() === 'a') {
-      let foundHref = false;
-      let col = event.col + event.tagName.length + 1;
+      let foundHref = false
+      let col = event.col + event.tagName.length + 1
       for (let attr of event.attrs) {
         if (attr.name.toLowerCase() === 'href') {
-          foundHref = true;
+          foundHref = true
           if (attr.value === '' && attr.raw.toLowerCase().includes('href=')) {
             reporter.error(
               'Link target must not be empty.',
@@ -52,7 +52,7 @@ const configureLinkHref: RuleRunner = (parser, reporter) => {
               col + attr.index,
               this, // eslint-disable-line no-invalid-this
               event.raw
-            );
+            )
           }
           if (attr.value === '#') {
             reporter.error(
@@ -61,7 +61,7 @@ const configureLinkHref: RuleRunner = (parser, reporter) => {
               col + attr.index,
               this, // eslint-disable-line no-invalid-this
               event.raw
-            );
+            )
           }
           if (attr.value.includes('javascript:void(0)')) {
             reporter.error(
@@ -70,7 +70,7 @@ const configureLinkHref: RuleRunner = (parser, reporter) => {
               col + attr.index,
               this, // eslint-disable-line no-invalid-this
               event.raw
-            );
+            )
           }
         }
       }
@@ -81,17 +81,17 @@ const configureLinkHref: RuleRunner = (parser, reporter) => {
           col,
           this, // eslint-disable-line no-invalid-this
           event.raw
-        );
+        )
       }
     }
-  });
+  })
 }
 
 // Implements the "banno/meta-charset-utf8" rule.
 const configureMetaCharset: RuleRunner = (parser, reporter) => {
-  parser.addListener('tagstart', function(this: Rule, event) {
+  parser.addListener('tagstart', function (this: Rule, event) {
     if (event.tagName.toLowerCase() === 'meta') {
-      let col = event.col + event.tagName.length + 1;
+      let col = event.col + event.tagName.length + 1
       for (let attr of event.attrs) {
         if (attr.name.toLowerCase() === 'charset') {
           if (attr.value.toLowerCase() !== 'utf-8') {
@@ -101,18 +101,18 @@ const configureMetaCharset: RuleRunner = (parser, reporter) => {
               col + attr.index,
               this, // eslint-disable-line no-invalid-this
               event.raw
-            );
+            )
           }
         }
       }
     }
-  });
-  let startedHead = false;
-  parser.addListener('tagstart', function(this: Rule, event) {
+  })
+  let startedHead = false
+  parser.addListener('tagstart', function (this: Rule, event) {
     if (event.tagName.toLowerCase() === 'head') {
-      startedHead = true;
+      startedHead = true
     } else if (startedHead) {
-      startedHead = false;
+      startedHead = false
       if (
         event.tagName.toLowerCase() !== 'meta' ||
         !event.attrs.map(attr => attr.name.toLowerCase()).includes('charset')
@@ -123,10 +123,10 @@ const configureMetaCharset: RuleRunner = (parser, reporter) => {
           event.col,
           this, // eslint-disable-line no-invalid-this
           event.raw
-        );
+        )
       }
     }
-  });
+  })
 }
 
 // Add our custom rules.
@@ -134,39 +134,17 @@ htmlhint.addRule({
   id: 'banno/doc-lang',
   description: '<html> tags must have a "lang" attribute.',
   init: configureDocLang
-});
+})
 htmlhint.addRule({
   id: 'banno/link-href',
   description: 'Links must have an href and it must be valid.',
   init: configureLinkHref
-});
+})
 htmlhint.addRule({
   id: 'banno/meta-charset-utf8',
   description: '<meta> charset must be UTF-8.',
   init: configureMetaCharset
-});
-
-const check: FileLinterFunction = async (filePattern, opts) => {
-  return await linterFunc(filePattern, opts);
-};
-
-const checkCode: CodeLinterFunction = async (code, opts = {}) => {
-  opts = Object.assign<LinterOptions, LinterOptions, LinterOptions>({}, config, opts);
-  if (opts.language && opts.language !== 'html') {
-    // Ignore non-HTML code.
-    return Promise.resolve([]);
-  }
-  return lintHtml({
-    contents: code,
-    file: null
-  }, opts)
-};
-
-// HTMLHint has no ability to fix.
-const fix: FileLinterFunction = check;
-const fixCode: CodeFixerFunction = async (code, opts) => {
-  return code;
-};
+})
 
 // Returns true if a file is an HTML file
 //   (i.e., has a .html or .htm file extension).
@@ -187,20 +165,42 @@ const lintHtml = (fileInfo: FileInfo, opts: Options): LinterResult[] => {
       file: fileInfo.file,
       line: result.line,
       plugin: 'htmlhint',
-      type: result.type as 'error'|'warning'
+      type: result.type as 'error' | 'warning'
     }
     return formatted
   })
 }
 
 const linterFunc: FileLinterFunction = (filePattern, opts) => {
-  const filePatterns = toArray(filePattern);
-  opts = Object.assign({}, config, opts);
+  const filePatterns = toArray(filePattern)
+  opts = Object.assign({}, config, opts)
   return readFiles(filePatterns).then(fileInfo => {
-    return flatten(fileInfo.filter(isHtmlFile).map(function(this: Options, item) {
-      return lintHtml(item, this || /* istanbul ignore next */ config);
-    }, opts));
-  });
+    return flatten(fileInfo.filter(isHtmlFile).map(function (this: Options, item) {
+      return lintHtml(item, this || /* istanbul ignore next */ config)
+    }, opts))
+  })
+}
+
+const check: FileLinterFunction = async (filePattern, opts) => {
+  return linterFunc(filePattern, opts)
+}
+
+const checkCode: CodeLinterFunction = async (code, opts = {}) => {
+  opts = Object.assign<LinterOptions, LinterOptions, LinterOptions>({}, config, opts)
+  if (opts.language && opts.language !== 'html') {
+    // Ignore non-HTML code.
+    return Promise.resolve([])
+  }
+  return lintHtml({
+    contents: code,
+    file: null
+  }, opts)
+}
+
+// HTMLHint has no ability to fix.
+const fix: FileLinterFunction = check
+const fixCode: CodeFixerFunction = async (code, opts) => {
+  return code
 }
 
 const linter: Linter = {

@@ -50,13 +50,13 @@ describe('stylish reporter', () => {
   const numErrors = 2
   const numWarnings = 2
 
+  let output: string
+
   const callReporter = (results: LinterResult[], opts?: Options) => {
     reporter(results.slice(0), opts) // the reporter modifies the array, so create a copy
     const spy = console.log as jasmine.Spy
     output = spy.calls.mostRecent().args[0]
   }
-
-  let output: string
 
   beforeEach(async () => {
     spyOn(console, 'log')
@@ -170,4 +170,4 @@ describe('stylish reporter', () => {
       expect(output).toContain('No problems')
     })
   })
-});
+})

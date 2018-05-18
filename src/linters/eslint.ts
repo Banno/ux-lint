@@ -1,29 +1,29 @@
 import { CLIEngine } from 'eslint'
 import * as extend from 'extend'
 import { extname } from 'path'
-import { capitalize, flatten, parseJson, readFiles, toArray } from '../helper'
+import { flatten, parseJson, readFiles, toArray } from '../helper'
 
-const config = parseJson(__dirname + '/../../config/eslint.hjson');
+const config = parseJson(__dirname + '/../../config/eslint.hjson')
 
 const allowedExtensions = [
   '.htm', '.html', // include HTML for <script> linting
-  '.js',
-];
+  '.js'
+]
 const allowedLanguages = [
   'html', // include HTML for <script> linting
   'javascript'
-];
+]
 
 // Takes an eslint result from executeOnFiles().
 // Returns the error messages, and includes the
 //   file path and code from the "result" object.
-function extractMessages(result: CLIEngine.LintResult) {
+function extractMessages (result: CLIEngine.LintResult) {
   return result.messages.map((message) => {
     return Object.assign({}, message, {
       filePath: result.filePath,
       output: result.output
-    });
-  });
+    })
+  })
 }
 
 // Main function for linting/fixing.
@@ -33,7 +33,7 @@ const linterFunc = async (
   filesOrCode: string | string[],
   opts: Options
 ) => {
-  opts = extend(true, {}, config, opts);
+  opts = extend(true, {}, config, opts)
 
   let cli = new CLIEngine({
     baseConfig: opts,
@@ -41,25 +41,25 @@ const linterFunc = async (
     extensions: allowedExtensions,
     fix: type === 'fix',
     useEslintrc: false
-  });
+  })
 
   let getSource = async (): Promise<string[] | string> => {
     if (sourceType === 'text') {
       if (opts.language && !allowedLanguages.includes(opts.language)) {
-        return Promise.resolve('');
+        return Promise.resolve('')
       }
-      return Promise.resolve(filesOrCode);
+      return Promise.resolve(filesOrCode)
     }
 
-    filesOrCode = toArray(filesOrCode);
+    filesOrCode = toArray(filesOrCode)
     let files = await readFiles(filesOrCode)
     return files.filter(
       item => allowedExtensions.includes(extname(item.file!))
     ).map(items => items.file!)
-  };
+  }
 
   const source = await getSource()
-  let args = toArray(source);
+  let args = toArray(source)
   let report = sourceType === 'text' ?
     cli.executeOnText(
       source as string,
@@ -77,41 +77,41 @@ const linterFunc = async (
       line: result.line,
       plugin: 'eslint',
       type: result.severity > 1 || result.fatal ? 'error' : 'warning'
-    };
+    }
     return formatted
-  });
+  })
 
   if (type === 'fix') {
     if (sourceType === 'files') {
       // Persist fixes to the files.
-      CLIEngine.outputFixes(report);
+      CLIEngine.outputFixes(report)
     } else {
       // Return the fixed code (or the original code,
       //   if there are no fixes).
       return report.results[0].hasOwnProperty('output') ?
         report.results[0].output || /* istanbul ignore next */ '' :
-        source;
+        source
     }
   }
-  return results;
+  return results
 }
 
 const check: FileLinterFunction = async (filePatterns, opts = {}) => {
-  return await linterFunc('lint', 'files', filePatterns, opts) as LinterResult[];
-};
+  return await linterFunc('lint', 'files', filePatterns, opts) as LinterResult[]
+}
 
 const checkCode: CodeLinterFunction = async (code, opts = {}) => {
-  return await linterFunc('lint', 'text', code, opts) as LinterResult[];
-};
+  return await linterFunc('lint', 'text', code, opts) as LinterResult[]
+}
 
 // Note that eslint's fix excludes the fixed items from the results.
 const fix: FileLinterFunction = async (filePatterns, opts = {}) => {
-  return await linterFunc('fix', 'files', filePatterns, opts) as LinterResult[];
-};
+  return await linterFunc('fix', 'files', filePatterns, opts) as LinterResult[]
+}
 
 const fixCode: CodeFixerFunction = async (code, opts = {}) => {
-  return await linterFunc('fix', 'text', code, opts) as string;
-};
+  return await linterFunc('fix', 'text', code, opts) as string
+}
 
 const linter: Linter = {
   check,

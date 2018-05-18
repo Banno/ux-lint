@@ -12,16 +12,16 @@ import * as table from 'text-table'
 import { sort as sortFunc } from '../helper'
 
 const reporter = (results: LinterResult[], opts: Options = {}): void => {
-  let output = '';
-  let headers: string[] = [];
-  let prevfile: string;
-  let errorCount = 0;
-  let warningCount = 0;
+  let output = ''
+  let headers: string[] = []
+  let prevfile: string
+  let errorCount = 0
+  let warningCount = 0
 
-  results.sort(sortFunc);
+  results.sort(sortFunc)
 
   output += table(results.map((err, i) => {
-    let isError = err.type && err.type === 'error';
+    let isError = err.type && err.type === 'error'
 
     let line = [
       '',
@@ -31,43 +31,43 @@ const reporter = (results: LinterResult[], opts: Options = {}): void => {
       chalk.gray(`line ${err.line}`),
       chalk.gray(`col ${err.character}`),
       isError ? chalk.red(err.description) : chalk.blue(err.description)
-    ];
+    ]
 
     if (err.file !== prevfile) {
-      headers[i] = err.file || '';
+      headers[i] = err.file || ''
     }
 
     if (opts.verbose) {
-      line.push(chalk.gray(`(${err.code})`));
+      line.push(chalk.gray(`(${err.code})`))
     }
 
     if (isError) {
-      errorCount++;
+      errorCount++
     } else {
-      warningCount++;
+      warningCount++
     }
 
-    prevfile = err.file || '';
+    prevfile = err.file || ''
 
-    return line;
+    return line
   }), {
     stringLength: stringLength
   }).split('\n').map((line: string, i: number) => {
-    return headers[i] ? `\n  ${chalk.underline(headers[i])}\n${line}` : line;
-  }).join('\n') + '\n\n';
+    return headers[i] ? `\n  ${chalk.underline(headers[i])}\n${line}` : line
+  }).join('\n') + '\n\n'
 
   if (errorCount + warningCount > 0) {
     if (errorCount > 0) {
-      output += `${logSymbols.error}  ${errorCount} ${pluralize('error', errorCount)}\n`;
+      output += `${logSymbols.error}  ${errorCount} ${pluralize('error', errorCount)}\n`
     }
     if (warningCount > 0) {
-      output += `${logSymbols.warning}  ${warningCount} ${pluralize('warning', warningCount)}\n`;
+      output += `${logSymbols.warning}  ${warningCount} ${pluralize('warning', warningCount)}\n`
     }
   } else {
-    output += `${logSymbols.success} No problems\n`;
+    output += `${logSymbols.success} No problems\n`
   }
 
-  console.log(output);
-};
+  console.log(output)
+}
 
-export default reporter;
+export default reporter

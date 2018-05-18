@@ -40,24 +40,24 @@ const runFixers = async (
   for (let name in linters) {
     code = await linters[name].fixCode(code, opts[name] || {})
   }
-  return code;
+  return code
 }
 
 export const check: FileLinterFunction = async (filePatterns: string[], opts: Options = {}) => {
-  return await runLinters('check', filePatterns, opts);
-};
+  return runLinters('check', filePatterns, opts)
+}
 
 export const checkCode: CodeLinterFunction = async (code: string, opts: Options = {}) => {
-  return await runLinters('checkCode', code, opts);
-};
+  return runLinters('checkCode', code, opts)
+}
 
 export const fix: FileLinterFunction = async (filePatterns: string[], opts: Options = {}) => {
-  return await runLinters('fix', filePatterns, opts);
-};
+  return runLinters('fix', filePatterns, opts)
+}
 
 export const fixCode: CodeFixerFunction = async (code: string, opts: Options = {}) => {
-  return await runFixers(code, opts);
-};
+  return runFixers(code, opts)
+}
 
 export const allLinters: Linter = {
   check,

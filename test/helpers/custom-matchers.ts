@@ -9,15 +9,15 @@ export const toBeLintError: jasmine.CustomMatcherFactory = (util, customEquality
         'file',
         'line',
         'plugin',
-        'type',
-      ];
-      let actualProps = Object.keys(actual).sort();
+        'type'
+      ]
+      let actualProps = Object.keys(actual).sort()
       let result = {
         pass: util.equals(actualProps, expectedProps)
-      };
-      return result;
+      }
+      return result
     }
-  };
+  }
 }
 
 const allMatchers: jasmine.CustomMatcherFactories = {
