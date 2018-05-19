@@ -14,6 +14,7 @@
     "compile": "tsc",
     "copy:config": "cp -R config dist/config",
     "lint": "tslint --project . --fix",
+    "prepublishOnly": "run-s build",
     "test": "JASMINE_CONFIG_PATH=./test/jasmine.json nyc jasmine-ts"
   },
   "repository": {
@@ -32,6 +33,13 @@
     "url": "https://github.com/Banno/ux-lint/issues"
   },
   "homepage": "https://github.com/Banno/ux-lint",
+  "files": [
+    "dist/config",
+    "dist/src",
+    "types",
+    "LICENSE",
+    "yarn.lock"
+  ],
   "engines": {
     "node": ">=8.0.0"
   },
