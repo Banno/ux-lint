@@ -8,6 +8,8 @@ This project combines the following linting tools used by the Banno UX team into
 
 ## Installation
 
+[Node.js](https://nodejs.org/) 8.0.0 or higher is required.
+
 ```shell
 npm install -g ux-lint
 ```
@@ -30,38 +32,35 @@ The exit code is equal to the number of errors found by ux-lint (`0` if no error
 
 ## API
 
-The ux-lint module can be included in your Javascript file and then invoked (for gulp or grunt tasks, for example).
+The ux-lint module can be included in your Javascript file and then invoked programmatically. All methods are Promise-based.
 
 ```javascript
 var linter = require('ux-lint');
 
-linter.check('src', { /* optional config, keyed by plugin name */ }, function(err, lintErrors) {
-  // `err` is the Error object, if an error occurred
+linter.check(['src'], { /* optional config, keyed by plugin name */ }).then(lintErrors => {
   // `lintErrors` is an array of linting errors
 });
 
-linter.fix('src', { /* optional config */ }, function(err, response) {
-  // `err` and `response` are in the same format as the check() callback
+linter.fix(['src'], { /* optional config */ }.then(lintErrors => {
+  // same format as the check() callback
 });
 
 // A glob pattern can also be used:
-linter.check('*.js', function() {});
+linter.check(['*.js']).then(/* ... */);
 ```
 
-The first argument can be a file, file pattern, or array of those.
+The first argument can be an array of files or file patterns.
 
 The configuration object passed as the 2nd argument will override (not replace) the default configuration.
 
 You can also check/fix code directly:
 
 ```javascript
-linter.checkCode('// code here', { /* optional config, keyed by plugin name */ }, function(err, lintErrors) {
-  // `err` is the Error object, if an error occurred
+linter.checkCode('// code here', { /* optional config, keyed by plugin name */ }.then(lintErrors => {
   // `lintErrors` is an array of linting errors
 });
 
-linter.fixCode('// code here', { /* optional config */ }, function(err, fixedCode) {
-  // `err` is in the same format as the checkCode() callback
+linter.fixCode('// code here', { /* optional config */ }.then(fixedCode => {
   // `fixedCode` is the source code with the fixes
 });
 ```
@@ -75,8 +74,8 @@ Want to propose a change to our style (and therefore linting) conventions? Want 
 Please add tests and maintain the existing styling when adding and updating the code.
 
 ```
-npm run lint  # run linting
-npm test      # run tests
+yarn lint  # run linting
+yarn test  # run tests
 ```
 
 ### Linters
@@ -85,8 +84,8 @@ Each linter has a plugin in the `linters` folder. Plugins have the following sig
 
 ```javascript
 // All methods return a promise that resolves to an array (or string, in the case of fixCode()).
-exports.check = function(filePattern, opts) { /* ... */ };
-exports.fix   = function(filePattern, opts) { /* ... */ };
+exports.check = function(filePatterns, opts) { /* ... */ };
+exports.fix   = function(filePatterns, opts) { /* ... */ };
 exports.checkCode = function(codeString, opts) { /* ... */ };
 exports.fixCode   = function(codeString, opts) { /* ... */ };
 ```
@@ -108,7 +107,7 @@ The results array should contain objects with the following signature:
 
 Look at other plugins for the common patterns and modules to use.
 
-Plugins are automatically loaded by the ux-lint tool.
+Add the new linter to `src/linters.ts` to include it the linter.
 
 ## License
 
