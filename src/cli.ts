@@ -1,7 +1,5 @@
 #!/usr/bin/env node
-/* eslint no-console: "off" */
 
-/* eslint-disable indent */
 const USAGE_STATEMENT = `
 ux-lint [options] [file.js ...] [dir ...]
 
@@ -9,7 +7,6 @@ Options:
   --extend [path]         Use custom linter configuration file
   --fix                   Automatically fix linting errors
 `
-/* eslint-enable indent */
 
 import chalk from 'chalk'
 import * as parseArgs from 'minimist'

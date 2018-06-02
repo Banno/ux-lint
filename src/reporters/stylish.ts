@@ -2,8 +2,6 @@
 // Stylish reporter, inspired by jshint-stylish
 //   (https://github.com/sindresorhus/jshint-stylish).
 //
-/* eslint no-console: "off" */
-
 import chalk from 'chalk'
 import * as logSymbols from 'log-symbols'
 import * as pluralize from 'pluralize'
