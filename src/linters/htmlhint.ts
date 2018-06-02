@@ -1,5 +1,6 @@
 import { HTMLHint as htmlhint, Rule, RuleRunner } from 'banno-htmlhint'
 import { flatten, parseJson, readFiles, toArray } from '../helper'
+import { Options } from '../options'
 
 const config = parseJson(__dirname + '/../../config/htmlhint.hjson')
 

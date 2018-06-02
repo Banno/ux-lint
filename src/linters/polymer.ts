@@ -2,6 +2,7 @@ import * as Linter from 'polymer-lint'
 import * as allRules from 'polymer-lint/lib/rules'
 import filterErrors = require('polymer-lint/lib/util/filterErrors')
 import { capitalize, flatten, parseJson, readFiles, toArray } from '../helper'
+import { Options } from '../options'
 import { PassThrough } from 'stream'
 
 // Augment the PolymerLintError interface with a context property.

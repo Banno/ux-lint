@@ -1,4 +1,5 @@
 import * as fs from 'fs-extra'
+import { Options } from '../src/options'
 import polymer from '../src/linters/polymer'
 import customMatchers from './helpers/custom-matchers'
 

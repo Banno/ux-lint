@@ -3,6 +3,7 @@ import * as fs from 'fs-extra'
 import * as path from 'path'
 import * as tempfile from 'tempfile'
 import eslint from '../src/linters/eslint'
+import { Options } from '../src/options'
 import customMatchers from './helpers/custom-matchers'
 
 describe('eslint linter', () => {

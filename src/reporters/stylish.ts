@@ -10,6 +10,7 @@ import * as pluralize from 'pluralize'
 import * as stringLength from 'string-length'
 import * as table from 'text-table'
 import { sort as sortFunc } from '../helper'
+import { Options } from '../options'
 
 const reporter = (results: LinterResult[], opts: Options = {}): void => {
   let output = ''

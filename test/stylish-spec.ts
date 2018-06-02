@@ -1,4 +1,5 @@
 import * as styles from 'ansi-styles'
+import { Options } from '../src/options'
 import reporter from '../src/reporters/stylish'
 
 const escapeRegExp = (str: string) => {

@@ -1,5 +1,6 @@
 import { flatten, toArray } from './helper'
 import { linters } from './linters'
+import { Options } from './options'
 
 // Run all the linters and collect the results.
 const runLinters = async (

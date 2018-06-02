@@ -1,5 +1,6 @@
 import * as fs from 'fs-extra'
 import linter from '../src/linters/htmlhint'
+import { Options } from '../src/options'
 import customMatchers from './helpers/custom-matchers'
 
 describe('html linter', () => {

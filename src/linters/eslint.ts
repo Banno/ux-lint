@@ -2,6 +2,7 @@ import { CLIEngine } from 'eslint'
 import * as extend from 'extend'
 import { extname } from 'path'
 import { flatten, parseJson, readFiles, toArray } from '../helper'
+import { Options } from '../options'
 
 const config = parseJson(__dirname + '/../../config/eslint.hjson')
 
