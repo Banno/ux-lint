@@ -1,7 +1,6 @@
 import * as proxyquire from 'proxyquire'
 
 describe('CLI', () => {
-
   let stub: Stub = {}
 
   let checkFunc: jasmine.Spy
@@ -51,7 +50,6 @@ describe('CLI', () => {
   })
 
   describe('--extend', () => {
-
     it('should read in the specified file', () => {
       const opts = { foo: 'bar' }
       stub.minimist = () => { return { extend: '1.json' } }
@@ -70,7 +68,6 @@ describe('CLI', () => {
         expect(checkFunc.calls.mostRecent().args[1]).toEqual(Object.assign({}, opts[0], opts[1]))
       })
     })
-
   })
 
   describe('--help', () => {
@@ -87,7 +84,6 @@ describe('CLI', () => {
   })
 
   describe('when there are no lint errors', () => {
-
     beforeEach(() => {
       return loadCli()
     })
@@ -95,7 +91,6 @@ describe('CLI', () => {
     it('should return an exit code of 0', () => {
       expect(process.exitCode).toBe(0)
     })
-
   })
 
   describe('when an unexpected error occurs', () => {
