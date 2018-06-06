@@ -71,6 +71,8 @@ A `language` option can be passed in the options to specify the format of the co
 
 Want to propose a change to our style (and therefore linting) conventions? Want to add another linting tool? Pull requests and suggestions are welcome.
 
+This project is written in [TypeScript](http://www.typescriptlang.org/) and compiled to the target runtime. See the [`types/linters.d.ts` file](types/linters.d.ts) for type info.
+
 Please add tests and maintain the existing styling when adding and updating the code.
 
 ```
@@ -80,20 +82,19 @@ yarn test  # run tests
 
 ### Linters
 
-Each linter has a plugin in the `linters` folder. Plugins have the following signature:
+Each linter has a plugin in the `src/linters` folder. Plugins have the following signature:
 
 ```javascript
-// All methods return a promise that resolves to an array (or string, in the case of fixCode()).
-exports.check = function(filePatterns, opts) { /* ... */ };
-exports.fix   = function(filePatterns, opts) { /* ... */ };
-exports.checkCode = function(codeString, opts) { /* ... */ };
-exports.fixCode   = function(codeString, opts) { /* ... */ };
+exports.check: FileLinterFunction = async (filePatterns, opts = {}) => {}
+exports.checkCode: CodeLinterFunction = async (code, opts = {}) => {}
+exports.fix: FileLinterFunction = async (filePatterns, opts = {}) => {}
+exports.fixCode: CodeFixerFunction = async (code, opts = {}) => {}
 ```
 
-The results array should contain objects with the following signature:
+`check()`, `checkCode()`, and `fix()` return an array of `LinterResult` objects, for example:
 
 ```javascript
-{
+[{
   plugin: 'eslint', // or 'jscs', etc
   type: 'error', // or 'warning'
   code: 'W117', // plugin's internal ID for the error
@@ -102,16 +103,22 @@ The results array should contain objects with the following signature:
   character: 9, // column number of the offending code
   description: '\'console\' is not defined.', // message about the error
   file: '/Users/jdoe/bad-javascript.js' // filename (check() and fix() only)
-}
+}]
 ```
 
-Look at other plugins for the common patterns and modules to use.
+`fix()` returns the modified string of code.
 
-Add the new linter to `src/linters.ts` to include it the linter.
+Add the new linter to `src/linters.ts` to include it the linter. Look at the other plugins for the common patterns and modules to use.
+
+### Reporters
+
+Each reporter has a module in the `src/reporters` folder. Modules should have a default export which have a function signature of `(results: LinterResult[], opts: Options = {}) => void`.
+
+Currently there is not an option to change the formatted results from the default "stylish" reporter -- see https://github.com/Banno/ux-lint/issues/54.
 
 ## License
 
-Copyright 2015 [Jack Henry & Associates Inc](https://www.jackhenry.com/).
+Copyright 2015-2018 [Jack Henry & Associates Inc](https://www.jackhenry.com/).
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0).
 
