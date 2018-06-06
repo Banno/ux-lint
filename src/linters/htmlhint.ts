@@ -1,5 +1,6 @@
 import { HTMLHint as htmlhint, Rule, RuleRunner } from 'banno-htmlhint'
 import { flatten, parseJson, readFiles, toArray } from '../helper'
+import { Options } from '../options'
 
 const config = parseJson(__dirname + '/../../config/htmlhint.hjson')
 
@@ -50,7 +51,7 @@ const configureLinkHref: RuleRunner = (parser, reporter) => {
               'Link target must not be empty.',
               event.line,
               col + attr.index,
-              this, // eslint-disable-line no-invalid-this
+              this,
               event.raw
             )
           }
@@ -59,7 +60,7 @@ const configureLinkHref: RuleRunner = (parser, reporter) => {
               'Link target must not be "#".',
               event.line,
               col + attr.index,
-              this, // eslint-disable-line no-invalid-this
+              this,
               event.raw
             )
           }
@@ -68,7 +69,7 @@ const configureLinkHref: RuleRunner = (parser, reporter) => {
               'Link target must not use "javascript:void(0)".',
               event.line,
               col + attr.index,
-              this, // eslint-disable-line no-invalid-this
+              this,
               event.raw
             )
           }
@@ -79,7 +80,7 @@ const configureLinkHref: RuleRunner = (parser, reporter) => {
           'Link must have an "href" attribute',
           event.line,
           col,
-          this, // eslint-disable-line no-invalid-this
+          this,
           event.raw
         )
       }
@@ -99,7 +100,7 @@ const configureMetaCharset: RuleRunner = (parser, reporter) => {
               '<meta> charset must be UTF-8.',
               event.line,
               col + attr.index,
-              this, // eslint-disable-line no-invalid-this
+              this,
               event.raw
             )
           }
@@ -121,7 +122,7 @@ const configureMetaCharset: RuleRunner = (parser, reporter) => {
           '<meta charset="utf-8"> should be the first tag in <head>.',
           event.line,
           event.col,
-          this, // eslint-disable-line no-invalid-this
+          this,
           event.raw
         )
       }

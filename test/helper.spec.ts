@@ -2,7 +2,6 @@ import * as fs from 'fs'
 import { capitalize, flatten, parseJson, readFiles, sort as sortFunc, toArray } from '../src/helper'
 
 describe('helper functions', () => {
-
   describe('capitalize()', () => {
     it('should not do anything to an empty string', () => {
       expect(capitalize('')).toBe('')
@@ -17,7 +16,6 @@ describe('helper functions', () => {
   })
 
   describe('flatten()', () => {
-
     it('should throw an error if argument is not an array', () => {
       expect(() => {
         flatten(null as any)
@@ -31,11 +29,9 @@ describe('helper functions', () => {
     it('should flatten an array of arrays', () => {
       expect(flatten([[1, 2], [3, 4], 5])).toEqual([1, 2, 3, 4, 5])
     })
-
   })
 
   describe('parseJson()', () => {
-
     it('should parse an HJSON file', () => {
       const parsed = parseJson(__dirname + '/../config/eslint.hjson')
       expect(parsed).toEqual(jasmine.any(Object))
@@ -53,11 +49,9 @@ describe('helper functions', () => {
         parseJson('nonexistent.json', { ignoreErrors: true })
       }).not.toThrow()
     })
-
   })
 
   describe('readFiles()', () => {
-
     let filename: string
     let contents: string
 
@@ -107,11 +101,9 @@ describe('helper functions', () => {
         expect(results).toEqual([])
       })
     })
-
   })
 
   describe('sort()', () => {
-
     let errors: LinterResult[]
     let expected: LinterResult[]
 
@@ -160,7 +152,6 @@ describe('helper functions', () => {
       errors.sort(sortFunc)
       expect(errors).toEqual(expected)
     })
-
   })
 
   describe('toArray()', () => {
@@ -176,5 +167,4 @@ describe('helper functions', () => {
       expect(toArray([1, 2, 3])).toEqual([1, 2, 3])
     })
   })
-
 })

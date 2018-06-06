@@ -3,6 +3,7 @@ import * as fs from 'fs-extra'
 import * as path from 'path'
 import * as tempfile from 'tempfile'
 import eslint from '../src/linters/eslint'
+import { Options } from '../src/options'
 import customMatchers from './helpers/custom-matchers'
 
 describe('eslint linter', () => {
@@ -29,7 +30,6 @@ describe('eslint linter', () => {
   })
 
   describe('check()', () => {
-
     it('should return a promise with an array of errors', async () => {
       const results = await eslint.check([badFile])
       expect(results).toEqual(jasmine.any(Array))
@@ -103,11 +103,9 @@ describe('eslint linter', () => {
       expect(results).toEqual(jasmine.any(Array))
       expect(results.length).toBe(0)
     })
-
   })
 
   describe('checkCode()', () => {
-
     it('should return a promise with an array of errors', async () => {
       const results = await eslint.checkCode(badCode)
       expect(results).toEqual(jasmine.any(Array))
@@ -161,11 +159,9 @@ describe('eslint linter', () => {
       expect(results).toEqual(jasmine.any(Array))
       expect(results.length).toBe(0)
     })
-
   })
 
   describe('fix()', () => {
-
     let tempFilename: string
     let originalContents: string
     let fixedContents: string
@@ -195,11 +191,9 @@ describe('eslint linter', () => {
       await eslint.fix([tempFilename])
       expect(fixedContents).not.toBe(originalContents)
     })
-
   })
 
   describe('fixCode()', () => {
-
     it('should return a promise with a string', async () => {
       const results = await eslint.fixCode(badCode)
       expect(results).toEqual(jasmine.any(String))
@@ -214,7 +208,5 @@ describe('eslint linter', () => {
       const results = await eslint.fixCode(badCode)
       expect(results).toBe(fixedCode)
     })
-
   })
-
 })

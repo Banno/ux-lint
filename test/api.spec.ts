@@ -14,7 +14,6 @@ describe('JS API', () => {
   })
 
   describe('check()', () => {
-
     it('should not throw an error when successful', async () => {
       await linter.check([badFile])
     })
@@ -35,11 +34,9 @@ describe('JS API', () => {
       const results = await linter.check(['supercalifragilisticexpialidocious'])
       expect(results).toEqual([])
     })
-
   })
 
   describe('checkCode()', () => {
-
     it('should not throw an error when successful', async () => {
       await linter.checkCode(badCode)
     })
@@ -63,11 +60,9 @@ describe('JS API', () => {
       expect(results).toEqual(jasmine.any(Array))
       expect(results.length).toBe(0)
     })
-
   })
 
   describe('fix()', () => {
-
     let tempFilename: string
     let fixedContents: string
 
@@ -104,11 +99,9 @@ describe('JS API', () => {
       const results = await linter.check(['supercalifragilisticexpialidocious'])
       expect(results).toEqual([])
     })
-
   })
 
   describe('fixCode()', () => {
-
     it('should set the error object to null when successful', async () => {
       await linter.fixCode(badCode)
     })
@@ -127,7 +120,5 @@ describe('JS API', () => {
       const results = await linter.fixCode(badCode, {})
       expect(results).toBe(fixedCode)
     })
-
   })
-
 })

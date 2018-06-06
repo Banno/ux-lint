@@ -2,14 +2,13 @@
 // Stylish reporter, inspired by jshint-stylish
 //   (https://github.com/sindresorhus/jshint-stylish).
 //
-/* eslint no-console: "off" */
-
 import chalk from 'chalk'
 import * as logSymbols from 'log-symbols'
 import * as pluralize from 'pluralize'
 import * as stringLength from 'string-length'
 import * as table from 'text-table'
 import { sort as sortFunc } from '../helper'
+import { Options } from '../options'
 
 const reporter = (results: LinterResult[], opts: Options = {}): void => {
   let output = ''

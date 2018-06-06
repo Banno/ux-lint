@@ -1,9 +1,9 @@
 import * as fs from 'fs-extra'
 import linter from '../src/linters/htmlhint'
+import { Options } from '../src/options'
 import customMatchers from './helpers/custom-matchers'
 
 describe('html linter', () => {
-
   const badFile = __dirname + '/fixtures/bad-html.html'
   const badCode = fs.readFileSync(badFile, 'utf8')
   const goodFile = __dirname + '/fixtures/good-html.html'
@@ -15,7 +15,6 @@ describe('html linter', () => {
   })
 
   describe('check()', () => {
-
     it('should return a promise with an array of errors', async () => {
       const results = await linter.check([badFile])
       expect(results).toEqual(jasmine.any(Array))
@@ -49,7 +48,6 @@ describe('html linter', () => {
     })
 
     describe('custom rules', () => {
-
       it('should include the "banno/doc-lang" rule', async () => {
         const badCustomFile = __dirname + '/fixtures/bad-doc-lang.html'
         const expectedNumErrors = 2
@@ -76,13 +74,10 @@ describe('html linter', () => {
         expect(results).toEqual(jasmine.any(Array))
         expect(results.length).toBe(expectedNumErrors)
       })
-
     })
-
   })
 
   describe('checkCode()', () => {
-
     it('should return a promise with an array of errors', async () => {
       const results = await linter.checkCode(badCode)
       expect(results).toEqual(jasmine.any(Array))
@@ -120,25 +115,19 @@ describe('html linter', () => {
       expect(results).toEqual(jasmine.any(Array))
       expect(results.length).toBe(0)
     })
-
   })
 
   describe('fix()', () => {
-
     it('should act like check()', async () => {
       const results = await linter.fix([badFile])
       expect(results).toEqual(jasmine.any(Array))
     })
-
   })
 
   describe('fixCode()', () => {
-
     it('should return the same code', async () => {
       const results = await linter.fixCode(badCode)
       expect(results).toBe(badCode)
     })
-
   })
-
 })

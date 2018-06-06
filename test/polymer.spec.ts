@@ -1,9 +1,9 @@
 import * as fs from 'fs-extra'
+import { Options } from '../src/options'
 import polymer from '../src/linters/polymer'
 import customMatchers from './helpers/custom-matchers'
 
 describe('polymer linter', () => {
-
   const badFile = __dirname + '/fixtures/bad-component.html'
   const badCode = fs.readFileSync(badFile, 'utf8')
   const goodFile = __dirname + '/fixtures/good-component.html'
@@ -16,7 +16,6 @@ describe('polymer linter', () => {
   })
 
   describe('check()', () => {
-
     it('should return a promise with an array of errors', async () => {
       const results = await polymer.check([badFile])
       expect(results).toEqual(jasmine.any(Array))
@@ -78,7 +77,6 @@ describe('polymer linter', () => {
   })
 
   describe('checkCode()', () => {
-
     it('should return a promise with an array of errors', async () => {
       const results = await polymer.checkCode(badCode)
       expect(results).toEqual(jasmine.any(Array))
@@ -118,25 +116,19 @@ describe('polymer linter', () => {
       expect(results).toEqual(jasmine.any(Array))
       expect(results.length).toBe(0)
     })
-
   })
 
   describe('fix()', () => {
-
     it('should act like check()', async () => {
       const results = await polymer.fix([badFile])
       expect(results).toEqual(jasmine.any(Array))
     })
-
   })
 
   describe('fixCode()', () => {
-
     it('should return the same code', async () => {
       const results = await polymer.fixCode(badCode)
       expect(results).toBe(badCode)
     })
-
   })
-
 })
