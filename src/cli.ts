@@ -11,7 +11,7 @@ Options:
 import chalk from 'chalk'
 import * as parseArgs from 'minimist'
 import { allLinters } from './'
-import { parseJson } from './helper'
+import { parseJson, toArray } from './helper'
 import reporter from './reporters/stylish'
 
 const firstArgIndex = 2
@@ -28,7 +28,7 @@ if (args.help) {
 const type = args.fix ? 'fix' : 'check'
 let files = (!args._ || args._.length === 0) ? ['src/**/*.js', '*.js'] : args._
 
-let optFiles: string[] = typeof args.extend === 'undefined' ? [] : Array.from(args.extend)
+let optFiles: string[] = typeof args.extend === 'undefined' ? [] : toArray(args.extend)
 
 let opts = optFiles.reduce((prevVal, currentVal) => {
   return Object.assign({}, prevVal, parseJson(currentVal))

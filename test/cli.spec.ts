@@ -50,11 +50,19 @@ describe('CLI', () => {
   })
 
   describe('--extend', () => {
+    let parseJsonSpy: jasmine.Spy
+
+    beforeEach(() => {
+      parseJsonSpy = jasmine.createSpy('parseJson()')
+    })
+
     it('should read in the specified file', () => {
       const opts = { foo: 'bar' }
+      parseJsonSpy.and.callFake(() => { return opts })
       stub.minimist = () => { return { extend: '1.json' } }
-      stub['./helper'] = { parseJson: () => { return opts } }
+      stub['./helper'] = { parseJson: parseJsonSpy }
       return loadCli().then(() => {
+        expect(parseJsonSpy).toHaveBeenCalledWith('1.json')
         expect(checkFunc.calls.mostRecent().args[1]).toEqual(opts)
       })
     })
@@ -62,9 +70,12 @@ describe('CLI', () => {
     it('should work with multiple files', () => {
       let i = 0
       const opts = [{ foo: 'bar' }, { foo: 'arb', foo2: 'baz' }]
+      parseJsonSpy.and.callFake((filename: string) => { return opts[i++] })
       stub.minimist = () => { return { extend: ['1.json', '2.json'] } }
-      stub['./helper'] = { parseJson: (filename: string) => { return opts[i++] } }
+      stub['./helper'] = { parseJson: parseJsonSpy }
       return loadCli().then(() => {
+        expect(parseJsonSpy).toHaveBeenCalledWith('1.json')
+        expect(parseJsonSpy).toHaveBeenCalledWith('2.json')
         expect(checkFunc.calls.mostRecent().args[1]).toEqual(Object.assign({}, opts[0], opts[1]))
       })
     })
