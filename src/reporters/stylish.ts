@@ -36,10 +36,6 @@ const reporter = (results: LinterResult[], opts: Options = {}): void => {
       headers[i] = err.file || ''
     }
 
-    if (opts.verbose) {
-      line.push(chalk.gray(`(${err.code})`))
-    }
-
     if (isError) {
       errorCount++
     } else {
