@@ -79,7 +79,7 @@
   "dependencies": {
     "banno-htmlhint": "^0.9.15",
     "chalk": "^2.3.2",
-    "eslint": "^3.9.1",
+    "eslint": "^4.18.2",
     "eslint-plugin-banno": "^1.0.0",
     "eslint-plugin-html": "^2.0.1",
     "extend": "^3.0.0",
